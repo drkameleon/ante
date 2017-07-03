@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['trait',['Trait',['../structTrait.html',1,'']]],
-  ['traitnode',['TraitNode',['../structTraitNode.html',1,'']]],
-  ['tuplenode',['TupleNode',['../structTupleNode.html',1,'']]],
-  ['typecastnode',['TypeCastNode',['../structTypeCastNode.html',1,'']]],
-  ['typecheckresult',['TypeCheckResult',['../structTypeCheckResult.html',1,'']]],
-  ['typedvalue',['TypedValue',['../structTypedValue.html',1,'']]],
-  ['typenode',['TypeNode',['../structTypeNode.html',1,'']]],
-  ['typevarerror',['TypeVarError',['../structante_1_1TypeVarError.html',1,'ante']]]
+  ['scanalldecls',['scanAllDecls',['../structante_1_1Compiler.html#acbb98f0ef7860dedf0b5fd5e2fba36ae',1,'ante::Compiler']]],
+  ['stotype',['stoType',['../structante_1_1Compiler.html#a9d1f2e7433d86eb4afc67327dae56a54',1,'ante::Compiler']]],
+  ['stotypevar',['stoTypeVar',['../structante_1_1Compiler.html#a39a7698a0eb845d57bdfb1350806a1e9',1,'ante::Compiler']]],
+  ['stovar',['stoVar',['../structante_1_1Compiler.html#a294b50b824204a50c10470b4126f8eca',1,'ante::Compiler']]],
+  ['strlitnode',['StrLitNode',['../structStrLitNode.html',1,'']]]
 ];
