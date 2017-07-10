@@ -1,12 +1,18 @@
 var searchData=
 [
-  ['ifnode',['IfNode',['../structIfNode.html',1,'']]],
-  ['import',['import',['../structante_1_1Module.html#aed4991069d849a1d69234d4c42c26fe9',1,'ante::Module']]],
-  ['importfile',['importFile',['../structante_1_1Compiler.html#aeb22d4fb05bfd59a8e62f12bbc4ac303',1,'ante::Compiler']]],
-  ['importnode',['ImportNode',['../structImportNode.html',1,'']]],
-  ['imports',['imports',['../structante_1_1Compiler.html#a81474059e4354d8c2acfba816205eead',1,'ante::Compiler']]],
+  ['ifnode',['IfNode',['../structante_1_1IfNode.html',1,'ante']]],
+  ['implicitlycastflttoflt',['implicitlyCastFltToFlt',['../structante_1_1Compiler.html#a2ef8efaba6bee7a102fd24ba198c815d',1,'ante::Compiler']]],
+  ['implicitlycastinttoflt',['implicitlyCastIntToFlt',['../structante_1_1Compiler.html#a719158fa1852c570553ce3bec4a4abe4',1,'ante::Compiler']]],
+  ['implicitlycastinttoint',['implicitlyCastIntToInt',['../structante_1_1Compiler.html#a7491f56e44dd73e2acf54f90e82e38d7',1,'ante::Compiler']]],
+  ['implicitlywidennum',['implicitlyWidenNum',['../structante_1_1Compiler.html#a297c58e36b13159b56ea8ed0d1095b18',1,'ante::Compiler']]],
+  ['import',['import',['../structante_1_1Module.html#a57a844489a10aa75c0ec5a3af474c247',1,'ante::Module']]],
+  ['importfile',['importFile',['../structante_1_1Compiler.html#aced731a03097f99f56bf48e14039538c',1,'ante::Compiler']]],
+  ['importnode',['ImportNode',['../structante_1_1ImportNode.html',1,'ante']]],
+  ['imports',['imports',['../structante_1_1Compiler.html#a30ff3fb2c63992ca7038443303454d94',1,'ante::Compiler']]],
   ['incompletetypeerror',['IncompleteTypeError',['../structante_1_1IncompleteTypeError.html',1,'ante']]],
-  ['intlitnode',['IntLitNode',['../structIntLitNode.html',1,'']]],
-  ['isfreeable',['isFreeable',['../structVariable.html#ac34f8cd9f40614d9ca9f7cfcabac1d45',1,'Variable']]],
-  ['isuniontag',['isUnionTag',['../structDataType.html#a2df232326ecc98f773c79101f822e4f5',1,'DataType']]]
+  ['initialize',['initialize',['../classyy_1_1location.html#ac21a2ea2c80bb267f0f44a6517e8ac17',1,'yy::location::initialize()'],['../classyy_1_1position.html#ab00c8d19ee14c5ed6a2fc344f4b6e6a1',1,'yy::position::initialize()']]],
+  ['internals',['Internals',['../structante_1_1TypeCheckResult_1_1Internals.html',1,'ante::TypeCheckResult']]],
+  ['intlitnode',['IntLitNode',['../structante_1_1IntLitNode.html',1,'ante']]],
+  ['isfreeable',['isFreeable',['../structante_1_1Variable.html#ad248780a52e43cdf03de4f0305d64002',1,'ante::Variable']]],
+  ['isuniontag',['isUnionTag',['../structante_1_1DataType.html#a1ce2d725018376e30048e37a55391757',1,'ante::DataType']]]
 ];

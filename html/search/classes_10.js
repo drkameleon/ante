@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['uniontag',['UnionTag',['../structUnionTag.html',1,'']]],
-  ['unopnode',['UnOpNode',['../structUnOpNode.html',1,'']]]
+  ['uniontag',['UnionTag',['../structante_1_1UnionTag.html',1,'ante']]],
+  ['unopnode',['UnOpNode',['../structante_1_1UnOpNode.html',1,'ante']]]
 ];

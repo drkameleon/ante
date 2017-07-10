@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['globalnode',['GlobalNode',['../structGlobalNode.html',1,'']]]
+  ['globalnode',['GlobalNode',['../structante_1_1GlobalNode.html',1,'ante']]]
 ];

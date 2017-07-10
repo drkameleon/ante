@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['getbindingfor',['getBindingFor',['../structTypeCheckResult.html#a125ba7fbba05f80d14954eea886abd21',1,'TypeCheckResult']]],
-  ['getfieldindex',['getFieldIndex',['../structDataType.html#a17be61dac2ef4a57e83a2c4f3ea08135',1,'DataType']]],
-  ['getparentunionname',['getParentUnionName',['../structDataType.html#a49376335171335aa74f8d537cacefa0c',1,'DataType']]],
-  ['gettagval',['getTagVal',['../structDataType.html#a29a88e1c0987160f27ebdd80291dfb99',1,'DataType']]],
-  ['getvoidliteral',['getVoidLiteral',['../structante_1_1Compiler.html#a5b7ba0e04379a65b4918177716d14ad5',1,'ante::Compiler']]]
+  ['emitir',['emitIR',['../structante_1_1Compiler.html#a90c0d7b91fd51ef50bd6785a391c5fbb',1,'ante::Compiler']]],
+  ['empty',['empty',['../structyy_1_1parser_1_1basic__symbol.html#afded622f3e05b3fa399496fd1254e356',1,'yy::parser::basic_symbol']]],
+  ['enternewscope',['enterNewScope',['../structante_1_1Compiler.html#a2dad7943c8df0d795353bad94fc085b3',1,'ante::Compiler']]],
+  ['error',['error',['../classyy_1_1parser.html#a92436afd3e4c5cea48994c7b5c52b7e0',1,'yy::parser::error(const location_type &amp;loc, const std::string &amp;msg)'],['../classyy_1_1parser.html#a55d4a04712e5fa9f33baed8f92b3eb05',1,'yy::parser::error(const syntax_error &amp;err)']]],
+  ['eval',['eval',['../structante_1_1Compiler.html#a8601989e980b18b0020ae3bb0e019ebf',1,'ante::Compiler']]],
+  ['exitscope',['exitScope',['../structante_1_1Compiler.html#ad7207955f5a2786b656c80be7283c467',1,'ante::Compiler']]],
+  ['expand',['expand',['../structante_1_1Compiler.html#ab19dff31d4d5d0eb1d770d2ff8c8d0e9',1,'ante::Compiler']]]
 ];
