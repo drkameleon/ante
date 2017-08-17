@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['obj_5fbindings',['obj_bindings',['../structante_1_1FuncDecl.html#a7535cb8733a8d394e678e5ddb16e502a',1,'ante::FuncDecl']]]
+  ['usertypes',['userTypes',['../structante_1_1Module.html#ac69f5091c3f5586484ccebdc01a2cb35',1,'ante::Module']]]
 ];

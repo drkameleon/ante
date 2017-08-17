@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['namedvalnode',['NamedValNode',['../structante_1_1NamedValNode.html',1,'ante']]],
-  ['node',['Node',['../structante_1_1Node.html',1,'ante']]],
-  ['nodeiterator',['NodeIterator',['../structante_1_1NodeIterator.html',1,'ante']]],
-  ['nofree',['noFree',['../structante_1_1Variable.html#a4c7b866a0febf5f51e404b1c9a23ebe3',1,'ante::Variable']]]
+  ['obj_5fbindings',['obj_bindings',['../structante_1_1FuncDecl.html#af158b0e7e381ffe4210617840eab8831',1,'ante::FuncDecl']]],
+  ['on_5ffn_5fdecl_5fhook',['on_fn_decl_hook',['../structante_1_1CompilerCtCtxt.html#a4e7bcb70cefe9483ee4f3ca8dc604c3a',1,'ante::CompilerCtCtxt']]]
 ];

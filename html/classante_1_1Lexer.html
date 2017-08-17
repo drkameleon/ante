@@ -74,14 +74,14 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad0cd11d06103a78f406294d961726ecc"><td class="memItemLeft" align="right" valign="top"><a id="ad0cd11d06103a78f406294d961726ecc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Lexer</b> (string *fileName)</td></tr>
-<tr class="separator:ad0cd11d06103a78f406294d961726ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5837d0d16d5a2c8d3181692920e5ed76"><td class="memItemLeft" align="right" valign="top"><a id="a5837d0d16d5a2c8d3181692920e5ed76"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Lexer</b> (string *fileName, string &amp;pseudoFile, unsigned int rowOffset, unsigned int colOffset)</td></tr>
-<tr class="separator:a5837d0d16d5a2c8d3181692920e5ed76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc9786b2b9f9bfc5e8bef39477da5dba"><td class="memItemLeft" align="right" valign="top"><a id="afc9786b2b9f9bfc5e8bef39477da5dba"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Lexer</b> (std::string *fileName)</td></tr>
+<tr class="separator:afc9786b2b9f9bfc5e8bef39477da5dba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbea5d090a5b4f0fbbd0afc598dce047"><td class="memItemLeft" align="right" valign="top"><a id="abbea5d090a5b4f0fbbd0afc598dce047"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Lexer</b> (std::string *fileName, std::string &amp;pseudoFile, unsigned int rowOffset, unsigned int colOffset)</td></tr>
+<tr class="separator:abbea5d090a5b4f0fbbd0afc598dce047"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44129a9f9c58d2f2253d98bfd5ac2ace"><td class="memItemLeft" align="right" valign="top"><a id="a44129a9f9c58d2f2253d98bfd5ac2ace"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>next</b> (<a class="el" href="classyy_1_1parser.html#a6cee0517f5ed9774dd68ee189b62e454">yy::parser::location_type</a> *yyloc)</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>next</b> (yy::parser::location_type *yyloc)</td></tr>
 <tr class="separator:a44129a9f9c58d2f2253d98bfd5ac2ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b82aee0650781111ad57ddca170ffb2"><td class="memItemLeft" align="right" valign="top"><a id="a1b82aee0650781111ad57ddca170ffb2"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>peek</b> () const</td></tr>
@@ -93,14 +93,14 @@ Static Public Member Functions</h2></td></tr>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>printTok</b> (int t)</td></tr>
 <tr class="separator:a93184bdb99a12886bcbdd74f43c6fdbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a717d2efb1d9d90b540c3bc04c281f8ae"><td class="memItemLeft" align="right" valign="top"><a id="a717d2efb1d9d90b540c3bc04c281f8ae"></a>
-static string&#160;</td><td class="memItemRight" valign="bottom"><b>getTokStr</b> (int t)</td></tr>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getTokStr</b> (int t)</td></tr>
 <tr class="separator:a717d2efb1d9d90b540c3bc04c281f8ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aaad2fba05347b7d68601cf89be207e74"><td class="memItemLeft" align="right" valign="top"><a id="aaad2fba05347b7d68601cf89be207e74"></a>
-string *&#160;</td><td class="memItemRight" valign="bottom"><b>fileName</b></td></tr>
-<tr class="separator:aaad2fba05347b7d68601cf89be207e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbad9b1090f84f9eebf3df3c4aa9cca4"><td class="memItemLeft" align="right" valign="top"><a id="abbad9b1090f84f9eebf3df3c4aa9cca4"></a>
+std::string *&#160;</td><td class="memItemRight" valign="bottom"><b>fileName</b></td></tr>
+<tr class="separator:abbad9b1090f84f9eebf3df3c4aa9cca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>master/include/<a class="el" href="lexer_8h_source.html">lexer.h</a></li>

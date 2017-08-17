@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['fields',['fields',['../structante_1_1DataType.html#aabd954d6d092f1729def76a6b7130ceb',1,'ante::DataType']]],
-  ['filename',['filename',['../classyy_1_1position.html#a88d2d070ec4751e5d5b1999bb2dc2116',1,'yy::position']]],
-  ['fndecls',['fnDecls',['../structante_1_1Module.html#a2ab5014305aef42defe08c27ae31d34d',1,'ante::Module']]]
+  ['llvmtypes',['llvmTypes',['../structante_1_1DataType.html#a486cf11fe88435b38a4fbacaa4acee28',1,'ante::DataType']]]
 ];

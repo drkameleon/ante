@@ -78,9 +78,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a48fa6c06b464da69fe1d7ec14058c065"><td class="memItemLeft" align="right" valign="top"><a id="a48fa6c06b464da69fe1d7ec14058c065"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FuncDecl</b> (<a class="el" href="structante_1_1FuncDeclNode.html">FuncDeclNode</a> *fn, unsigned int s, shared_ptr&lt; <a class="el" href="structante_1_1Module.html">Module</a> &gt; mod, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> *f=0)</td></tr>
-<tr class="separator:a48fa6c06b464da69fe1d7ec14058c065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6938342b00d13d4d7ad7a30b7272d19b"><td class="memItemLeft" align="right" valign="top"><a id="a6938342b00d13d4d7ad7a30b7272d19b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FuncDecl</b> (<a class="el" href="structante_1_1FuncDeclNode.html">FuncDeclNode</a> *fn, unsigned int s, std::shared_ptr&lt; <a class="el" href="structante_1_1Module.html">Module</a> &gt; mod, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> *f=0)</td></tr>
+<tr class="separator:a6938342b00d13d4d7ad7a30b7272d19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -96,16 +96,16 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>scope</b></td
 <tr class="memitem:ab1a677f8d0cb04eb143dad99f4f3b4b9"><td class="memItemLeft" align="right" valign="top"><a id="ab1a677f8d0cb04eb143dad99f4f3b4b9"></a>
 <a class="el" href="structante_1_1TypeNode.html">TypeNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>obj</b></td></tr>
 <tr class="separator:ab1a677f8d0cb04eb143dad99f4f3b4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7535cb8733a8d394e678e5ddb16e502a"><td class="memItemLeft" align="right" valign="top"><a id="a7535cb8733a8d394e678e5ddb16e502a"></a>
-vector&lt; pair&lt; string, <a class="el" href="structante_1_1TypeNode.html">TypeNode</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1FuncDecl.html#a7535cb8733a8d394e678e5ddb16e502a">obj_bindings</a></td></tr>
-<tr class="memdesc:a7535cb8733a8d394e678e5ddb16e502a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any generic parameters the obj may have. <br /></td></tr>
-<tr class="separator:a7535cb8733a8d394e678e5ddb16e502a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accbe4bbb5e1b7560419ab0e02779bdcc"><td class="memItemLeft" align="right" valign="top"><a id="accbe4bbb5e1b7560419ab0e02779bdcc"></a>
-shared_ptr&lt; <a class="el" href="structante_1_1Module.html">Module</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>module</b></td></tr>
-<tr class="separator:accbe4bbb5e1b7560419ab0e02779bdcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08b7d53b24266889ea8f79ff2cdbc1ca"><td class="memItemLeft" align="right" valign="top"><a id="a08b7d53b24266889ea8f79ff2cdbc1ca"></a>
-vector&lt; pair&lt; <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> *, LOC_TY &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>returns</b></td></tr>
-<tr class="separator:a08b7d53b24266889ea8f79ff2cdbc1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af158b0e7e381ffe4210617840eab8831"><td class="memItemLeft" align="right" valign="top"><a id="af158b0e7e381ffe4210617840eab8831"></a>
+std::vector&lt; std::pair&lt; std::string, <a class="el" href="structante_1_1TypeNode.html">TypeNode</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1FuncDecl.html#af158b0e7e381ffe4210617840eab8831">obj_bindings</a></td></tr>
+<tr class="memdesc:af158b0e7e381ffe4210617840eab8831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any generic parameters the obj may have. <br /></td></tr>
+<tr class="separator:af158b0e7e381ffe4210617840eab8831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7394f5418052ad674b43324133ef517c"><td class="memItemLeft" align="right" valign="top"><a id="a7394f5418052ad674b43324133ef517c"></a>
+std::shared_ptr&lt; <a class="el" href="structante_1_1Module.html">Module</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>module</b></td></tr>
+<tr class="separator:a7394f5418052ad674b43324133ef517c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a425e4576e58f431591d80764d132bd7f"><td class="memItemLeft" align="right" valign="top"><a id="a425e4576e58f431591d80764d132bd7f"></a>
+std::vector&lt; std::pair&lt; <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> *, LOC_TY &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>returns</b></td></tr>
+<tr class="separator:a425e4576e58f431591d80764d132bd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains information about a function that is not contained within its <a class="el" href="structante_1_1FuncDeclNode.html">FuncDeclNode</a>. </p>

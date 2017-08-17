@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['column',['column',['../classyy_1_1position.html#ada60c2dbba2e05705265f8359f722c4f',1,'yy::position']]],
-  ['compunit',['compUnit',['../structante_1_1Compiler.html#ac034894b46ad4924b4b6a04dde6f0806',1,'ante::Compiler']]]
+  ['fields',['fields',['../structante_1_1DataType.html#a752e7dc9e73b8f077c2a273ff2408106',1,'ante::DataType']]],
+  ['fndecls',['fnDecls',['../structante_1_1Module.html#ad07daf8f30c25f6cfd98eab343862765',1,'ante::Module']]]
 ];

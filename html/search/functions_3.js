@@ -1,10 +1,14 @@
 var searchData=
 [
-  ['emitir',['emitIR',['../structante_1_1Compiler.html#a90c0d7b91fd51ef50bd6785a391c5fbb',1,'ante::Compiler']]],
-  ['empty',['empty',['../structyy_1_1parser_1_1basic__symbol.html#afded622f3e05b3fa399496fd1254e356',1,'yy::parser::basic_symbol']]],
-  ['enternewscope',['enterNewScope',['../structante_1_1Compiler.html#a2dad7943c8df0d795353bad94fc085b3',1,'ante::Compiler']]],
-  ['error',['error',['../classyy_1_1parser.html#a92436afd3e4c5cea48994c7b5c52b7e0',1,'yy::parser::error(const location_type &amp;loc, const std::string &amp;msg)'],['../classyy_1_1parser.html#a55d4a04712e5fa9f33baed8f92b3eb05',1,'yy::parser::error(const syntax_error &amp;err)']]],
-  ['eval',['eval',['../structante_1_1Compiler.html#a8601989e980b18b0020ae3bb0e019ebf',1,'ante::Compiler']]],
-  ['exitscope',['exitScope',['../structante_1_1Compiler.html#ad7207955f5a2786b656c80be7283c467',1,'ante::Compiler']]],
-  ['expand',['expand',['../structante_1_1Compiler.html#ab19dff31d4d5d0eb1d770d2ff8c8d0e9',1,'ante::Compiler']]]
+  ['getbindingfor',['getBindingFor',['../structante_1_1TypeCheckResult.html#ad0a4748867d970f36292f466ed4459f9',1,'ante::TypeCheckResult']]],
+  ['getcastfn',['getCastFn',['../structante_1_1Compiler.html#a221877c86c514b5dcff9453eae8dfbb2',1,'ante::Compiler']]],
+  ['getfieldindex',['getFieldIndex',['../structante_1_1DataType.html#af2d640e0aac253140f040024c98a857c',1,'ante::DataType']]],
+  ['getfuncdecl',['getFuncDecl',['../structante_1_1Compiler.html#a20b44eb99cf51b96158a1363b4f6710c',1,'ante::Compiler']]],
+  ['getfunction',['getFunction',['../structante_1_1Compiler.html#a142271c79982d257fd1bb0599164ee1a',1,'ante::Compiler']]],
+  ['getfunctionlist',['getFunctionList',['../structante_1_1Compiler.html#a6322062f57deeec58ea4a2c3c436b27c',1,'ante::Compiler']]],
+  ['getmangledfn',['getMangledFn',['../structante_1_1Compiler.html#afde8ba149df81ceb75d2679b76999f40',1,'ante::Compiler']]],
+  ['getmangledfuncdecl',['getMangledFuncDecl',['../structante_1_1Compiler.html#ae912e9978fea0918efcacefacc5e51a6',1,'ante::Compiler']]],
+  ['getparentunionname',['getParentUnionName',['../structante_1_1DataType.html#a3173254c54320c8a51030ca8321bae92',1,'ante::DataType']]],
+  ['gettagval',['getTagVal',['../structante_1_1DataType.html#ac4c9938dc4db7ea004866b489842ba9e',1,'ante::DataType']]],
+  ['getvoidliteral',['getVoidLiteral',['../structante_1_1Compiler.html#a52cbb938fefe7ff479229302db5cefa4',1,'ante::Compiler']]]
 ];

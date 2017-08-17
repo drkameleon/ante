@@ -1,18 +1,16 @@
 var searchData=
 [
-  ['scanalldecls',['scanAllDecls',['../structante_1_1Compiler.html#a1aa71837815ac3175a483f69d5cfc78b',1,'ante::Compiler']]],
-  ['searchandreplaceboundtypevars',['searchAndReplaceBoundTypeVars',['../structante_1_1Compiler.html#a72d9ff3f1651d1de1f3c78901925da8e',1,'ante::Compiler']]],
-  ['semantic_5ftype',['semantic_type',['../classyy_1_1parser.html#abb6ca82d9e84da6d4b98e65f650b2456',1,'yy::parser']]],
-  ['slice',['slice',['../classyy_1_1slice.html',1,'yy']]],
-  ['stack',['stack',['../classyy_1_1stack.html',1,'yy']]],
-  ['stack_3c_20stack_5fsymbol_5ftype_20_3e',['stack&lt; stack_symbol_type &gt;',['../classyy_1_1stack.html',1,'yy']]],
-  ['step',['step',['../classyy_1_1location.html#a96620cec8dd8ebfc96c60a03c10154d0',1,'yy::location']]],
-  ['stotype',['stoType',['../structante_1_1Compiler.html#a11bc3e02c1abc7f8e502e1832794ce4c',1,'ante::Compiler']]],
-  ['stotypevar',['stoTypeVar',['../structante_1_1Compiler.html#abea18a677a8b285045d63d1988603945',1,'ante::Compiler']]],
-  ['stovar',['stoVar',['../structante_1_1Compiler.html#afbc7775be6536510bd29b041e1853a34',1,'ante::Compiler']]],
-  ['strlitnode',['StrLitNode',['../structante_1_1StrLitNode.html',1,'ante']]],
-  ['super_5ftype',['super_type',['../structyy_1_1parser_1_1basic__symbol.html#aa67d0c9c65599dcf9d193b33743dae20',1,'yy::parser::basic_symbol']]],
-  ['symbol_5fnumber_5ftype',['symbol_number_type',['../classyy_1_1parser.html#a522f5c6c3481d9285b0b991ac12292eb',1,'yy::parser']]],
-  ['symbol_5ftype',['symbol_type',['../classyy_1_1parser.html#aa8024edbba983aa5cd3e88c3a4dcacc9',1,'yy::parser']]],
-  ['syntax_5ferror',['syntax_error',['../structyy_1_1parser_1_1syntax__error.html',1,'yy::parser']]]
+  ['trait',['Trait',['../structante_1_1Trait.html',1,'ante']]],
+  ['traitnode',['TraitNode',['../structante_1_1TraitNode.html',1,'ante']]],
+  ['traits',['traits',['../structante_1_1Module.html#a6a19fa5d69ef1bf95eaaf6290b2fddd6',1,'ante::Module']]],
+  ['tuplenode',['TupleNode',['../structante_1_1TupleNode.html',1,'ante']]],
+  ['tval',['tval',['../structante_1_1Variable.html#a0ec2fccd318fe697a967d80aceb9a3ff',1,'ante::Variable']]],
+  ['tyn',['tyn',['../structante_1_1DataType.html#acaa0c10088d7881347c5f448314bf90a',1,'ante::DataType']]],
+  ['typecastnode',['TypeCastNode',['../structante_1_1TypeCastNode.html',1,'ante']]],
+  ['typecheckresult',['TypeCheckResult',['../structante_1_1TypeCheckResult.html',1,'ante']]],
+  ['typedvalue',['TypedValue',['../structante_1_1TypedValue.html',1,'ante::TypedValue'],['../structante_1_1TypedValue.html#aadb9357a06271204176fbd3093b193cc',1,'ante::TypedValue::TypedValue()']]],
+  ['typeeq',['typeEq',['../structante_1_1Compiler.html#aa365b83ce890cd8e8914343cc1317341',1,'ante::Compiler::typeEq(const TypeNode *l, const TypeNode *r) const'],['../structante_1_1Compiler.html#a42313239d22ef4cc13891726d62548c9',1,'ante::Compiler::typeEq(std::vector&lt; TypeNode *&gt; l, std::vector&lt; TypeNode *&gt; r) const']]],
+  ['typeimplementstrait',['typeImplementsTrait',['../structante_1_1Compiler.html#a452d693a23c3690bd955a0a04bc3e653',1,'ante::Compiler']]],
+  ['typenode',['TypeNode',['../structante_1_1TypeNode.html',1,'ante']]],
+  ['typevarerror',['TypeVarError',['../structante_1_1TypeVarError.html',1,'ante']]]
 ];

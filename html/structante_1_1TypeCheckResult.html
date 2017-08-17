@@ -117,9 +117,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!</b> ()</td>
 <tr class="memitem:af3c8ad1f52e6e3de0b35ed218dd41b78"><td class="memItemLeft" align="right" valign="top"><a id="af3c8ad1f52e6e3de0b35ed218dd41b78"></a>
 <a class="el" href="structante_1_1TypeCheckResult_1_1Internals.html">Internals</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>operator-&gt;</b> ()</td></tr>
 <tr class="separator:af3c8ad1f52e6e3de0b35ed218dd41b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae01abd73a5feef2253ddc8f3af5d5e56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypeNode.html">TypeNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1TypeCheckResult.html#ae01abd73a5feef2253ddc8f3af5d5e56">getBindingFor</a> (const string &amp;s)</td></tr>
-<tr class="memdesc:ae01abd73a5feef2253ddc8f3af5d5e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the suggested binding of a typevar.  <a href="#ae01abd73a5feef2253ddc8f3af5d5e56">More...</a><br /></td></tr>
-<tr class="separator:ae01abd73a5feef2253ddc8f3af5d5e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0a4748867d970f36292f466ed4459f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypeNode.html">TypeNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1TypeCheckResult.html#ad0a4748867d970f36292f466ed4459f9">getBindingFor</a> (const std::string &amp;s)</td></tr>
+<tr class="memdesc:ad0a4748867d970f36292f466ed4459f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the suggested binding of a typevar.  <a href="#ad0a4748867d970f36292f466ed4459f9">More...</a><br /></td></tr>
+<tr class="separator:ad0a4748867d970f36292f466ed4459f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0600e5faac2881dbb820d86c647641a"><td class="memItemLeft" align="right" valign="top"><a id="ab0600e5faac2881dbb820d86c647641a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TypeCheckResult</b> (const <a class="el" href="structante_1_1TypeCheckResult.html">TypeCheckResult</a> &amp;r)</td></tr>
 <tr class="separator:ab0600e5faac2881dbb820d86c647641a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,8 +138,8 @@ Public Attributes</h2></td></tr>
 <p>Can be one of three states: Failure, Success, or SuccessWithTypeVars.</p>
 <p>SuccessWithTypeVars indicates the typecheck is only a success if a typevar within is bound to a particular type. For example the check of 't* and i32* would return this status. Whenever SuccessWithTypeVars is set, the bindings field contains the specific bindings that should be bound to the typevar term. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae01abd73a5feef2253ddc8f3af5d5e56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae01abd73a5feef2253ddc8f3af5d5e56">&#9670;&nbsp;</a></span>getBindingFor()</h2>
+<a id="ad0a4748867d970f36292f466ed4459f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0a4748867d970f36292f466ed4459f9">&#9670;&nbsp;</a></span>getBindingFor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +147,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structante_1_1TypeNode.html">TypeNode</a> * ante::TypeCheckResult::getBindingFor </td>
           <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
