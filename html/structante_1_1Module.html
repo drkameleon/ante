@@ -78,9 +78,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5d49bffc1a7bc407b6f87d50b423ffc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a5d49bffc1a7bc407b6f87d50b423ffc4">import</a> (std::shared_ptr&lt; <a class="el" href="structante_1_1Module.html">Module</a> &gt; m)</td></tr>
-<tr class="memdesc:a5d49bffc1a7bc407b6f87d50b423ffc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges two modules.  <a href="#a5d49bffc1a7bc407b6f87d50b423ffc4">More...</a><br /></td></tr>
-<tr class="separator:a5d49bffc1a7bc407b6f87d50b423ffc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f1f48182f0e020542b4a0200ac2c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a05f1f48182f0e020542b4a0200ac2c5d">import</a> (<a class="el" href="structante_1_1Module.html">Module</a> *m)</td></tr>
+<tr class="memdesc:a05f1f48182f0e020542b4a0200ac2c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges two modules.  <a href="#a05f1f48182f0e020542b4a0200ac2c5d">More...</a><br /></td></tr>
+<tr class="separator:a05f1f48182f0e020542b4a0200ac2c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -91,20 +91,20 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td><
 std::unordered_map&lt; std::string, std::vector&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1FuncDecl.html">FuncDecl</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#ad07daf8f30c25f6cfd98eab343862765">fnDecls</a></td></tr>
 <tr class="memdesc:ad07daf8f30c25f6cfd98eab343862765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared function in the module. <br /></td></tr>
 <tr class="separator:ad07daf8f30c25f6cfd98eab343862765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac69f5091c3f5586484ccebdc01a2cb35"><td class="memItemLeft" align="right" valign="top"><a id="ac69f5091c3f5586484ccebdc01a2cb35"></a>
-std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="structante_1_1DataType.html">DataType</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#ac69f5091c3f5586484ccebdc01a2cb35">userTypes</a></td></tr>
-<tr class="memdesc:ac69f5091c3f5586484ccebdc01a2cb35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared <a class="el" href="structante_1_1DataType.html" title="Contains information about a data type. ">DataType</a> in the module. <br /></td></tr>
-<tr class="separator:ac69f5091c3f5586484ccebdc01a2cb35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ff457f7255da73a2bd43137b40f9134"><td class="memItemLeft" align="right" valign="top"><a id="a4ff457f7255da73a2bd43137b40f9134"></a>
+std::unordered_map&lt; std::string, <a class="el" href="classante_1_1AnDataType.html">AnDataType</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a4ff457f7255da73a2bd43137b40f9134">userTypes</a></td></tr>
+<tr class="memdesc:a4ff457f7255da73a2bd43137b40f9134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared DataType in the module. <br /></td></tr>
+<tr class="separator:a4ff457f7255da73a2bd43137b40f9134"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="memItemLeft" align="right" valign="top"><a id="a6a19fa5d69ef1bf95eaaf6290b2fddd6"></a>
 std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="structante_1_1Trait.html">Trait</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a6a19fa5d69ef1bf95eaaf6290b2fddd6">traits</a></td></tr>
-<tr class="memdesc:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of all declared traits; not including their implementations for a given type Each <a class="el" href="structante_1_1DataType.html" title="Contains information about a data type. ">DataType</a> is reponsible for holding its own trait implementations. <br /></td></tr>
+<tr class="memdesc:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of all declared traits; not including their implementations for a given type Each DataType is reponsible for holding its own trait implementations. <br /></td></tr>
 <tr class="separator:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An Ante <a class="el" href="structante_1_1Module.html" title="An Ante Module. ">Module</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5d49bffc1a7bc407b6f87d50b423ffc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d49bffc1a7bc407b6f87d50b423ffc4">&#9670;&nbsp;</a></span>import()</h2>
+<a id="a05f1f48182f0e020542b4a0200ac2c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05f1f48182f0e020542b4a0200ac2c5d">&#9670;&nbsp;</a></span>import()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,8 +112,8 @@ std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="stru
         <tr>
           <td class="memname">void ante::Module::import </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="structante_1_1Module.html">Module</a> &gt;&#160;</td>
-          <td class="paramname"><em>m</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structante_1_1Module.html">ante::Module</a> *&#160;</td>
+          <td class="paramname"><em>mod</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
