@@ -71,20 +71,28 @@ $(function() {
 <div class="title">ante::AnModifier Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Type modifiers.  
+ <a href="classante_1_1AnModifier.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="antype_8h_source.html">antype.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a812a8c74f1f8ae4f366c0189d4a6f6f5"><td class="memItemLeft" align="right" valign="top"><a id="a812a8c74f1f8ae4f366c0189d4a6f6f5"></a>
-static <a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>get</b> (std::vector&lt; TokenType &gt; modifiers)</td></tr>
+static <a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnModifier.html#a812a8c74f1f8ae4f366c0189d4a6f6f5">get</a> (std::vector&lt; TokenType &gt; <a class="el" href="classante_1_1AnModifier.html#aae57874cf25db5a89272d254931ff8c6">modifiers</a>)</td></tr>
+<tr class="memdesc:a812a8c74f1f8ae4f366c0189d4a6f6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or creates a unique <a class="el" href="classante_1_1AnModifier.html" title="Type modifiers. ">AnModifier</a> instance. <br /></td></tr>
 <tr class="separator:a812a8c74f1f8ae4f366c0189d4a6f6f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aae57874cf25db5a89272d254931ff8c6"><td class="memItemLeft" align="right" valign="top"><a id="aae57874cf25db5a89272d254931ff8c6"></a>
-std::vector&lt; TokenType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>modifiers</b></td></tr>
+std::vector&lt; TokenType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnModifier.html#aae57874cf25db5a89272d254931ff8c6">modifiers</a></td></tr>
+<tr class="memdesc:aae57874cf25db5a89272d254931ff8c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin modifiers such as TT_Mut and TT_Global. <br /></td></tr>
 <tr class="separator:aae57874cf25db5a89272d254931ff8c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5421752f6d0ee983ba9bf7080e9388a9"><td class="memItemLeft" align="right" valign="top"><a id="a5421752f6d0ee983ba9bf7080e9388a9"></a>
-std::vector&lt; std::unique_ptr&lt; <a class="el" href="structante_1_1parser_1_1PreProcNode.html">parser::PreProcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>compilerDirectives</b></td></tr>
+std::vector&lt; std::unique_ptr&lt; <a class="el" href="structante_1_1parser_1_1PreProcNode.html">parser::PreProcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnModifier.html#a5421752f6d0ee983ba9bf7080e9388a9">compilerDirectives</a></td></tr>
+<tr class="memdesc:a5421752f6d0ee983ba9bf7080e9388a9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structante_1_1Compiler.html" title="An Ante compiler responsible for a single module. ">Compiler</a> directives acting as modifiers, such as !unique. <br /></td></tr>
 <tr class="separator:a5421752f6d0ee983ba9bf7080e9388a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -93,9 +101,12 @@ Protected Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AnModifier</b> (std::vector&lt; TokenType &gt; mods)</td></tr>
 <tr class="separator:ad0393da2d338d79576c4eceee80ccd28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>master/include/<a class="el" href="antype_8h_source.html">antype.h</a></li>
-<li>master/src/antype.cpp</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Type modifiers. </p>
+<p>An <a class="el" href="classante_1_1AnModifier.html" title="Type modifiers. ">AnModifier</a> is not itself a type. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/rndmprsn/Code/Ante/master/include/<a class="el" href="antype_8h_source.html">antype.h</a></li>
+<li>/home/rndmprsn/Code/Ante/master/src/antype.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

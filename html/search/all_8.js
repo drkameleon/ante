@@ -10,9 +10,11 @@ var searchData=
   ['importnode',['ImportNode',['../structante_1_1parser_1_1ImportNode.html',1,'ante::parser']]],
   ['imports',['imports',['../structante_1_1Compiler.html#a67ba13edafc69d1c7028e90ffb840406',1,'ante::Compiler']]],
   ['incompletetypeerror',['IncompleteTypeError',['../structante_1_1IncompleteTypeError.html',1,'ante']]],
+  ['initialize',['initialize',['../classyy_1_1location.html#ac21a2ea2c80bb267f0f44a6517e8ac17',1,'yy::location::initialize()'],['../classyy_1_1position.html#ab00c8d19ee14c5ed6a2fc344f4b6e6a1',1,'yy::position::initialize()']]],
   ['internals',['Internals',['../structante_1_1TypeCheckResult_1_1Internals.html',1,'ante::TypeCheckResult']]],
   ['intlitnode',['IntLitNode',['../structante_1_1parser_1_1IntLitNode.html',1,'ante::parser']]],
   ['isfreeable',['isFreeable',['../structante_1_1Variable.html#ad248780a52e43cdf03de4f0305d64002',1,'ante::Variable']]],
+  ['isstub',['isStub',['../classante_1_1AnDataType.html#abadfb6b3fa9815337df51c8c2e50bcba',1,'ante::AnDataType']]],
   ['isuniontag',['isUnionTag',['../classante_1_1AnDataType.html#ab5de4563780a436398f1fefff0abfdfb',1,'ante::AnDataType']]],
   ['isvariantof',['isVariantOf',['../classante_1_1AnDataType.html#a9e8ee0e8e37ab972660824281411176a',1,'ante::AnDataType']]]
 ];

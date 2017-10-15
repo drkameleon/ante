@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7ebasic_5fsymbol',['~basic_symbol',['../structyy_1_1parser_1_1basic__symbol.html#a8834e63e16d721729fb1b36b749697f1',1,'yy::parser::basic_symbol']]]
+  ['variable',['Variable',['../structante_1_1Variable.html#aff8a98b6bb132ff1f656cbf7f5d00b21',1,'ante::Variable']]]
 ];

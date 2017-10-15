@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['fakevalue',['fakeValue',['../structante_1_1FunctionCandidates.html#a862be751e4cd48d3109f395e111bd7be',1,'ante::FunctionCandidates']]],
-  ['fields',['fields',['../classante_1_1AnDataType.html#ae65e19de454776c513067d2602410916',1,'ante::AnDataType']]],
-  ['fndecls',['fnDecls',['../structante_1_1Module.html#a6b80d973d56e51c4ae0e150af040ed2d',1,'ante::Module']]]
+  ['column',['column',['../classyy_1_1position.html#ada60c2dbba2e05705265f8359f722c4f',1,'yy::position']]],
+  ['compilerdirectives',['compilerDirectives',['../classante_1_1AnModifier.html#a5421752f6d0ee983ba9bf7080e9388a9',1,'ante::AnModifier']]],
+  ['compunit',['compUnit',['../structante_1_1Compiler.html#ad7f0c3b04dd30782053bfa925580c4c6',1,'ante::Compiler']]],
+  ['ctstores',['ctStores',['../structante_1_1CompilerCtCtxt.html#aa1f7eab7f109b924cd3efff3ad1fe870',1,'ante::CompilerCtCtxt']]]
 ];

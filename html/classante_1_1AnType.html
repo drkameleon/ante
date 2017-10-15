@@ -72,18 +72,23 @@ $(function() {
 <div class="title">ante::AnType Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A primitive type.  
+ <a href="classante_1_1AnType.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="antype_8h_source.html">antype.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ante::AnType:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classante_1_1AnType.png" usemap="#ante::AnType_map" alt=""/>
   <map id="ante::AnType_map" name="ante::AnType_map">
-<area href="classante_1_1AnAggregateType.html" alt="ante::AnAggregateType" shape="rect" coords="77,56,222,80"/>
-<area href="classante_1_1AnArrayType.html" alt="ante::AnArrayType" shape="rect" coords="232,56,377,80"/>
-<area href="classante_1_1AnPtrType.html" alt="ante::AnPtrType" shape="rect" coords="387,56,532,80"/>
-<area href="classante_1_1AnTypeVarType.html" alt="ante::AnTypeVarType" shape="rect" coords="542,56,687,80"/>
-<area href="classante_1_1AnDataType.html" alt="ante::AnDataType" shape="rect" coords="0,112,145,136"/>
-<area href="classante_1_1AnFunctionType.html" alt="ante::AnFunctionType" shape="rect" coords="155,112,300,136"/>
+<area href="classante_1_1AnAggregateType.html" title="Tuple types. " alt="ante::AnAggregateType" shape="rect" coords="77,56,222,80"/>
+<area href="classante_1_1AnArrayType.html" title="Arrays types, both sized and unsized. " alt="ante::AnArrayType" shape="rect" coords="232,56,377,80"/>
+<area href="classante_1_1AnPtrType.html" title="Pointer types. " alt="ante::AnPtrType" shape="rect" coords="387,56,532,80"/>
+<area href="classante_1_1AnTypeVarType.html" title="A Typevar type. " alt="ante::AnTypeVarType" shape="rect" coords="542,56,687,80"/>
+<area href="classante_1_1AnDataType.html" title="A user-declared data type. " alt="ante::AnDataType" shape="rect" coords="0,112,145,136"/>
+<area href="classante_1_1AnFunctionType.html" title="A function type. " alt="ante::AnFunctionType" shape="rect" coords="155,112,300,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -92,20 +97,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abf416fd25cb9ccbdf54055a514de4203"><td class="memItemLeft" align="right" valign="top"><a id="abf416fd25cb9ccbdf54055a514de4203"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasModifier</b> (TokenType m) const</td></tr>
 <tr class="separator:abf416fd25cb9ccbdf54055a514de4203"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e09df0ab1124c4185dd28156bb8a026"><td class="memItemLeft" align="right" valign="top"><a id="a7e09df0ab1124c4185dd28156bb8a026"></a>
-virtual <a class="el" href="classante_1_1AnType.html">AnType</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addModifier</b> (TokenType m)</td></tr>
+<tr class="memitem:a7e09df0ab1124c4185dd28156bb8a026"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classante_1_1AnType.html">AnType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnType.html#a7e09df0ab1124c4185dd28156bb8a026">addModifier</a> (TokenType m)</td></tr>
+<tr class="memdesc:a7e09df0ab1124c4185dd28156bb8a026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a version of the current type with the additional modifier m.  <a href="#a7e09df0ab1124c4185dd28156bb8a026">More...</a><br /></td></tr>
 <tr class="separator:a7e09df0ab1124c4185dd28156bb8a026"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc376e0e7fd83eb6e105219b139c2e1e"><td class="memItemLeft" align="right" valign="top"><a id="acc376e0e7fd83eb6e105219b139c2e1e"></a>
-virtual <a class="el" href="classante_1_1AnType.html">AnType</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>setModifier</b> (<a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *m)</td></tr>
+<tr class="memitem:acc376e0e7fd83eb6e105219b139c2e1e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classante_1_1AnType.html">AnType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnType.html#acc376e0e7fd83eb6e105219b139c2e1e">setModifier</a> (<a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *m)</td></tr>
+<tr class="memdesc:acc376e0e7fd83eb6e105219b139c2e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a version of the current type with the specified modifiers.  <a href="#acc376e0e7fd83eb6e105219b139c2e1e">More...</a><br /></td></tr>
 <tr class="separator:acc376e0e7fd83eb6e105219b139c2e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11ac054e0b7a2598bb652728879621a8"><td class="memItemLeft" align="right" valign="top"><a id="a11ac054e0b7a2598bb652728879621a8"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getSizeInBits</b> (<a class="el" href="structante_1_1Compiler.html">Compiler</a> *c, std::string *incompleteType=nullptr, bool force=false) const</td></tr>
+<tr class="memitem:a11ac054e0b7a2598bb652728879621a8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnType.html#a11ac054e0b7a2598bb652728879621a8">getSizeInBits</a> (<a class="el" href="structante_1_1Compiler.html">Compiler</a> *c, std::string *incompleteType=nullptr, bool force=false) const</td></tr>
+<tr class="memdesc:a11ac054e0b7a2598bb652728879621a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of this type in bits.  <a href="#a11ac054e0b7a2598bb652728879621a8">More...</a><br /></td></tr>
 <tr class="separator:a11ac054e0b7a2598bb652728879621a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7e941700cd71bb12662db032c4c69fa"><td class="memItemLeft" align="right" valign="top"><a id="ae7e941700cd71bb12662db032c4c69fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>dump</b> () const</td></tr>
+<tr class="memitem:ae7e941700cd71bb12662db032c4c69fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnType.html#ae7e941700cd71bb12662db032c4c69fa">dump</a> () const</td></tr>
+<tr class="memdesc:ae7e941700cd71bb12662db032c4c69fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the contents of this type to stdout.  <a href="#ae7e941700cd71bb12662db032c4c69fa">More...</a><br /></td></tr>
 <tr class="separator:ae7e941700cd71bb12662db032c4c69fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2eb6f2dd5900d27eef7d8b81884b643b"><td class="memItemLeft" align="right" valign="top"><a id="a2eb6f2dd5900d27eef7d8b81884b643b"></a>
-<a class="el" href="classante_1_1AnType.html">AnType</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getFunctionReturnType</b> () const</td></tr>
+<tr class="memitem:a2eb6f2dd5900d27eef7d8b81884b643b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classante_1_1AnType.html">AnType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnType.html#a2eb6f2dd5900d27eef7d8b81884b643b">getFunctionReturnType</a> () const</td></tr>
+<tr class="memdesc:a2eb6f2dd5900d27eef7d8b81884b643b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a function's return type.  <a href="#a2eb6f2dd5900d27eef7d8b81884b643b">More...</a><br /></td></tr>
 <tr class="separator:a2eb6f2dd5900d27eef7d8b81884b643b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -185,8 +190,8 @@ TypeTag&#160;</td><td class="memItemRight" valign="bottom"><b>typeTag</b></td></
 <tr class="memitem:a0d28ca06a120890d3449092e640a7d78"><td class="memItemLeft" align="right" valign="top"><a id="a0d28ca06a120890d3449092e640a7d78"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isGeneric</b></td></tr>
 <tr class="separator:a0d28ca06a120890d3449092e640a7d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c05041fc411ea6344ae761beb5226d8"><td class="memItemLeft" align="right" valign="top"><a id="a0c05041fc411ea6344ae761beb5226d8"></a>
-<a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mods</b></td></tr>
+<tr class="memitem:a0c05041fc411ea6344ae761beb5226d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classante_1_1AnType.html#a0c05041fc411ea6344ae761beb5226d8">mods</a></td></tr>
+<tr class="memdesc:a0c05041fc411ea6344ae761beb5226d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This type's modifiers.  <a href="#a0c05041fc411ea6344ae761beb5226d8">More...</a><br /></td></tr>
 <tr class="separator:a0c05041fc411ea6344ae761beb5226d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -195,10 +200,176 @@ Protected Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AnType</b> (TypeTag id, bool ig, <a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *m)</td></tr>
 <tr class="separator:aa6324d13ae9ce060bf7aeb6f00cba182"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A primitive type. </p>
+<p>All AnTypes are uniqued and immutable. Instances are created via static methods and are uniqued, that is, no two perfectly equal instances are created. Any two perfectly equal types are also equivalent using pointer equality.</p>
+<p>Two types may still be equal even if their pointer comparison fails. This occurs if the underlying types are equal but the modifiers of the type are not.</p>
+<p>No <a class="el" href="classante_1_1AnType.html" title="A primitive type. ">AnType</a> should ever be manually allocated or freed, all construction and destruction is handled by an external <a class="el" href="classante_1_1AnTypeContainer.html" title="An owning container for all AnTypes. ">AnTypeContainer</a>. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7e09df0ab1124c4185dd28156bb8a026"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e09df0ab1124c4185dd28156bb8a026">&#9670;&nbsp;</a></span>addModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classante_1_1AnType.html">AnType</a> * ante::AnType::addModifier </td>
+          <td>(</td>
+          <td class="paramtype">TokenType&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a version of the current type with the additional modifier m. </p>
+
+<p>Reimplemented in <a class="el" href="classante_1_1AnDataType.html#a1b5bd32d4fce3215e31d1dfe8cc8c362">ante::AnDataType</a>, <a class="el" href="classante_1_1AnFunctionType.html#a0f6052029ebfde58794619d6a6dbd29e">ante::AnFunctionType</a>, <a class="el" href="classante_1_1AnTypeVarType.html#a5220997fd2ea35f2796882a4d80cd0ec">ante::AnTypeVarType</a>, <a class="el" href="classante_1_1AnPtrType.html#a04a3d864bbf2e729a72b7d76777afe48">ante::AnPtrType</a>, <a class="el" href="classante_1_1AnArrayType.html#a8f23e8e80e8388576207b0448d69c294">ante::AnArrayType</a>, and <a class="el" href="classante_1_1AnAggregateType.html#abbc61b465e4210e4cdbfbab42c2aa8ae">ante::AnAggregateType</a>.</p>
+
+</div>
+</div>
+<a id="ae7e941700cd71bb12662db032c4c69fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7e941700cd71bb12662db032c4c69fa">&#9670;&nbsp;</a></span>dump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ante::AnType::dump </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print the contents of this type to stdout. </p>
+
+</div>
+</div>
+<a id="a2eb6f2dd5900d27eef7d8b81884b643b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eb6f2dd5900d27eef7d8b81884b643b">&#9670;&nbsp;</a></span>getFunctionReturnType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classante_1_1AnType.html">AnType</a> * ante::AnType::getFunctionReturnType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a function's return type. </p>
+<p>Assumes that this <a class="el" href="classante_1_1AnType.html" title="A primitive type. ">AnType</a> is a AnFuncionType instance. </p>
+
+</div>
+</div>
+<a id="a11ac054e0b7a2598bb652728879621a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11ac054e0b7a2598bb652728879621a8">&#9670;&nbsp;</a></span>getSizeInBits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t ante::AnType::getSizeInBits </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structante_1_1Compiler.html">Compiler</a> *&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>incompleteType</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>force</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the size of this type in bits. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">incompleteType</td><td>The name of an undeclared type, used to issue an <a class="el" href="structante_1_1IncompleteTypeError.html">IncompleteTypeError</a> if it is found within the type being sized and not behind a pointer. </td></tr>
+    <tr><td class="paramname">force</td><td>Set to true if this type is known to be generic and although its size is technically unknown, a guess for the size should be given anyway. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acc376e0e7fd83eb6e105219b139c2e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc376e0e7fd83eb6e105219b139c2e1e">&#9670;&nbsp;</a></span>setModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classante_1_1AnType.html">AnType</a> * ante::AnType::setModifier </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classante_1_1AnModifier.html">AnModifier</a> *&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a version of the current type with the specified modifiers. </p>
+
+<p>Reimplemented in <a class="el" href="classante_1_1AnDataType.html#a6112df0dbec1f6c8119a207eeafd67a8">ante::AnDataType</a>, <a class="el" href="classante_1_1AnFunctionType.html#aaa8f24f81d2f2b3f7200550e0be2ae1a">ante::AnFunctionType</a>, <a class="el" href="classante_1_1AnTypeVarType.html#a314c8f53ba6c613cb928411f77149141">ante::AnTypeVarType</a>, <a class="el" href="classante_1_1AnPtrType.html#a7c7f0b2b03bafe4c777c862827d73f14">ante::AnPtrType</a>, <a class="el" href="classante_1_1AnArrayType.html#ac24f013dd56d116daaa935fca776147a">ante::AnArrayType</a>, and <a class="el" href="classante_1_1AnAggregateType.html#a2ef39e5b83bead3fcfa1206f01a5a866">ante::AnAggregateType</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0c05041fc411ea6344ae761beb5226d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c05041fc411ea6344ae761beb5226d8">&#9670;&nbsp;</a></span>mods</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classante_1_1AnModifier.html">AnModifier</a>* ante::AnType::mods</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This type's modifiers. </p>
+<p>Will always have at least one modifier or be nullptr. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>master/include/<a class="el" href="antype_8h_source.html">antype.h</a></li>
-<li>master/src/antype.cpp</li>
-<li>master/src/types.cpp</li>
+<li>/home/rndmprsn/Code/Ante/master/include/<a class="el" href="antype_8h_source.html">antype.h</a></li>
+<li>/home/rndmprsn/Code/Ante/master/src/antype.cpp</li>
+<li>/home/rndmprsn/Code/Ante/master/src/types.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

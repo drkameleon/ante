@@ -72,7 +72,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>A <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a> of type TT_FunctionList is returned whenever there are multiple equally-qualified functions found during a lookup. A lookup without the properly mangled argument types will also return this type so that the desired function may be deduced later with the actual function call arguments.  
+<p>A <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a> of type TT_FunctionList is returned whenever there are multiple equally-qualified functions found during a lookup.  
  <a href="structante_1_1FunctionCandidates.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="compiler_8h_source.html">compiler.h</a>&gt;</code></p>
@@ -91,9 +91,8 @@ static <a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a862be751e4cd48d3109f395e111bd7be"><td class="memItemLeft" align="right" valign="top"><a id="a862be751e4cd48d3109f395e111bd7be"></a>
-llvm::Value *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1FunctionCandidates.html#a862be751e4cd48d3109f395e111bd7be">fakeValue</a></td></tr>
-<tr class="memdesc:a862be751e4cd48d3109f395e111bd7be"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structante_1_1FunctionCandidates.html" title="A TypedValue of type TT_FunctionList is returned whenever there are multiple equally-qualified functi...">FunctionCandidates</a> instances swap places with the llvm::Value part of a <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a>. Because inheritance cannot be used, the fiirst field is a fakeValue to avoid crashes when <a class="el" href="structante_1_1FunctionCandidates.html" title="A TypedValue of type TT_FunctionList is returned whenever there are multiple equally-qualified functi...">FunctionCandidates</a> are used accidentaly as llvm::Values. <br /></td></tr>
+<tr class="memitem:a862be751e4cd48d3109f395e111bd7be"><td class="memItemLeft" align="right" valign="top">llvm::Value *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1FunctionCandidates.html#a862be751e4cd48d3109f395e111bd7be">fakeValue</a></td></tr>
+<tr class="memdesc:a862be751e4cd48d3109f395e111bd7be"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structante_1_1FunctionCandidates.html" title="A TypedValue of type TT_FunctionList is returned whenever there are multiple equally-qualified functi...">FunctionCandidates</a> instances swap places with the llvm::Value part of a <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a>.  <a href="#a862be751e4cd48d3109f395e111bd7be">More...</a><br /></td></tr>
 <tr class="separator:a862be751e4cd48d3109f395e111bd7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa598d200f68a0d837e922701633092da"><td class="memItemLeft" align="right" valign="top"><a id="aa598d200f68a0d837e922701633092da"></a>
 std::vector&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1FuncDecl.html">FuncDecl</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>candidates</b></td></tr>
@@ -103,10 +102,29 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1FuncDecl.h
 <tr class="separator:a92c864611a1d37bc40004d9618b6e095"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a> of type TT_FunctionList is returned whenever there are multiple equally-qualified functions found during a lookup. A lookup without the properly mangled argument types will also return this type so that the desired function may be deduced later with the actual function call arguments. </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
-<li>master/include/<a class="el" href="compiler_8h_source.html">compiler.h</a></li>
-<li>master/src/types.cpp</li>
+<div class="textblock"><p>A <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a> of type TT_FunctionList is returned whenever there are multiple equally-qualified functions found during a lookup. </p>
+<p>A lookup without the properly mangled argument types will also return this type so that the desired function may be deduced later with the actual function call arguments. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a862be751e4cd48d3109f395e111bd7be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a862be751e4cd48d3109f395e111bd7be">&#9670;&nbsp;</a></span>fakeValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">llvm::Value* ante::FunctionCandidates::fakeValue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="structante_1_1FunctionCandidates.html" title="A TypedValue of type TT_FunctionList is returned whenever there are multiple equally-qualified functi...">FunctionCandidates</a> instances swap places with the llvm::Value part of a <a class="el" href="structante_1_1TypedValue.html" title="A Value* and TypeNode* pair. ">TypedValue</a>. </p>
+<p>Because inheritance cannot be used, the fiirst field is a fakeValue to avoid crashes when <a class="el" href="structante_1_1FunctionCandidates.html" title="A TypedValue of type TT_FunctionList is returned whenever there are multiple equally-qualified functi...">FunctionCandidates</a> are used accidentaly as llvm::Values </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>/home/rndmprsn/Code/Ante/master/include/<a class="el" href="compiler_8h_source.html">compiler.h</a></li>
+<li>/home/rndmprsn/Code/Ante/master/src/types.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
