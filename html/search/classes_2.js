@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['charlitnode',['CharLitNode',['../structante_1_1CharLitNode.html',1,'ante']]],
+  ['charlitnode',['CharLitNode',['../structante_1_1parser_1_1CharLitNode.html',1,'ante::parser']]],
   ['compilationerror',['CompilationError',['../structante_1_1CompilationError.html',1,'ante']]],
   ['compiler',['Compiler',['../structante_1_1Compiler.html',1,'ante']]],
   ['compilerargs',['CompilerArgs',['../structante_1_1CompilerArgs.html',1,'ante']]],

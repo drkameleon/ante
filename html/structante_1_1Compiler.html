@@ -82,9 +82,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afdb96f422caf19f04ca073fe495c1a72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#afdb96f422caf19f04ca073fe495c1a72">Compiler</a> (const char *fileName, bool lib=false, std::shared_ptr&lt; llvm::LLVMContext &gt; ctxt=nullptr)</td></tr>
 <tr class="memdesc:afdb96f422caf19f04ca073fe495c1a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main constructor for <a class="el" href="structante_1_1Compiler.html" title="An Ante compiler responsible for a single module. ">Compiler</a>.  <a href="#afdb96f422caf19f04ca073fe495c1a72">More...</a><br /></td></tr>
 <tr class="separator:afdb96f422caf19f04ca073fe495c1a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d69e04f3427d8935f8cad20bcbb495"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a44d69e04f3427d8935f8cad20bcbb495">Compiler</a> (<a class="el" href="structante_1_1Compiler.html">Compiler</a> *c, <a class="el" href="structante_1_1Node.html">Node</a> *root, std::string modName, bool lib=false)</td></tr>
-<tr class="memdesc:a44d69e04f3427d8935f8cad20bcbb495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a <a class="el" href="structante_1_1Compiler.html" title="An Ante compiler responsible for a single module. ">Compiler</a> compiling a sub-module within the current file. Currently only used for string interpolation.  <a href="#a44d69e04f3427d8935f8cad20bcbb495">More...</a><br /></td></tr>
-<tr class="separator:a44d69e04f3427d8935f8cad20bcbb495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32d6af78b250b54b0142e3d258ba944e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a32d6af78b250b54b0142e3d258ba944e">Compiler</a> (<a class="el" href="structante_1_1Compiler.html">Compiler</a> *c, <a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *root, std::string modName, bool lib=false)</td></tr>
+<tr class="memdesc:a32d6af78b250b54b0142e3d258ba944e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a <a class="el" href="structante_1_1Compiler.html" title="An Ante compiler responsible for a single module. ">Compiler</a> compiling a sub-module within the current file. Currently only used for string interpolation.  <a href="#a32d6af78b250b54b0142e3d258ba944e">More...</a><br /></td></tr>
+<tr class="separator:a32d6af78b250b54b0142e3d258ba944e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad90a555d154fdd436ef0a9ae4e68185f"><td class="memItemLeft" align="right" valign="top"><a id="ad90a555d154fdd436ef0a9ae4e68185f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#ad90a555d154fdd436ef0a9ae4e68185f">compile</a> ()</td></tr>
 <tr class="memdesc:ad90a555d154fdd436ef0a9ae4e68185f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully compiles a module into llvm bytecode. <br /></td></tr>
@@ -119,43 +119,43 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#ad7207955f5a2786b656c80be7283c467">exitScope</a> ()</td></tr>
 <tr class="memdesc:ad7207955f5a2786b656c80be7283c467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exits a scope and performs any necessary cleanup. <br /></td></tr>
 <tr class="separator:ad7207955f5a2786b656c80be7283c467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aa71837815ac3175a483f69d5cfc78b"><td class="memItemLeft" align="right" valign="top"><a id="a1aa71837815ac3175a483f69d5cfc78b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a1aa71837815ac3175a483f69d5cfc78b">scanAllDecls</a> (<a class="el" href="structante_1_1RootNode.html">RootNode</a> *n=0)</td></tr>
-<tr class="memdesc:a1aa71837815ac3175a483f69d5cfc78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sweeps through parse tree registering all functions, type declarations, and traits. <br /></td></tr>
-<tr class="separator:a1aa71837815ac3175a483f69d5cfc78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d05473024c5cbd5841f976a0cd08bb4"><td class="memItemLeft" align="right" valign="top"><a id="a9d05473024c5cbd5841f976a0cd08bb4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a9d05473024c5cbd5841f976a0cd08bb4">scanAllDecls</a> (<a class="el" href="structante_1_1parser_1_1RootNode.html">parser::RootNode</a> *n=0)</td></tr>
+<tr class="memdesc:a9d05473024c5cbd5841f976a0cd08bb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sweeps through parse tree registering all functions, type declarations, and traits. <br /></td></tr>
+<tr class="separator:a9d05473024c5cbd5841f976a0cd08bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf5d0d47a6f50d33ab75853c51defb2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#adf5d0d47a6f50d33ab75853c51defb2a">processArgs</a> (<a class="el" href="structante_1_1CompilerArgs.html">CompilerArgs</a> *args)</td></tr>
 <tr class="memdesc:adf5d0d47a6f50d33ab75853c51defb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets appropriate flags and executes operations specified by the command line arguments.  <a href="#adf5d0d47a6f50d33ab75853c51defb2a">More...</a><br /></td></tr>
 <tr class="separator:adf5d0d47a6f50d33ab75853c51defb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33bdb6fe39ad5b613faef54002e23fba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a33bdb6fe39ad5b613faef54002e23fba">compAdd</a> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="memdesc:a33bdb6fe39ad5b613faef54002e23fba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits an add instruction.  <a href="#a33bdb6fe39ad5b613faef54002e23fba">More...</a><br /></td></tr>
-<tr class="separator:a33bdb6fe39ad5b613faef54002e23fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a211fce01e19d91bb266f5f8170f5a4c8"><td class="memItemLeft" align="right" valign="top"><a id="a211fce01e19d91bb266f5f8170f5a4c8"></a>
-<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compSub</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="separator:a211fce01e19d91bb266f5f8170f5a4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af87d5a36eca36f457c7e2ffe49766fb7"><td class="memItemLeft" align="right" valign="top"><a id="af87d5a36eca36f457c7e2ffe49766fb7"></a>
-<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compMul</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="separator:af87d5a36eca36f457c7e2ffe49766fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51fb5106119bcdbe3fbfa732dc358557"><td class="memItemLeft" align="right" valign="top"><a id="a51fb5106119bcdbe3fbfa732dc358557"></a>
-<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compDiv</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="separator:a51fb5106119bcdbe3fbfa732dc358557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7787f8d34c3cdaa9f6fd2710ac06df2e"><td class="memItemLeft" align="right" valign="top"><a id="a7787f8d34c3cdaa9f6fd2710ac06df2e"></a>
-<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compRem</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="separator:a7787f8d34c3cdaa9f6fd2710ac06df2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a603cf661fc6327dd87e5e99e003fa37b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a603cf661fc6327dd87e5e99e003fa37b">compExtract</a> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="memdesc:a603cf661fc6327dd87e5e99e003fa37b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles an extract operation such as array::index.  <a href="#a603cf661fc6327dd87e5e99e003fa37b">More...</a><br /></td></tr>
-<tr class="separator:a603cf661fc6327dd87e5e99e003fa37b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b378ae8345401642976ac270e7d2ce4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a9b378ae8345401642976ac270e7d2ce4">compInsert</a> (<a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *insertOp, <a class="el" href="structante_1_1Node.html">Node</a> *assignExpr)</td></tr>
-<tr class="memdesc:a9b378ae8345401642976ac270e7d2ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles an insert operation such as array::index = 2.  <a href="#a9b378ae8345401642976ac270e7d2ce4">More...</a><br /></td></tr>
-<tr class="separator:a9b378ae8345401642976ac270e7d2ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad59c06d772d8b0a6cc1d6af864cb756b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#ad59c06d772d8b0a6cc1d6af864cb756b">compMemberAccess</a> (<a class="el" href="structante_1_1Node.html">Node</a> *ln, <a class="el" href="structante_1_1VarNode.html">VarNode</a> *field, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *binop)</td></tr>
-<tr class="memdesc:ad59c06d772d8b0a6cc1d6af864cb756b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles a named member access such as str.len.  <a href="#ad59c06d772d8b0a6cc1d6af864cb756b">More...</a><br /></td></tr>
-<tr class="separator:ad59c06d772d8b0a6cc1d6af864cb756b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71eeae5f029245daa7e1b548fa21addb"><td class="memItemLeft" align="right" valign="top"><a id="a71eeae5f029245daa7e1b548fa21addb"></a>
-<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compLogicalOr</b> (<a class="el" href="structante_1_1Node.html">Node</a> *l, <a class="el" href="structante_1_1Node.html">Node</a> *r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="separator:a71eeae5f029245daa7e1b548fa21addb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a281e8f9732fb06100e5dd60817338141"><td class="memItemLeft" align="right" valign="top"><a id="a281e8f9732fb06100e5dd60817338141"></a>
-<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compLogicalAnd</b> (<a class="el" href="structante_1_1Node.html">Node</a> *l, <a class="el" href="structante_1_1Node.html">Node</a> *r, <a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *op)</td></tr>
-<tr class="separator:a281e8f9732fb06100e5dd60817338141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d957798fbe9610d23f79feb5d40e34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a24d957798fbe9610d23f79feb5d40e34">compAdd</a> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="memdesc:a24d957798fbe9610d23f79feb5d40e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits an add instruction.  <a href="#a24d957798fbe9610d23f79feb5d40e34">More...</a><br /></td></tr>
+<tr class="separator:a24d957798fbe9610d23f79feb5d40e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8060aca7a440989c02572641fd758a6a"><td class="memItemLeft" align="right" valign="top"><a id="a8060aca7a440989c02572641fd758a6a"></a>
+<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compSub</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="separator:a8060aca7a440989c02572641fd758a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2521c12dc8de36d84b50984f73d662"><td class="memItemLeft" align="right" valign="top"><a id="a0a2521c12dc8de36d84b50984f73d662"></a>
+<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compMul</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="separator:a0a2521c12dc8de36d84b50984f73d662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58672a562a807043c26f3ed04945d6ef"><td class="memItemLeft" align="right" valign="top"><a id="a58672a562a807043c26f3ed04945d6ef"></a>
+<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compDiv</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="separator:a58672a562a807043c26f3ed04945d6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343ed19def0d1b3d24f25526c4b5620f"><td class="memItemLeft" align="right" valign="top"><a id="a343ed19def0d1b3d24f25526c4b5620f"></a>
+<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compRem</b> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="separator:a343ed19def0d1b3d24f25526c4b5620f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77fcf22917c28c7c88ecb0022aa30714"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a77fcf22917c28c7c88ecb0022aa30714">compExtract</a> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;l, <a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="memdesc:a77fcf22917c28c7c88ecb0022aa30714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles an extract operation such as array::index.  <a href="#a77fcf22917c28c7c88ecb0022aa30714">More...</a><br /></td></tr>
+<tr class="separator:a77fcf22917c28c7c88ecb0022aa30714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1da356dd307491d183153e7f0e6cab8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#ab1da356dd307491d183153e7f0e6cab8">compInsert</a> (<a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *insertOp, <a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *assignExpr)</td></tr>
+<tr class="memdesc:ab1da356dd307491d183153e7f0e6cab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles an insert operation such as array::index = 2.  <a href="#ab1da356dd307491d183153e7f0e6cab8">More...</a><br /></td></tr>
+<tr class="separator:ab1da356dd307491d183153e7f0e6cab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5344f586b928cad058d9a2fb93f056c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#aa5344f586b928cad058d9a2fb93f056c">compMemberAccess</a> (<a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *ln, <a class="el" href="structante_1_1parser_1_1VarNode.html">parser::VarNode</a> *field, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *binop)</td></tr>
+<tr class="memdesc:aa5344f586b928cad058d9a2fb93f056c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles a named member access such as str.len.  <a href="#aa5344f586b928cad058d9a2fb93f056c">More...</a><br /></td></tr>
+<tr class="separator:aa5344f586b928cad058d9a2fb93f056c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa994d92c590c407d924e54d5904b51e3"><td class="memItemLeft" align="right" valign="top"><a id="aa994d92c590c407d924e54d5904b51e3"></a>
+<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compLogicalOr</b> (<a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *l, <a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="separator:aa994d92c590c407d924e54d5904b51e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ebe1d1ab6ba72abbbf3a742d0d2a336"><td class="memItemLeft" align="right" valign="top"><a id="a5ebe1d1ab6ba72abbbf3a742d0d2a336"></a>
+<a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>compLogicalAnd</b> (<a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *l, <a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *r, <a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *op)</td></tr>
+<tr class="separator:a5ebe1d1ab6ba72abbbf3a742d0d2a336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37dc19abb16179a71006cfa8554b77f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a37dc19abb16179a71006cfa8554b77f8">compErr</a> (<a class="el" href="structante_1_1lazy__printer.html">lazy_printer</a> msg, const yy::location &amp;loc, ErrorType t=ErrorType::Error)</td></tr>
 <tr class="memdesc:a37dc19abb16179a71006cfa8554b77f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports a message and highlights the relevant source lines.  <a href="#a37dc19abb16179a71006cfa8554b77f8">More...</a><br /></td></tr>
 <tr class="separator:a37dc19abb16179a71006cfa8554b77f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,9 +165,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 <tr class="memitem:aac0d539920d04deb2143881fc6f13530"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#aac0d539920d04deb2143881fc6f13530">jitFunction</a> (llvm::Function *fnName)</td></tr>
 <tr class="memdesc:aac0d539920d04deb2143881fc6f13530"><td class="mdescLeft">&#160;</td><td class="mdescRight">JIT compiles a function with no arguments and calls it afterward.  <a href="#aac0d539920d04deb2143881fc6f13530">More...</a><br /></td></tr>
 <tr class="separator:aac0d539920d04deb2143881fc6f13530"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aced731a03097f99f56bf48e14039538c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#aced731a03097f99f56bf48e14039538c">importFile</a> (const char *name, <a class="el" href="structante_1_1Node.html">Node</a> *locNode=0)</td></tr>
-<tr class="memdesc:aced731a03097f99f56bf48e14039538c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports a given ante file to the current module inputted file must exist and be a valid ante source file.  <a href="#aced731a03097f99f56bf48e14039538c">More...</a><br /></td></tr>
-<tr class="separator:aced731a03097f99f56bf48e14039538c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dff5018bf45f7895df5b2bba1f8048f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a0dff5018bf45f7895df5b2bba1f8048f">importFile</a> (const char *name, <a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *locNode=0)</td></tr>
+<tr class="memdesc:a0dff5018bf45f7895df5b2bba1f8048f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports a given ante file to the current module inputted file must exist and be a valid ante source file.  <a href="#a0dff5018bf45f7895df5b2bba1f8048f">More...</a><br /></td></tr>
+<tr class="separator:a0dff5018bf45f7895df5b2bba1f8048f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a719981451ea6fe1eeab3c68970a27dec"><td class="memItemLeft" align="right" valign="top"><a id="a719981451ea6fe1eeab3c68970a27dec"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a719981451ea6fe1eeab3c68970a27dec">updateFn</a> (<a class="el" href="structante_1_1TypedValue.html">TypedValue</a> &amp;f, <a class="el" href="structante_1_1FuncDecl.html">FuncDecl</a> *fd, std::string &amp;name, std::string &amp;mangledName)</td></tr>
 <tr class="memdesc:a719981451ea6fe1eeab3c68970a27dec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the tv of the <a class="el" href="structante_1_1FuncDecl.html" title="Contains information about a function that is not contained within its FuncDeclNode. ">FuncDecl</a> specified to the value of f. <br /></td></tr>
@@ -210,9 +210,9 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1FuncDecl.h
 <tr class="memitem:a1d801a585a6bfc19a07ca8ea558f8398"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a1d801a585a6bfc19a07ca8ea558f8398">compFn</a> (<a class="el" href="structante_1_1FuncDecl.html">FuncDecl</a> *fn)</td></tr>
 <tr class="memdesc:a1d801a585a6bfc19a07ca8ea558f8398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles any non-generic function.  <a href="#a1d801a585a6bfc19a07ca8ea558f8398">More...</a><br /></td></tr>
 <tr class="separator:a1d801a585a6bfc19a07ca8ea558f8398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59f9f0b212fffdd38006b55400df4e6d"><td class="memItemLeft" align="right" valign="top"><a id="a59f9f0b212fffdd38006b55400df4e6d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>registerFunction</b> (<a class="el" href="structante_1_1FuncDeclNode.html">FuncDeclNode</a> *func, std::string &amp;mangledName)</td></tr>
-<tr class="separator:a59f9f0b212fffdd38006b55400df4e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ecb12ef245eb6fb3638f4357bc8a2d2"><td class="memItemLeft" align="right" valign="top"><a id="a8ecb12ef245eb6fb3638f4357bc8a2d2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>registerFunction</b> (<a class="el" href="structante_1_1parser_1_1FuncDeclNode.html">parser::FuncDeclNode</a> *func, std::string &amp;mangledName)</td></tr>
+<tr class="separator:a8ecb12ef245eb6fb3638f4357bc8a2d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9a29d3daf69b8ad5b52e6fb27383fe4"><td class="memItemLeft" align="right" valign="top"><a id="ad9a29d3daf69b8ad5b52e6fb27383fe4"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getScope</b> () const</td></tr>
 <tr class="separator:ad9a29d3daf69b8ad5b52e6fb27383fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -292,9 +292,9 @@ std::unique_ptr&lt; llvm::legacy::FunctionPassManager &gt;&#160;</td><td class="
 <tr class="memitem:ae2cc9ee3730e87a2ee449bf7e3156f91"><td class="memItemLeft" align="right" valign="top"><a id="ae2cc9ee3730e87a2ee449bf7e3156f91"></a>
 std::unique_ptr&lt; llvm::Module &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>module</b></td></tr>
 <tr class="separator:ae2cc9ee3730e87a2ee449bf7e3156f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1b2a6467064c2a63b4d275a2bc174c4"><td class="memItemLeft" align="right" valign="top"><a id="af1b2a6467064c2a63b4d275a2bc174c4"></a>
-std::unique_ptr&lt; <a class="el" href="structante_1_1RootNode.html">RootNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ast</b></td></tr>
-<tr class="separator:af1b2a6467064c2a63b4d275a2bc174c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9314eba5eab7db054c4d9ed63266867d"><td class="memItemLeft" align="right" valign="top"><a id="a9314eba5eab7db054c4d9ed63266867d"></a>
+std::unique_ptr&lt; <a class="el" href="structante_1_1parser_1_1RootNode.html">parser::RootNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ast</b></td></tr>
+<tr class="separator:a9314eba5eab7db054c4d9ed63266867d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0292d2d26ec0a97c80dc0ef0774288b8"><td class="memItemLeft" align="right" valign="top"><a id="a0292d2d26ec0a97c80dc0ef0774288b8"></a>
 llvm::IRBuilder&#160;</td><td class="memItemRight" valign="bottom"><b>builder</b></td></tr>
 <tr class="separator:a0292d2d26ec0a97c80dc0ef0774288b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -310,10 +310,10 @@ llvm::IRBuilder&#160;</td><td class="memItemRight" valign="bottom"><b>builder</b
 std::vector&lt; <a class="el" href="structante_1_1Module.html">Module</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a67ba13edafc69d1c7028e90ffb840406">imports</a></td></tr>
 <tr class="memdesc:a67ba13edafc69d1c7028e90ffb840406"><td class="mdescLeft">&#160;</td><td class="mdescRight">all imported modules <br /></td></tr>
 <tr class="separator:a67ba13edafc69d1c7028e90ffb840406"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4053ac8453a722d589d03ba12c72764e"><td class="memItemLeft" align="right" valign="top"><a id="a4053ac8453a722d589d03ba12c72764e"></a>
-std::vector&lt; std::unique_ptr&lt; std::unordered_map&lt; std::string, std::unique_ptr&lt; <a class="el" href="structante_1_1Variable.html">Variable</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a4053ac8453a722d589d03ba12c72764e">varTable</a></td></tr>
-<tr class="memdesc:a4053ac8453a722d589d03ba12c72764e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack of variables mapped to their identifier. Maps are seperated according to their scope. <br /></td></tr>
-<tr class="separator:a4053ac8453a722d589d03ba12c72764e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223b603990d1b63413eb70d7cf39f4ba"><td class="memItemLeft" align="right" valign="top"><a id="a223b603990d1b63413eb70d7cf39f4ba"></a>
+std::vector&lt; std::unique_ptr&lt; llvm::StringMap&lt; std::unique_ptr&lt; <a class="el" href="structante_1_1Variable.html">Variable</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Compiler.html#a223b603990d1b63413eb70d7cf39f4ba">varTable</a></td></tr>
+<tr class="memdesc:a223b603990d1b63413eb70d7cf39f4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack of variables mapped to their identifier. Maps are seperated according to their scope. <br /></td></tr>
+<tr class="separator:a223b603990d1b63413eb70d7cf39f4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a1570831b0d49e292e4bd534e646117"><td class="memItemLeft" align="right" valign="top"><a id="a8a1570831b0d49e292e4bd534e646117"></a>
 std::unique_ptr&lt; <a class="el" href="structante_1_1CompilerCtxt.html">CompilerCtxt</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>compCtxt</b></td></tr>
 <tr class="separator:a8a1570831b0d49e292e4bd534e646117"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -398,8 +398,8 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 
 </div>
 </div>
-<a id="a44d69e04f3427d8935f8cad20bcbb495"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44d69e04f3427d8935f8cad20bcbb495">&#9670;&nbsp;</a></span>Compiler() <span class="overload">[2/2]</span></h2>
+<a id="a32d6af78b250b54b0142e3d258ba944e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32d6af78b250b54b0142e3d258ba944e">&#9670;&nbsp;</a></span>Compiler() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -413,7 +413,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1Node.html">Node</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *&#160;</td>
           <td class="paramname"><em>root</em>, </td>
         </tr>
         <tr>
@@ -439,7 +439,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 <p>Constructor for a <a class="el" href="structante_1_1Compiler.html" title="An Ante compiler responsible for a single module. ">Compiler</a> compiling a sub-module within the current file. Currently only used for string interpolation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">root</td><td>The node to set as the root node (does not need to be a <a class="el" href="structante_1_1RootNode.html">RootNode</a> already) </td></tr>
+    <tr><td class="paramname">root</td><td>The node to set as the root node (does not need to be a RootNode already) </td></tr>
     <tr><td class="paramname">modName</td><td>Name of the module being compiled </td></tr>
     <tr><td class="paramname">fName</td><td>Name of the file being compiled </td></tr>
     <tr><td class="paramname">lib</td><td>Set to true if this module should be compiled as a library </td></tr>
@@ -484,8 +484,8 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 
 </div>
 </div>
-<a id="a33bdb6fe39ad5b613faef54002e23fba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33bdb6fe39ad5b613faef54002e23fba">&#9670;&nbsp;</a></span>compAdd()</h2>
+<a id="a24d957798fbe9610d23f79feb5d40e34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d957798fbe9610d23f79feb5d40e34">&#9670;&nbsp;</a></span>compAdd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -505,7 +505,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *&#160;</td>
           <td class="paramname"><em>op</em>&#160;</td>
         </tr>
         <tr>
@@ -520,7 +520,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 <p>Operator overloads are not taken into account and should be handled beforehand. l and r must be the same type.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">op</td><td>The + <a class="el" href="structante_1_1Node.html">Node</a> used for error reporting</td></tr>
+    <tr><td class="paramname">op</td><td>The + Node used for error reporting</td></tr>
   </table>
   </dd>
 </dl>
@@ -570,8 +570,8 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 
 </div>
 </div>
-<a id="a603cf661fc6327dd87e5e99e003fa37b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a603cf661fc6327dd87e5e99e003fa37b">&#9670;&nbsp;</a></span>compExtract()</h2>
+<a id="a77fcf22917c28c7c88ecb0022aa30714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77fcf22917c28c7c88ecb0022aa30714">&#9670;&nbsp;</a></span>compExtract()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -591,7 +591,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *&#160;</td>
           <td class="paramname"><em>op</em>&#160;</td>
         </tr>
         <tr>
@@ -702,8 +702,8 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 
 </div>
 </div>
-<a id="a9b378ae8345401642976ac270e7d2ce4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b378ae8345401642976ac270e7d2ce4">&#9670;&nbsp;</a></span>compInsert()</h2>
+<a id="ab1da356dd307491d183153e7f0e6cab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1da356dd307491d183153e7f0e6cab8">&#9670;&nbsp;</a></span>compInsert()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -711,13 +711,13 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
         <tr>
           <td class="memname"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a> ante::Compiler::compInsert </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *&#160;</td>
           <td class="paramname"><em>insertOp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1Node.html">Node</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *&#160;</td>
           <td class="paramname"><em>assignExpr</em>&#160;</td>
         </tr>
         <tr>
@@ -740,8 +740,8 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 
 </div>
 </div>
-<a id="ad59c06d772d8b0a6cc1d6af864cb756b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad59c06d772d8b0a6cc1d6af864cb756b">&#9670;&nbsp;</a></span>compMemberAccess()</h2>
+<a id="aa5344f586b928cad058d9a2fb93f056c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5344f586b928cad058d9a2fb93f056c">&#9670;&nbsp;</a></span>compMemberAccess()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -749,19 +749,19 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
         <tr>
           <td class="memname"><a class="el" href="structante_1_1TypedValue.html">TypedValue</a> ante::Compiler::compMemberAccess </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structante_1_1Node.html">Node</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *&#160;</td>
           <td class="paramname"><em>ln</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1VarNode.html">VarNode</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1VarNode.html">parser::VarNode</a> *&#160;</td>
           <td class="paramname"><em>field</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1BinOpNode.html">BinOpNode</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1BinOpNode.html">parser::BinOpNode</a> *&#160;</td>
           <td class="paramname"><em>binop</em>&#160;</td>
         </tr>
         <tr>
@@ -985,8 +985,8 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 
 </div>
 </div>
-<a id="aced731a03097f99f56bf48e14039538c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aced731a03097f99f56bf48e14039538c">&#9670;&nbsp;</a></span>importFile()</h2>
+<a id="a0dff5018bf45f7895df5b2bba1f8048f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dff5018bf45f7895df5b2bba1f8048f">&#9670;&nbsp;</a></span>importFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1000,7 +1000,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structante_1_1Node.html">Node</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structante_1_1parser_1_1Node.html">parser::Node</a> *&#160;</td>
           <td class="paramname"><em>locNode</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
@@ -1015,7 +1015,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fName</td><td>Name of file to import </td></tr>
-    <tr><td class="paramname">The</td><td>node containing where the file was imported from. Usually the <a class="el" href="structante_1_1ImportNode.html">ImportNode</a> importing the file. Used for error reporting. </td></tr>
+    <tr><td class="paramname">The</td><td>node containing where the file was imported from. Usually the ImportNode importing the file. Used for error reporting. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1313,7 +1313,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>fnScope</b></
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">var</td><td>Name of the variable to store </td></tr>
-    <tr><td class="paramname">val</td><td><a class="el" href="structante_1_1Variable.html" title="Contains information about a data type. ">Variable</a> to store </td></tr>
+    <tr><td class="paramname">val</td><td><a class="el" href="structante_1_1Variable.html">Variable</a> to store </td></tr>
   </table>
   </dd>
 </dl>

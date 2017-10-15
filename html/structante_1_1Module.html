@@ -87,18 +87,18 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8d050781e421e745731962589278384a"><td class="memItemLeft" align="right" valign="top"><a id="a8d050781e421e745731962589278384a"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
 <tr class="separator:a8d050781e421e745731962589278384a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad07daf8f30c25f6cfd98eab343862765"><td class="memItemLeft" align="right" valign="top"><a id="ad07daf8f30c25f6cfd98eab343862765"></a>
-std::unordered_map&lt; std::string, std::vector&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1FuncDecl.html">FuncDecl</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#ad07daf8f30c25f6cfd98eab343862765">fnDecls</a></td></tr>
-<tr class="memdesc:ad07daf8f30c25f6cfd98eab343862765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared function in the module. <br /></td></tr>
-<tr class="separator:ad07daf8f30c25f6cfd98eab343862765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ff457f7255da73a2bd43137b40f9134"><td class="memItemLeft" align="right" valign="top"><a id="a4ff457f7255da73a2bd43137b40f9134"></a>
-std::unordered_map&lt; std::string, <a class="el" href="classante_1_1AnDataType.html">AnDataType</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a4ff457f7255da73a2bd43137b40f9134">userTypes</a></td></tr>
-<tr class="memdesc:a4ff457f7255da73a2bd43137b40f9134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared DataType in the module. <br /></td></tr>
-<tr class="separator:a4ff457f7255da73a2bd43137b40f9134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="memItemLeft" align="right" valign="top"><a id="a6a19fa5d69ef1bf95eaaf6290b2fddd6"></a>
-std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="structante_1_1Trait.html">Trait</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a6a19fa5d69ef1bf95eaaf6290b2fddd6">traits</a></td></tr>
-<tr class="memdesc:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of all declared traits; not including their implementations for a given type Each DataType is reponsible for holding its own trait implementations. <br /></td></tr>
-<tr class="separator:a6a19fa5d69ef1bf95eaaf6290b2fddd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b80d973d56e51c4ae0e150af040ed2d"><td class="memItemLeft" align="right" valign="top"><a id="a6b80d973d56e51c4ae0e150af040ed2d"></a>
+llvm::StringMap&lt; std::vector&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1FuncDecl.html">FuncDecl</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a6b80d973d56e51c4ae0e150af040ed2d">fnDecls</a></td></tr>
+<tr class="memdesc:a6b80d973d56e51c4ae0e150af040ed2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared function in the module. <br /></td></tr>
+<tr class="separator:a6b80d973d56e51c4ae0e150af040ed2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ad7cd90863a8e6c2b96e525b3c79ffd"><td class="memItemLeft" align="right" valign="top"><a id="a2ad7cd90863a8e6c2b96e525b3c79ffd"></a>
+llvm::StringMap&lt; <a class="el" href="classante_1_1AnDataType.html">AnDataType</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#a2ad7cd90863a8e6c2b96e525b3c79ffd">userTypes</a></td></tr>
+<tr class="memdesc:a2ad7cd90863a8e6c2b96e525b3c79ffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each declared DataType in the module. <br /></td></tr>
+<tr class="separator:a2ad7cd90863a8e6c2b96e525b3c79ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af305bf64bc58f51992114e02b1d11a2b"><td class="memItemLeft" align="right" valign="top"><a id="af305bf64bc58f51992114e02b1d11a2b"></a>
+llvm::StringMap&lt; std::shared_ptr&lt; <a class="el" href="structante_1_1Trait.html">Trait</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structante_1_1Module.html#af305bf64bc58f51992114e02b1d11a2b">traits</a></td></tr>
+<tr class="memdesc:af305bf64bc58f51992114e02b1d11a2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of all declared traits; not including their implementations for a given type Each DataType is reponsible for holding its own trait implementations. <br /></td></tr>
+<tr class="separator:af305bf64bc58f51992114e02b1d11a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An Ante <a class="el" href="structante_1_1Module.html" title="An Ante Module. ">Module</a>. </p>
