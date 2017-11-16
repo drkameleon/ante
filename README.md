@@ -22,12 +22,12 @@ the ability to interact at a lower level if needed.
 * Lisp-esque compile-time execution combined with an extensible compiler API
 * Systems language that feels like an interpreted language
 * Expression-based syntax
-* Robust module system
+* Robust module system with integrated build system
 * Immutability by default
 * Strongly typed with a detailed algebraic type system and type inferencing
 * Ability to write compiler plugins within the compiled program itself
 type and issue a compile-time error if it is invalidated
-    -  Extremely diverse and powerful compile-time analysis that can be custom programmed into
+    -  Diverse and powerful compile-time analysis that can be custom programmed into
 any datatype creating eg. iterator invalidation, pointer-autofree, or even an ownership system.
 The implementation of these features resembles that of a compiler plugin, except that it is written
 into the compiled module itself.
@@ -36,7 +36,8 @@ into the compiled module itself.
 here is an implementation of the goto construct in Ante
 
 ```go
-![macro]
+//The 'ante' keyword declares compile-time functions
+ante
 fun goto: VarNode vn
     let label = ctLookup vn ?
         None -> compErr "Cannot goto undefined label ${vn.name}"
@@ -44,7 +45,7 @@ fun goto: VarNode vn
     LLVM.setInsertPoint getCallSiteBlock{}
     LLVM.createBr label
 
-![macro]
+ante
 fun label: VarNode vn
     let ctxt = Ante.llvm_ctxt
     let callingFn = getCallSiteBlock().getParentFn()
@@ -65,8 +66,8 @@ goto begin
 
 ### Requirements
 
- * `llvm` version 4.0.  To check which version you have, run `$ lli --version`.  To install llvm, install
-the `llvm` package on your distro's package manager, eg. for Ubuntu: `$ sudo apt-get install llvm-4.0`
+ * `llvm` version >= 5.0.  To check which version you have, run `$ lli --version`.  To install llvm, install
+the `llvm` package on your distro's package manager, eg. for Ubuntu: `$ sudo apt-get install llvm-5.0`
  * `yacc`. This is normally provided by GNU Bison - to install Bison, install the `bison` package in your
 distro's package manager.
 

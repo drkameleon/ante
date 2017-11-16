@@ -1,0 +1,11 @@
+
+let val = 437
+
+Ante.store "my_val".cStr val
+
+//ctLookup is typesafe: val2 is of type i32
+let val2 = Ante.lookup "my_val".cStr
+
+print val2
+
+

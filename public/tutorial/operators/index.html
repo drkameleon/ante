@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.30.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Operators &middot; Ante</title>
+
+  
+  <link rel="stylesheet" href="localhost:1313css/print.css" media="print">
+  <link rel="stylesheet" href="localhost:1313css/poole.css">
+  <link rel="stylesheet" href="localhost:1313css/syntax.css">
+  <link rel="stylesheet" href="localhost:1313css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Ante" />
+</head>
+
+  <body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="localhost:1313"><h1>Ante</h1></a>
+      <p class="lead">
+       A systems programming language focused on providing extreme extensibility without compromising on speed or readability 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="localhost:1313">Home</a> </li>
+      <li><a href="/tutorial/blocks/"> Blocks </a></li><li><a href="/compiler-extensions/build-system/"> Build System </a></li><li><a href="/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/tutorial/functions/"> Functions </a></li><li><a href="/tutorial/if/"> If </a></li><li><a href="/tutorial/literals/"> Literals </a></li><li><a href="/tutorial/loops/"> Loops </a></li><li><a href="/tutorial/modifiers/"> Modifiers </a></li><li><a href="/tutorial/modules/"> Modules </a></li><li><a href="/tutorial/operators/"> Operators </a></li><li><a href="/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/tutorial/traits/"> Traits </a></li><li><a href="/tutorial/type-casts/"> Type Casts </a></li><li><a href="/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/tutorial/types/"> Types </a></li><li><a href="/tutorial/variables/"> Variables </a></li>
+    </ul>
+
+    <p>&copy; 2017. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Operators</h1>
+  <span class="post-date">Wed, Nov 15, 2017</span>
+  
+
+<h1 id="binary">Binary</h1>
+
+<h2 id="arithmetic">Arithmetic</h2>
+
+<p>+
+-
+*
+/
+%</p>
+
+<h2 id="logical">Logical</h2>
+
+<p>&lt;
+&gt;
+&lt;=
+ &gt;=
+ ==
+!=
+is
+and
+or</p>
+
+<h2 id="assignment">Assignment</h2>
+
+<p>=
+&lt;binop&gt;=</p>
+
+<h2 id="bitwise">Bitwise</h2>
+
+<p>implemented as library functions.
+Bitwise.xor a b</p>
+
+<h2 id="other">Other</h2>
+
+<p>in
+++
+..
+#
+;
+.
+|&gt;
+&lt;|</p>
+
+<h1 id="unary">Unary</h1>
+
+<p>not
+new
+-
+@
+&amp;</p>
+
+<h1 id="operator-precedence">Operator Precedence</h1>
+
+<table>
+<thead>
+<tr>
+<th align="center">Operator</th>
+<th align="center">Unary or Binary</th>
+<th align="center">Associativity</th>
+<th align="center">Precedence</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">.</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">17</td>
+</tr>
+
+<tr>
+<td align="center">&amp;</td>
+<td align="center">Unary</td>
+<td align="center">Right</td>
+<td align="center">16</td>
+</tr>
+
+<tr>
+<td align="center">new</td>
+<td align="center">Unary</td>
+<td align="center">Right</td>
+<td align="center">15</td>
+</tr>
+
+<tr>
+<td align="center">-</td>
+<td align="center">Unary</td>
+<td align="center">Right</td>
+<td align="center">15</td>
+</tr>
+
+<tr>
+<td align="center">@</td>
+<td align="center">Unary</td>
+<td align="center">Right</td>
+<td align="center">15</td>
+</tr>
+
+<tr>
+<td align="center">#</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">14</td>
+</tr>
+
+<tr>
+<td align="center">*</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">13</td>
+</tr>
+
+<tr>
+<td align="center">/</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">13</td>
+</tr>
+
+<tr>
+<td align="center">%</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">13</td>
+</tr>
+
+<tr>
+<td align="center">+</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">12</td>
+</tr>
+
+<tr>
+<td align="center">-</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">12</td>
+</tr>
+
+<tr>
+<td align="center">..</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">11</td>
+</tr>
+
+<tr>
+<td align="center">++</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">10</td>
+</tr>
+
+<tr>
+<td align="center">in</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">9</td>
+</tr>
+
+<tr>
+<td align="center">&lt;</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">&gt;</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">&lt;=</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">&gt;=</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">==</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">!=</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">is</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">8</td>
+</tr>
+
+<tr>
+<td align="center">not</td>
+<td align="center">Unary</td>
+<td align="center">Right</td>
+<td align="center">7</td>
+</tr>
+
+<tr>
+<td align="center">and</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">6</td>
+</tr>
+
+<tr>
+<td align="center">or</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">5</td>
+</tr>
+
+<tr>
+<td align="center">|&gt;</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="center">&lt;|</td>
+<td align="center">Binary</td>
+<td align="center">Right</td>
+<td align="center">3</td>
+</tr>
+
+<tr>
+<td align="center">;</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="center">=</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">1</td>
+</tr>
+
+<tr>
+<td align="center">=&lt;binop&gt;</td>
+<td align="center">Binary</td>
+<td align="center">Left</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

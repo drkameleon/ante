@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.30.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Literals &middot; Ante</title>
+
+  
+  <link rel="stylesheet" href="localhost:1313css/print.css" media="print">
+  <link rel="stylesheet" href="localhost:1313css/poole.css">
+  <link rel="stylesheet" href="localhost:1313css/syntax.css">
+  <link rel="stylesheet" href="localhost:1313css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Ante" />
+</head>
+
+  <body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="localhost:1313"><h1>Ante</h1></a>
+      <p class="lead">
+       A systems programming language focused on providing extreme extensibility without compromising on speed or readability 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="localhost:1313">Home</a> </li>
+      <li><a href="/tutorial/blocks/"> Blocks </a></li><li><a href="/compiler-extensions/build-system/"> Build System </a></li><li><a href="/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/tutorial/functions/"> Functions </a></li><li><a href="/tutorial/if/"> If </a></li><li><a href="/tutorial/literals/"> Literals </a></li><li><a href="/tutorial/loops/"> Loops </a></li><li><a href="/tutorial/modifiers/"> Modifiers </a></li><li><a href="/tutorial/modules/"> Modules </a></li><li><a href="/tutorial/operators/"> Operators </a></li><li><a href="/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/tutorial/traits/"> Traits </a></li><li><a href="/tutorial/type-casts/"> Type Casts </a></li><li><a href="/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/tutorial/types/"> Types </a></li><li><a href="/tutorial/variables/"> Variables </a></li>
+    </ul>
+
+    <p>&copy; 2017. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Literals</h1>
+  <span class="post-date">Tue, Nov 14, 2017</span>
+  
+
+<p>Ante has four types of literal values: integers, floats, booleans, and strings.  Every literal,
+except for strings, is a primitive type.</p>
+
+<h2 id="integers">Integers</h2>
+
+<p>Integer literals in Ante can be any primitive integer type, i8, i16, i32, i64, u8, u16, u32, u64, isz, or usz.  Without a type suffix,
+an integer literal&rsquo;s default type is i32.  Integer literals have four parts: the optional base notation, the number itself, the
+optional exponent, and the optional type suffix.  The number itself is in the form</p>
+
+<pre><code>[0-9_]+
+</code></pre>
+
+<p>Underscores are allowed as separators in numeric literals and do not affect the value of the integer.
+Negatives are represented by the unary - operator rather than in the literal itself.</p>
+
+<p>The base notation comes before the number and can be one of 0x, 0o, or 0b, representing hexadecimal, octal, and binary bases
+respectively.</p>
+
+<p>After the number itself comes the optional exponent.  The exponent is in the form</p>
+
+<pre><code>[Ee][+-]?[0-9_]+
+</code></pre>
+
+<p>Finally, the type suffix of the number is an optional segment that specifies the literal&rsquo;s type.
+Integer type suffixes begin with either an i or u, denoting whether or not the literal is signed, with u representing an unsigned integer.
+After the sign specification comes the optional size specification which can be one of 8, 16, 32, 64, or sz, which represent the size in
+bits of the integer.  A type suffix of i8 specifies an 8-bit signed integer, and a type suffix of usz specifies an unsigned integer
+of pointer-size.  Literals with a sign specification but no size specification will be the default integer size.</p>
+
+<h2 id="floats">Floats</h2>
+
+<p>Floating-point literals come in three varieties according to their type: f16, f32, and f64, which correspond to an IEEE half, IEEE single,
+and IEEE double respectively.  Float literals are distinguished from integer literals by the required . and numeric integer following it.
+As such, 23. is not a float, the . in this case acts as a binary operator on 23 looking for a method declaration.  Like integer literals,
+float literals may also contain an optional exponent and type suffix, however, float literals are always expressed in base ten, and as
+such have no base notation.  Underscores are also permitted in float literals with no effect on the value.  A type suffix of a float
+literal is either f16, f32, or f64.  If none are specified, the default is f64.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="mf">0.5</span>      <span class="c c-Singleline">//IEEE double</span>
+<span class="mf">2.4_f16</span>  <span class="c c-Singleline">//IEEE half</span>
+
+<span class="mi">43</span><span class="o">.</span> <span class="mi">43</span>   <span class="c c-Singleline">//Syntax error</span>
+<span class="mi">43</span> <span class="o">.</span><span class="mi">43</span>   <span class="c c-Singleline">//Same as above</span>
+
+<span class="mi">43</span><span class="o">.</span>four  <span class="c c-Singleline">//method/field access on the integer 43</span>
+</code></pre></div>
+
+<h2 id="booleans">Booleans</h2>
+
+<p>Boolean literals are either <code>true</code> or <code>false</code>, and are always of type <code>bool</code>.  <code>bool</code> values may
+occupy anwhere from 1 to 8 bits depending on the target and optimization techniques used, but only 1 bit is able to be viewed or modified.
+Boolean values are not integer types.</p>
+
+<h2 id="strings">Strings</h2>
+
+<p>String literals are denoted by matching double-quotes around a string of text.  Characters preceeded by a backslash will be interpretted
+as an escape sequence.  Escape sequences not recognized by the compiler will generate an error informing the user of the unknown sequence.
+The table below shows a list of all escape sequences used.</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Escape Sequence</th>
+<th align="center">ASCII value</th>
+<th align="center">Translation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">\a</td>
+<td align="center">0x7</td>
+<td align="center">Bell</td>
+</tr>
+
+<tr>
+<td align="center">\b</td>
+<td align="center">0x8</td>
+<td align="center">Backspace character</td>
+</tr>
+
+<tr>
+<td align="center">\f</td>
+<td align="center">0xC</td>
+<td align="center">Form feed</td>
+</tr>
+
+<tr>
+<td align="center">\n</td>
+<td align="center">0xA</td>
+<td align="center">Newline</td>
+</tr>
+
+<tr>
+<td align="center">\r</td>
+<td align="center">0xD</td>
+<td align="center">Carriage return</td>
+</tr>
+
+<tr>
+<td align="center">\t</td>
+<td align="center">0x9</td>
+<td align="center">Tab</td>
+</tr>
+
+<tr>
+<td align="center">\v</td>
+<td align="center">0xB</td>
+<td align="center">Vertical tab</td>
+</tr>
+
+<tr>
+<td align="center">\XXX</td>
+<td align="center">XXX (in octal)</td>
+<td align="center">generic character</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note that the sequence \XXX is a backslash followed by one or more numeric characters.</p>
+
+<h3 id="string-interpolation">String Interpolation</h3>
+
+<p>String interpolation is the evaluation of an expression followed by the concatenation of the
+result of that expression to the relevant part of the string.  String interpolation is performed
+within the delimiters ${ and }.  To concatenate the expression into the string, an overload for
+the ++ operator is searched for first.  Because the concatenation is left-associative, the operator
+function <code>++_Str_&lt;expr type&gt;</code> is searched for first.  If there is no
+appropriate overload found, then the compiler will attempt to cast the expression to a Str before
+concatenation.  The result of the first concatenation is then concatenated with the end of the string
+via the builtin function <code>++_Str_Str</code> if necessary.</p>
+
+<p>Interpolated expressions are compiled normally and will generate compile-time errors if malformed
+like any other expression.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> msg <span class="o">=</span> <span class="s">&quot;World!&quot;</span>
+
+<span class="c c-Singleline">//Both args are strings and nothing follows the expression</span>
+<span class="c c-Singleline">//One concatenation is performed</span>
+print <span class="s">&quot;Hello ${msg}&quot;</span>
+
+<span class="c c-Singleline">//More text follows the expression, two concatenations are performed</span>
+print <span class="s">&quot;Hello ${msg} Hello all!&quot;</span>
+
+
+<span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name<span class="o">,</span> <span class="kt">i32</span> age
+<span class="k">fun</span> <span class="kt">Str</span><span class="p">:</span> <span class="kt">Person</span> p <span class="o">=</span> p<span class="o">.</span>name
+
+<span class="k">let</span> p <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;John&quot;, 32)</span>
+
+<span class="c c-Singleline">//Expression is not a Str, and no overload for ++ is found,</span>
+<span class="c c-Singleline">//expression is cast to a Str and then concatenated</span>
+print <span class="s">&quot;Hello, ${p}&quot;</span>
+</code></pre></div>
+
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

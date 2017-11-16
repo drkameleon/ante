@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.30.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Build System &middot; Ante</title>
+
+  
+  <link rel="stylesheet" href="localhost:1313css/print.css" media="print">
+  <link rel="stylesheet" href="localhost:1313css/poole.css">
+  <link rel="stylesheet" href="localhost:1313css/syntax.css">
+  <link rel="stylesheet" href="localhost:1313css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Ante" />
+</head>
+
+  <body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="localhost:1313"><h1>Ante</h1></a>
+      <p class="lead">
+       A systems programming language focused on providing extreme extensibility without compromising on speed or readability 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="localhost:1313">Home</a> </li>
+      <li><a href="/tutorial/blocks/"> Blocks </a></li><li><a href="/compiler-extensions/build-system/"> Build System </a></li><li><a href="/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/tutorial/functions/"> Functions </a></li><li><a href="/tutorial/if/"> If </a></li><li><a href="/tutorial/literals/"> Literals </a></li><li><a href="/tutorial/loops/"> Loops </a></li><li><a href="/tutorial/modifiers/"> Modifiers </a></li><li><a href="/tutorial/modules/"> Modules </a></li><li><a href="/tutorial/operators/"> Operators </a></li><li><a href="/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/tutorial/traits/"> Traits </a></li><li><a href="/tutorial/type-casts/"> Type Casts </a></li><li><a href="/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/tutorial/types/"> Types </a></li><li><a href="/tutorial/variables/"> Variables </a></li>
+    </ul>
+
+    <p>&copy; 2017. All rights reserved. </p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Build System</h1>
+  <span class="post-date">Wed, Nov 15, 2017</span>
+  
+
+<p>The <code>Build</code> module defines several useful functions for
+compiling and linking applications.  Its interface is as follows:</p>
+
+<hr />
+
+<h2 id="option">option</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">option:</span> <span class="kt">Str</span> opt
+</code></pre></div>
+
+<p>Equivalent to passing the string opt while evoking the
+compiler, eg. a call to <code>option &quot;-O3&quot;</code> is equivalent
+to compiling a module with <code>ante -O3</code></p>
+
+<p>If the given option is not recognized a compilation error
+will be issued with the message &ldquo;Unrecognized option ${opt}&rdquo;</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">option:</span> <span class="kt">CompilerFlag</span> f
+</code></pre></div>
+
+<p>Enables the compiler flag f.</p>
+
+<p>If the given CompilerFlag requires an argument, such
+as the flag OptLevel, a compilation error will be
+issued with the message &ldquo;Flag ${f} requires an argument but none were passed&rdquo;</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">option:</span> <span class="kt">CompilerFlag</span> f<span class="o">,</span> <span class="kt">Str</span> value
+</code></pre></div>
+
+<p>Sets the compiler flag f with the Str value as its argument.</p>
+
+<p>If the given CompilerFlag does not require an argument, such
+as the flag Release, a compilation error will be issued with
+the message &ldquo;Flag ${f} requires no arguments but one was passed&rdquo;</p>
+
+<hr />
+
+<h2 id="before">before</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">before:</span> <span class="kt">Compiler</span><span class="o">.</span><span class="kt">Phase</span> p<span class="o">,</span> <span class="cp">!implicit</span> <span class="kt">void</span><span class="o">-&gt;</span><span class="kt">void</span> f
+</code></pre></div>
+
+<p>Executes the given function before the given phase begins.</p>
+
+<h4 id="examples">Examples</h4>
+
+<p>Timing compilation:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">var</span> timer <span class="o">=</span> <span class="kt">Timer</span><span class="p">()</span>
+before <span class="kt">Compilation</span> <span class="p">(</span>start timer<span class="p">)</span>
+
+before <span class="kt">Linking</span> <span class="p">(</span>
+    stop timer
+    print <span class="s">&quot;All done compiling!&quot;</span>
+    print <span class="s">&quot;Only took ${t}&quot;)</span>
+</code></pre></div>
+
+<p>Building a parser with bison:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>before <span class="kt">Compilation</span> <span class="p">(</span>
+    sh <span class="s">&quot;bison syntax.y -oparser.c&quot;</span>
+    cc <span class="s">&quot;parser.c -oparser.o&quot;)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="sh">sh</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">sh:</span> <span class="kt">Str</span> cmd <span class="o">-&gt;</span> <span class="kt">i32</span>
+</code></pre></div>
+
+<p>Executes the given command in the shell and returns
+the return status of that command.</p>
+
+<h4 id="examples-1">Examples</h4>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>sh <span class="s">&quot;echo Hello&quot;</span>
+
+sh <span class="s">&quot;yacc my_grammar.y&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="cc">cc</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">cc:</span> <span class="kt">Str</span> cmd <span class="o">-&gt;</span> <span class="kt">i32</span>
+</code></pre></div>
+
+<p>Evokes the System&rsquo;s default C compiler with
+the given command as an argument.</p>
+
+<p>Returns the status of the C compiler on success</p>
+
+<p>If no C compiler was found, a compilation error
+will be issued in the form &ldquo;No default C compiler found&rdquo;</p>
+
+<hr />
+
+<h2 id="cxx">cxx</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">cxx:</span> <span class="kt">Str</span> cmd <span class="o">-&gt;</span> <span class="kt">i32</span>
+</code></pre></div>
+
+<p>Evokes the System&rsquo;s default C++ compiler with
+the given command as an argument.</p>
+
+<p>Returns the status of the C++ compiler on success</p>
+
+<p>If no C++ compiler was found, a compilation error
+will be issued in the form &ldquo;No default C++ compiler found&rdquo;</p>
+
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

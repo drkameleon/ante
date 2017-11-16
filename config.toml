@@ -1,0 +1,15 @@
+baseURL = "localhost:1313"
+languageCode = "en-us"
+title = "Ante"
+
+theme = "hyde"
+
+pygmentsUseClassic = true
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+
+newContentEditor = "vim"
+
+[params]
+  description = "A systems programming language focused on providing extreme extensibility without compromising on speed or readability"
+

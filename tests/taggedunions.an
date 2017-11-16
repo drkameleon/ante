@@ -1,0 +1,32 @@
+
+type Maybe 't =
+   | Some 't
+   | None
+
+
+fun parse_int: Str str -> Maybe i32
+    var i = 0
+    var sum = 0
+
+    while str.cStr#i != '\0' do
+        let c = str.cStr#i
+        if c >= '0' and c <= '9' then
+            sum *= 10
+            sum += c - '0'
+            i += 1
+        else
+            return None
+
+    Some sum
+
+
+fun parse_int_str: Str s
+    match parse_int s with
+    | Some n -> print n
+    | None ->
+        parse_int_str <| input "Please enter a positive integer: "
+
+
+parse_int_str "32"
+parse_int_str "324321432"
+parse_int_str "hello"

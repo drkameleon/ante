@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ante</title>
+    <link>localhost:1313/</link>
+    <description>Recent content on Ante</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Nov 2017 14:33:28 -0500</lastBuildDate>
+    
+	<atom:link href="localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Build System</title>
+      <link>localhost:1313/compiler-extensions/build-system/</link>
+      <pubDate>Wed, 15 Nov 2017 14:33:28 -0500</pubDate>
+      
+      <guid>localhost:1313/compiler-extensions/build-system/</guid>
+      <description>The Build module defines several useful functions for compiling and linking applications. Its interface is as follows:
+option ante fun option: Str opt  Equivalent to passing the string opt while evoking the compiler, eg. a call to option &amp;quot;-O3&amp;quot; is equivalent to compiling a module with ante -O3
+If the given option is not recognized a compilation error will be issued with the message &amp;ldquo;Unrecognized option ${opt}&amp;rdquo;
+ante fun option: CompilerFlag f  Enables the compiler flag f.</description>
+    </item>
+    
+    <item>
+      <title>Loops</title>
+      <link>localhost:1313/tutorial/loops/</link>
+      <pubDate>Wed, 15 Nov 2017 14:15:21 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/loops/</guid>
+      <description>Ante provides two forms of loops: while and for.
+While While loops are the most basic form of loop, they continue executing their body while the given condition remains true. The syntax is as follows:
+while &amp;lt;expr&amp;gt; do &amp;lt;expr&amp;gt;  The first expression is the loop condition and must evaluate to a bool. The second expression is the body to loop over, and is usually a block. While loops are often used when you are unsure precisely how many times you should loop.</description>
+    </item>
+    
+    <item>
+      <title>Pattern Matching</title>
+      <link>localhost:1313/tutorial/pattern-matching/</link>
+      <pubDate>Wed, 15 Nov 2017 14:14:23 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/pattern-matching/</guid>
+      <description> Patterns Type Cast Pattern Inclusive Patterns Range Patterns Clauses Multiple Patterns Branches Return Value Creating New Patterns </description>
+    </item>
+    
+    <item>
+      <title>If</title>
+      <link>localhost:1313/tutorial/if/</link>
+      <pubDate>Wed, 15 Nov 2017 14:14:02 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/if/</guid>
+      <description> Expressions Elif Chains Return Value </description>
+    </item>
+    
+    <item>
+      <title>Blocks</title>
+      <link>localhost:1313/tutorial/blocks/</link>
+      <pubDate>Wed, 15 Nov 2017 14:12:44 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/blocks/</guid>
+      <description> Block Keyword Indentation Ignored within (), [], and {} { and } can replace indents </description>
+    </item>
+    
+    <item>
+      <title>Traits</title>
+      <link>localhost:1313/tutorial/traits/</link>
+      <pubDate>Wed, 15 Nov 2017 14:11:54 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/traits/</guid>
+      <description> In Type Declarations Extending A Type With A Trait In External Modules </description>
+    </item>
+    
+    <item>
+      <title>Modules</title>
+      <link>localhost:1313/tutorial/modules/</link>
+      <pubDate>Wed, 15 Nov 2017 14:11:33 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/modules/</guid>
+      <description> Imports Visibility Type Extensions </description>
+    </item>
+    
+    <item>
+      <title>Compiler Directives</title>
+      <link>localhost:1313/tutorial/compiler-directives/</link>
+      <pubDate>Wed, 15 Nov 2017 14:11:01 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/compiler-directives/</guid>
+      <description> As Modifiers Creating New Compiler Directives </description>
+    </item>
+    
+    <item>
+      <title>Modifiers</title>
+      <link>localhost:1313/tutorial/modifiers/</link>
+      <pubDate>Wed, 15 Nov 2017 14:10:13 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/modifiers/</guid>
+      <description>pub, pri, pro, const raw noinit global ante</description>
+    </item>
+    
+    <item>
+      <title>Variables</title>
+      <link>localhost:1313/tutorial/variables/</link>
+      <pubDate>Wed, 15 Nov 2017 14:09:45 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/variables/</guid>
+      <description> Let Var Assignment Explicit Types </description>
+    </item>
+    
+    <item>
+      <title>Functions</title>
+      <link>localhost:1313/tutorial/functions/</link>
+      <pubDate>Wed, 15 Nov 2017 14:07:26 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/functions/</guid>
+      <description> Function Calls UFCS Mangling Function Definitions Parameters Type a b shortcut Inferred Return Type External Function Declarations Operator Overloads </description>
+    </item>
+    
+    <item>
+      <title>Operators</title>
+      <link>localhost:1313/tutorial/operators/</link>
+      <pubDate>Wed, 15 Nov 2017 14:03:27 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/operators/</guid>
+      <description>Binary Arithmetic + - * / %
+Logical &amp;lt; &amp;gt; &amp;lt;= &amp;gt;= == != is and or
+Assignment = &amp;lt;binop&amp;gt;=
+Bitwise implemented as library functions. Bitwise.xor a b
+Other in ++ .. # ; . |&amp;gt; &amp;lt;|
+Unary not new - @ &amp;amp;
+Operator Precedence    Operator Unary or Binary Associativity Precedence     . Binary Left 17   &amp;amp; Unary Right 16   new Unary Right 15   - Unary Right 15   @ Unary Right 15   # Binary Left 14   * Binary Left 13   / Binary Left 13   % Binary Left 13   + Binary Left 12   - Binary Left 12   .</description>
+    </item>
+    
+    <item>
+      <title>Type Casts</title>
+      <link>localhost:1313/tutorial/type-casts/</link>
+      <pubDate>Wed, 15 Nov 2017 14:02:48 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/type-casts/</guid>
+      <description> Explicit Casts Generic Casts Implicit Casts </description>
+    </item>
+    
+    <item>
+      <title>Type Declarations</title>
+      <link>localhost:1313/tutorial/type_declarations/</link>
+      <pubDate>Wed, 15 Nov 2017 14:01:44 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/type_declarations/</guid>
+      <description> Basic Structs and Records Tagged Unions Type Aliases </description>
+    </item>
+    
+    <item>
+      <title>Types</title>
+      <link>localhost:1313/tutorial/types/</link>
+      <pubDate>Wed, 15 Nov 2017 14:00:44 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/types/</guid>
+      <description> Primitives Pointers Arrays Tuples Sum Types Type Variables Trait Types </description>
+    </item>
+    
+    <item>
+      <title>Literals</title>
+      <link>localhost:1313/tutorial/literals/</link>
+      <pubDate>Tue, 14 Nov 2017 17:53:00 -0500</pubDate>
+      
+      <guid>localhost:1313/tutorial/literals/</guid>
+      <description>Ante has four types of literal values: integers, floats, booleans, and strings. Every literal, except for strings, is a primitive type.
+Integers Integer literals in Ante can be any primitive integer type, i8, i16, i32, i64, u8, u16, u32, u64, isz, or usz. Without a type suffix, an integer literal&amp;rsquo;s default type is i32. Integer literals have four parts: the optional base notation, the number itself, the optional exponent, and the optional type suffix.</description>
+    </item>
+    
+  </channel>
+</rss>
