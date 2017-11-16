@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Compiler-extensions on Ante</title>
-    <link>localhost:1313/compiler-extensions/</link>
+    <link>https://jfecher.github.io/ante/public/compiler-extensions/</link>
     <description>Recent content in Compiler-extensions on Ante</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 15 Nov 2017 14:33:28 -0500</lastBuildDate>
     
-	<atom:link href="localhost:1313/compiler-extensions/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jfecher.github.io/ante/public/compiler-extensions/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Build System</title>
-      <link>localhost:1313/compiler-extensions/build-system/</link>
+      <link>https://jfecher.github.io/ante/public/compiler-extensions/build-system/</link>
       <pubDate>Wed, 15 Nov 2017 14:33:28 -0500</pubDate>
       
-      <guid>localhost:1313/compiler-extensions/build-system/</guid>
+      <guid>https://jfecher.github.io/ante/public/compiler-extensions/build-system/</guid>
       <description>The Build module defines several useful functions for compiling and linking applications. Its interface is as follows:
 option ante fun option: Str opt  Equivalent to passing the string opt while evoking the compiler, eg. a call to option &amp;quot;-O3&amp;quot; is equivalent to compiling a module with ante -O3
 If the given option is not recognized a compilation error will be issued with the message &amp;ldquo;Unrecognized option ${opt}&amp;rdquo;
