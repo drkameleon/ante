@@ -37,7 +37,7 @@
 
     <ul class="sidebar-nav">
       <li><a href="https://jfecher.github.io/ante/public/">Home</a> </li>
-      <li><a href="/ante/public/tutorial/blocks/"> Blocks </a></li><li><a href="/ante/public/compiler-extensions/build-system/"> Build System </a></li><li><a href="/ante/public/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/ante/public/compiler-docs/"> Compiler Docs </a></li><li><a href="/ante/public/tutorial/functions/"> Functions </a></li><li><a href="/ante/public/tutorial/if/"> If </a></li><li><a href="/ante/public/tutorial/literals/"> Literals </a></li><li><a href="/ante/public/tutorial/loops/"> Loops </a></li><li><a href="/ante/public/tutorial/modifiers/"> Modifiers </a></li><li><a href="/ante/public/tutorial/modules/"> Modules </a></li><li><a href="/ante/public/tutorial/operators/"> Operators </a></li><li><a href="/ante/public/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/ante/public/tutorial/traits/"> Traits </a></li><li><a href="/ante/public/tutorial/type-casts/"> Type Casts </a></li><li><a href="/ante/public/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/ante/public/tutorial/types/"> Types </a></li><li><a href="/ante/public/tutorial/variables/"> Variables </a></li>
+      <li><a href="/ante/public/tutorial/blocks/"> Blocks </a></li><li><a href="/ante/public/compiler-extensions/build-system/"> Build System </a></li><li><a href="/ante/public/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/ante/public/tutorial/functions/"> Functions </a></li><li><a href="/ante/public/tutorial/if/"> If </a></li><li><a href="/ante/public/tutorial/literals/"> Literals </a></li><li><a href="/ante/public/tutorial/loops/"> Loops </a></li><li><a href="/ante/public/tutorial/modifiers/"> Modifiers </a></li><li><a href="/ante/public/tutorial/modules/"> Modules </a></li><li><a href="/ante/public/tutorial/operators/"> Operators </a></li><li><a href="/ante/public/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/ante/public/tutorial/traits/"> Traits </a></li><li><a href="/ante/public/tutorial/type-casts/"> Type Casts </a></li><li><a href="/ante/public/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/ante/public/tutorial/types/"> Types </a></li><li><a href="/ante/public/tutorial/variables/"> Variables </a></li>
     </ul>
 
     <p>&copy; 2017. All rights reserved. </p>
@@ -52,21 +52,207 @@
 
 <h1 id="function-calls">Function Calls</h1>
 
+<p>The syntax for calling a function is <code>f arg1 arg2 ... argn</code>.  The arguments are
+separated by spaces and are each expressions, although the only operator with
+a higher precedence than a function call is <code>.</code> to access fields.  For example,
+to call the print function with the parameters 2 and &ldquo;three&rdquo;:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>print <span class="mi">2</span> <span class="s">&quot;three&quot;</span>
+</code></pre></div>
+
 <h2 id="ufcs">UFCS</h2>
+
+<p>Universal Function Call Syntax is fully supported on every function.  That is to
+say that the call <code>f arg1 arg2 ... argN</code> is the same as calling the method f with
+arg1 as the object: <code>arg1.f arg2 arg3 ... argN</code>.  If <code>arg1</code> has a field <code>f</code> then
+the f will refer to the field rather than the global function meaning UFCS cannot
+be used if the desired function has the same name as a field of its first parameter.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="mi">2</span><span class="o">.</span>print <span class="p">()</span>        <span class="c c-Singleline">//UFCS!</span>
+<span class="mi">2</span><span class="o">.</span>print <span class="s">&quot;three&quot;</span>   <span class="c c-Singleline">//UFCS!</span>
+
+<span class="k">type</span> <span class="kt">Bad</span> <span class="o">=</span> <span class="kt">i32</span> print
+<span class="k">let</span> b <span class="o">=</span> <span class="kt">Bad</span> <span class="mi">3</span>
+
+print b     <span class="c c-Singleline">//Prints b</span>
+b<span class="o">.</span>print<span class="p">()</span>   <span class="c c-Singleline">//Error: print is not a function, it is an i32!</span>
+</code></pre></div>
 
 <h2 id="mangling">Mangling</h2>
 
+<p>Function names in Ante are mangled to enable overloading for
+various parameter types.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>print <span class="mi">2</span>          <span class="c c-Singleline">// call print: i32</span>
+
+print <span class="s">&quot;Hi&quot;</span>       <span class="c c-Singleline">// call print: Str</span>
+
+print <span class="p">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">&quot;Hi&quot;</span><span class="p">)</span>  <span class="c c-Singleline">// call print: (i32, Str)</span>
+</code></pre></div>
+
+<p>In the case that multiple functions match a given parameter tuple, the
+definition that requires the least amount of typevar bindings is used.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">print:</span> <span class="kt">&#39;a</span> val <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">i32</span> int <span class="o">=</span> <span class="o">...</span>
+
+print <span class="s">&quot;hi&quot;</span>  <span class="c c-Singleline">// call print: &#39;a  with &#39;a = Str</span>
+print <span class="mi">4321</span>  <span class="c c-Singleline">// call print: i32</span>
+
+
+
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">&#39;a</span><span class="o">,</span><span class="kt">&#39;b</span> pair <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">i32</span><span class="o">,</span><span class="kt">&#39;b</span> pair <span class="o">=</span> <span class="o">...</span>
+
+print <span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="o">,</span> <span class="mi">300</span><span class="p">)</span> <span class="c c-Singleline">// call print: (&#39;a,&#39;b) with</span>
+                     <span class="c c-Singleline">// &#39;a = Str, &#39;b = i32</span>
+
+print <span class="p">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c c-Singleline">//call print: (i32,&#39;b) with &#39;b = i32</span>
+</code></pre></div>
+
+<p>If multiple functions equally match a given call an appropriate error is issued.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">print:</span> <span class="kt">&#39;a</span><span class="o">,</span><span class="kt">i32</span> pair <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">i32</span><span class="o">,</span><span class="kt">&#39;b</span> pair <span class="o">=</span> <span class="o">...</span>
+
+print <span class="p">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="cm">/* Output:</span>
+<span class="cm">file.an: 5,1-5    error: Multiple equally-matching candidates found for call to print with args ((i32, i32))</span>
+<span class="cm">print (2, 3)</span>
+<span class="cm">^^^^^</span>
+
+<span class="cm">file.an: 1,5-9    note: Candidate function with params ((&#39;a, i32))</span>
+<span class="cm">fun print: &#39;a,i32 pair = ...</span>
+<span class="cm">    ^^^^^</span>
+
+<span class="cm">file.an: 3,5-9    note: Candidate function with params ((i32, &#39;b))</span>
+<span class="cm">fun print: i32,&#39;b pair = ...</span>
+<span class="cm">    ^^^^^</span>
+
+<span class="cm">Compilation aborted.</span>
+<span class="cm">*/</span>
+</code></pre></div>
+
 <h1 id="function-definitions">Function Definitions</h1>
 
-<h2 id="parameters">Parameters</h2>
+<p>Normal function definitions that take a series of parameters and
+have a return type are in the form:</p>
 
-<h3 id="type-a-b-shortcut">Type a b shortcut</h3>
+<pre><code>[modifiers] fun &lt;name&gt;: &lt;params&gt; -&gt; &lt;type&gt;
+    &lt;block&gt;
+</code></pre>
+
+<p>Optionally, if the function returns <code>void</code> the return type may
+be omitted entirely:</p>
+
+<pre><code>[modifiers] fun &lt;name&gt;: &lt;params&gt;
+    &lt;block&gt;
+</code></pre>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//Examples</span>
+
+<span class="c c-Singleline">//Take no parameters and return void</span>
+<span class="k">fun</span> <span class="nf">sayHi:</span>
+    print <span class="s">&quot;hi&quot;</span>
+
+<span class="c c-Singleline">//Take one i32 and return an i32</span>
+<span class="k">fun</span> <span class="nf">inc:</span> <span class="kt">i32</span> x <span class="o">-&gt;</span> <span class="kt">i32</span>
+    x <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c c-Singleline">//Take two strings and return a string</span>
+<span class="k">fun</span> <span class="nf">concat:</span> <span class="kt">Str</span> a<span class="o">,</span> <span class="kt">Str</span> b <span class="o">-&gt;</span> <span class="kt">Str</span>
+    a <span class="o">++</span> b
+
+<span class="c c-Singleline">//Take no parameters and return an i32</span>
+<span class="k">fun</span> <span class="nf">one:</span> <span class="o">-&gt;</span> <span class="kt">i32</span>
+    <span class="mi">1</span>
+
+<span class="k">pub</span> <span class="k">fun</span> <span class="nf">add:</span> <span class="kt">i32</span> a<span class="o">,</span> <span class="kt">i32</span> b <span class="o">-&gt;</span> <span class="kt">i32</span>
+    a <span class="o">+</span> b
+
+<span class="c c-Singleline">//Modifiers and compiler directives can be all on one line</span>
+<span class="cp">!inline</span> <span class="cp">!noignore</span> <span class="k">pri</span> <span class="k">ante</span> <span class="k">fun</span> <span class="nf">five:</span> <span class="o">-&gt;</span> <span class="kt">i32</span>
+    <span class="mi">5</span>
+
+<span class="c c-Singleline">//but the preferred practice is to separate them.</span>
+<span class="c c-Singleline">//Consider a redesign if the modifiers are excessive.</span>
+<span class="cp">!inline</span> <span class="cp">!noignore</span>
+<span class="k">pri</span> <span class="k">ante</span>
+<span class="k">fun</span> <span class="nf">five:</span> <span class="o">-&gt;</span> <span class="kt">i32</span>
+    <span class="mi">5</span>
+</code></pre></div>
+
+<h2 id="parameter-shorthand">Parameter Shorthand</h2>
+
+<p>If multiple parameters of a given type are taken in a row by
+a function definition (or a field of a type definition) the type
+may be omitted for the second parameter along with the comma.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">concat:</span> <span class="kt">Str</span> a b <span class="o">-&gt;</span> <span class="kt">Str</span>
+    a <span class="o">++</span> b
+</code></pre></div>
 
 <h2 id="inferred-return-type">Inferred Return Type</h2>
 
+<p>If the return type of a function is omitted and replaced with an <code>=</code>
+Ante will infer the return type of a function from its body.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">concat:</span> <span class="kt">Str</span> a b <span class="o">=</span>
+    a <span class="o">++</span> b
+</code></pre></div>
+
+<h2 id="lambdas">Lambdas</h2>
+
+<p>A lambda is an anonymous function, a function with no name.
+To create a lambda, simply omit the function&rsquo;s name.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="kt">Str</span> a b <span class="o">=</span>
+    a <span class="o">++</span> b
+</code></pre></div>
+
+<p>Lambdas are often used in conjunction with higher order functions when
+defining a named function to use once would make little sense or when
+a closure is needed.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> l <span class="o">=</span> <span class="kt">List</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c c-Singleline">//To double every element of a list</span>
+map l <span class="p">(</span><span class="k">fun</span> n <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> n<span class="p">)</span>
+
+<span class="c c-Singleline">//_ can be used to create a lambda with 1 argument, the _</span>
+l<span class="o">.</span>map <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">_</span><span class="p">)</span>
+
+<span class="c c-Singleline">//get a list of only &quot;hi&quot; and &quot;hello&quot;</span>
+<span class="p">[</span><span class="s">&quot;hi&quot;</span><span class="o">,</span> <span class="s">&quot;yo&quot;</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="s">&quot;bye&quot;</span><span class="p">]</span>
+<span class="o">|&gt;</span> filter <span class="p">(</span><span class="mi">_</span> <span class="k">in</span> <span class="p">[</span><span class="s">&quot;hi&quot;</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="p">])</span>
+</code></pre></div>
+
 <h2 id="external-function-declarations">External Function Declarations</h2>
 
+<p>Functions external to the linking unit, usually non-Ante functions,
+can be declared with a <code>;</code> after the function header.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">printf:</span> <span class="kt">c8</span><span class="o">*</span> cStr<span class="o">,</span> <span class="o">...</span> <span class="o">-&gt;</span> <span class="kt">i32</span><span class="o">;</span>
+
+printf <span class="s">&quot;My favorite number is %d\n&quot;</span> <span class="mi">11</span>
+</code></pre></div>
+
 <h2 id="operator-overloads">Operator Overloads</h2>
+
+<p>Operators can be overloaded for any given set of types by creating
+a function with the name being the operator surrounded in parenthesis.
+Normal rules for function overloading apply.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">File</span> l r <span class="o">=</span>
+    abspath l <span class="o">==</span> abspath r
+
+
+<span class="c c-Singleline">//Get a list of files in a directory with names between the</span>
+<span class="c c-Singleline">//names of the Files l and r</span>
+<span class="k">fun</span> <span class="p">(</span><span class="o">..</span><span class="p">):</span> <span class="kt">File</span> l r <span class="o">-&gt;</span> <span class="kt">List</span> <span class="kt">File</span>
+    <span class="k">let</span> <span class="p">(</span>dl<span class="o">,</span> dr<span class="p">)</span> <span class="o">=</span> <span class="p">(</span>dir l<span class="o">,</span> dir r<span class="p">)</span>
+    <span class="k">if</span> dl <span class="o">==</span> dr <span class="k">then</span>
+        dl<span class="o">.</span>filter <span class="p">(</span><span class="mi">_</span><span class="o">.</span>name <span class="k">in</span> l<span class="o">.</span>name <span class="o">..</span> r<span class="o">.</span>name<span class="p">)</span>
+    <span class="k">else</span>
+        <span class="p">[]</span>
+
+<span class="c c-Singleline">//given a directory of with the structure:</span>
+<span class="c c-Singleline">// ante.an  javascript.js  haskell.hs  README.md  d-lang.d</span>
+<span class="kt">File</span> <span class="s">&quot;ante.an&quot;</span> <span class="o">..</span> <span class="kt">File</span> <span class="s">&quot;haskell.hs&quot;</span> <span class="o">==</span>
+    <span class="kt">List</span><span class="p">(</span><span class="kt">File</span> <span class="s">&quot;ante.an&quot;</span><span class="o">,</span> <span class="kt">File</span> <span class="s">&quot;haskell.hs&quot;</span><span class="o">,</span> <span class="kt">File</span> <span class="s">&quot;d-lang.d&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 </div>
 

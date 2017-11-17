@@ -6,21 +6,10 @@
     <description>Recent content on Ante</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Nov 2017 16:27:57 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 15 Nov 2017 14:33:28 -0500</lastBuildDate>
     
 	<atom:link href="https://jfecher.github.io/ante/public/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Compiler Docs</title>
-      <link>https://jfecher.github.io/ante/public/compiler-docs/</link>
-      <pubDate>Thu, 16 Nov 2017 16:27:57 -0500</pubDate>
-      
-      <guid>https://jfecher.github.io/ante/public/compiler-docs/</guid>
-      <description>Here are the docs:
-Check this out: Docs
-~ Nothing ~</description>
-    </item>
     
     <item>
       <title>Build System</title>
@@ -123,7 +112,8 @@ while &amp;lt;expr&amp;gt; do &amp;lt;expr&amp;gt;  The first expression is the 
       <pubDate>Wed, 15 Nov 2017 14:07:26 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/functions/</guid>
-      <description> Function Calls UFCS Mangling Function Definitions Parameters Type a b shortcut Inferred Return Type External Function Declarations Operator Overloads </description>
+      <description>Function Calls The syntax for calling a function is f arg1 arg2 ... argn. The arguments are separated by spaces and are each expressions, although the only operator with a higher precedence than a function call is . to access fields. For example, to call the print function with the parameters 2 and &amp;ldquo;three&amp;rdquo;:
+print 2 &amp;quot;three&amp;quot;  UFCS Universal Function Call Syntax is fully supported on every function. That is to say that the call f arg1 arg2 .</description>
     </item>
     
     <item>

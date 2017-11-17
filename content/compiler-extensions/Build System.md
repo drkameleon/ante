@@ -62,7 +62,7 @@ before Compilation (start timer)
 before Linking (
     stop timer
     print "All done compiling!"
-    print "Only took ${t}")
+    print "Only took ${timer}")
 ```
 
 Building a parser with bison:
