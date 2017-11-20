@@ -28,7 +28,8 @@ while &amp;lt;expr&amp;gt; do &amp;lt;expr&amp;gt;  The first expression is the 
       <pubDate>Wed, 15 Nov 2017 14:14:23 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/pattern-matching/</guid>
-      <description> Patterns Type Cast Pattern Inclusive Patterns Range Patterns Clauses Multiple Patterns Branches Return Value Creating New Patterns </description>
+      <description>Pattern matching is a powerful tool that compares a value against a several patterns until it finds one that matches. These patterns can range from simple literal values to a complex assortment and combination of other patterns, most of which are covered below.
+Perhaps most importantly, pattern Matches with are completeness checked, so all possibilities for a given value must be covered. For example, a match against an integer x with a single pattern 0 (the equivalent of if x == 0) is rejected as it does not have a case for when x !</description>
     </item>
     
     <item>

@@ -99,13 +99,13 @@ before <span class="kt">Compilation</span> <span class="p">(</span>start timer<s
 before <span class="kt">Linking</span> <span class="p">(</span>
     stop timer
     print <span class="s">&quot;All done compiling!&quot;</span>
-    print <span class="s">&quot;Only took ${timer}&quot;)</span>
+    print <span class="s">&quot;Only took ${timer}&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Building a parser with bison:</p>
 <div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>before <span class="kt">Compilation</span> <span class="p">(</span>
     sh <span class="s">&quot;bison syntax.y -oparser.c&quot;</span>
-    cc <span class="s">&quot;parser.c -oparser.o&quot;)</span>
+    cc <span class="s">&quot;parser.c -oparser.o&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <hr />

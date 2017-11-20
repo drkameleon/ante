@@ -50,23 +50,191 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
+<p>Pattern matching is a powerful tool that compares a value
+against a several patterns until it finds one that matches.
+These patterns can range from simple literal values to a
+complex assortment and combination of other patterns,
+most of which are covered below.</p>
+
+<p>Perhaps most importantly, pattern Matches with are completeness
+checked, so all possibilities for a given value must be covered.
+For example, a match against an integer x with a single
+pattern <code>0</code> (the equivalent of if x == 0) is rejected
+as it does not have a case for when x != 0.</p>
+
 <h1 id="patterns">Patterns</h1>
+
+<p>Every match expression must match a value against
+a list of patterns that are to be matched in order of
+declaration.  There are several basic types of patterns:
+type cast patterns, operator patterns, destructures, clauses.
+Additionally, each type of pattern can be used within other patterns.</p>
 
 <h2 id="type-cast-pattern">Type Cast Pattern</h2>
 
-<h2 id="inclusive-patterns">Inclusive Patterns</h2>
+<p>Type cast patterns are in the form <code>Type val</code> and are matched
+if val&rsquo;s type is Type.  This is how each possible value of a
+tagged-union types is matched against.  For example, the type
+<code>Maybe 't</code> is one of two values: <code>None</code> or <code>Some 't</code>.  In pattern
+matching syntax, this translates to:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//typeof t = Maybe i32</span>
+<span class="k">let</span> t <span class="o">=</span> <span class="kt">Some</span> <span class="mi">2</span>
 
-<h2 id="range-patterns">Range Patterns</h2>
+<span class="k">match</span> t <span class="k">with</span>
+<span class="o">|</span> <span class="kt">None</span> <span class="o">-&gt;</span> print <span class="s">&quot;none :(&quot;</span>
+<span class="o">|</span> <span class="kt">Some</span> val <span class="o">-&gt;</span> print val
+</code></pre></div>
+
+<h2 id="operator-patterns">Operator Patterns</h2>
+
+<p>An operator pattern is, simply put, a pattern that uses a
+binary or unary operator.  The semantics of which differs
+depending on the operator used.  The <code>+</code> operator for example,
+can be used in a patern (eg. <code>x + 3</code>) to match any value and
+have the binding (<code>x</code> in this case) bound to the value matched
+minus 3, and if the given type overloads the <code>-</code> operator then the
+overload is used.  The other arithmetic operators follow this pattern as well.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">match</span> <span class="mi">3</span> <span class="k">with</span>
+<span class="o">|</span> x <span class="o">+</span> <span class="mi">2</span> <span class="o">-&gt;</span> assert<span class="p">(</span>x <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">match</span> <span class="p">(</span><span class="mi">55</span><span class="o">,</span> <span class="mi">12</span><span class="p">)</span> <span class="k">with</span>
+<span class="o">|</span> <span class="p">(</span>y <span class="o">-</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">15</span><span class="p">)</span> <span class="o">-&gt;</span> assertUnreachable<span class="p">()</span>
+<span class="o">|</span> <span class="p">(</span>z <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">12</span><span class="p">)</span> <span class="o">-&gt;</span> assert <span class="p">(</span>z <span class="o">==</span> <span class="mi">55</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> assertUnreachable<span class="p">()</span>
+
+<span class="c c-Singleline">//Pattern matching cannot be used as an equations solver</span>
+<span class="c c-Singleline">//</span>
+<span class="c c-Singleline">//Error: use of unbound value x in binding expression of x</span>
+<span class="k">match</span> <span class="mi">0</span> <span class="k">with</span>
+<span class="o">|</span> <span class="mi">2</span><span class="o">*</span>x<span class="o">*</span>x <span class="o">+</span> <span class="mi">6</span><span class="o">*</span>x <span class="o">+</span> <span class="mi">4</span> <span class="o">-&gt;</span> assertUnreachable<span class="p">()</span>
+</code></pre></div>
+
+<p>A more useful operator for patterns is the range operator <code>..</code> which can
+be used to test if a value is in a given range.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">match</span> <span class="mi">103</span> <span class="k">with</span>
+<span class="o">|</span> <span class="o">-</span><span class="mi">9</span><span class="o">..</span><span class="mi">9</span> <span class="o">-&gt;</span> <span class="s">&quot;1 digit&quot;</span>
+<span class="o">|</span> <span class="o">-</span><span class="mi">99</span><span class="o">..</span><span class="mi">99</span> <span class="o">-&gt;</span> <span class="s">&quot;2 digits&quot;</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;&gt; 2 digits&quot;</span>
+</code></pre></div>
+
+<p>The append operator can also be used to check if a value has a
+given prefix or suffix:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">match</span> <span class="s">&quot;my string&quot;</span> <span class="k">with</span>
+<span class="o">|</span> <span class="s">&quot;my &quot;</span> <span class="o">++</span> item <span class="o">-&gt;</span> <span class="s">&quot;I have a &quot;</span> <span class="o">++</span> item
+<span class="o">|</span> <span class="s">&quot;your &quot;</span> <span class="o">++</span> item <span class="o">-&gt;</span> <span class="s">&quot;You have a &quot;</span> <span class="o">++</span> item
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;Someone has something.  Probably.&quot;</span>
+</code></pre></div>
 
 <h2 id="clauses">Clauses</h2>
 
+<p>Adding a clause in a pattern causes the pattern to only be
+matched when the clause is true.  Clauses use the <code>where</code>
+keyword and are always boolean expressions.  A clause also
+has access to the bindings from the pattern it acts upon.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">match</span> <span class="mi">5</span> <span class="k">with</span>
+<span class="o">|</span> small <span class="k">where</span> small <span class="o">&lt;</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="s">&quot;small!&quot;</span>
+<span class="o">|</span> big   <span class="k">where</span> big  <span class="o">&gt;</span> <span class="mi">10</span> <span class="o">-&gt;</span> <span class="s">&quot;big!&quot;</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;moderate.&quot;</span>
+
+
+<span class="k">match</span> <span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">&quot;four&quot;</span><span class="p">)</span> <span class="k">with</span>
+<span class="o">|</span> <span class="p">(</span>x<span class="o">,</span> <span class="s">&quot;four&quot;</span><span class="p">)</span> <span class="k">where</span> x <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="p">(</span><span class="mi">3</span><span class="o">,</span> s<span class="p">)</span> <span class="k">where</span> len s <span class="o">&gt;</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="o">...</span>
+</code></pre></div>
+
+<p>Much of the time a clause can be replaced with an inline
+boolean expression.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">match</span> <span class="mi">5</span> <span class="k">with</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="s">&quot;small!&quot;</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="o">-&gt;</span> <span class="s">&quot;big!&quot;</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;moderate.&quot;</span>
+
+
+<span class="k">match</span> <span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">&quot;four&quot;</span><span class="p">)</span> <span class="k">with</span>
+<span class="o">|</span> <span class="p">(</span>x <span class="o">&gt;</span> <span class="mi">5</span><span class="o">,</span> <span class="s">&quot;four&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="p">(</span><span class="mi">3</span><span class="o">,</span> len s <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="o">...</span>
+</code></pre></div>
+
+<p>In match expressions any unbound identifier is bound to a value
+based on its position in the pattern.  For example, <code>s</code> above refers
+to the second index of the tuple type <code>(i32, Str)</code>, and thus is a
+<code>Str</code> type.  <code>len</code> is already bound to a function, so it is not
+rebound.  The explicit <code>where</code> clause can help prevent the ambiguity
+that arises if it is unclear if <code>len</code> or <code>s</code> are already bound.</p>
+
 <h2 id="multiple-patterns">Multiple Patterns</h2>
 
-<h1 id="branches">Branches</h1>
+<p><code>|</code> can be placed between two patterns so that its
+branch is matched if either of those patterns are true.
+It is essentially the <code>or</code> operator for patterns.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">fib:</span> <span class="kt">u32</span> n <span class="o">=</span>
+    <span class="k">match</span> n <span class="k">with</span>
+    <span class="o">|</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+    <span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> fib <span class="p">(</span>n<span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> fib <span class="p">(</span>n<span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
 
-<h2 id="return-value">Return Value</h2>
+<h1 id="return-value">Return Value</h1>
+
+<p>A match expression shares much of the same semantics of an
+if expression in that the types of its branches must match
+and the value returned is the value of the matched branch.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>assert <span class="p">(</span><span class="mi">3</span> <span class="o">==</span> <span class="k">match</span> <span class="s">&quot;hi&quot;</span> <span class="k">with</span>
+     <span class="o">|</span> <span class="s">&quot;yo&quot;</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+     <span class="o">|</span> <span class="s">&quot;hi&quot;</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+     <span class="o">|</span> <span class="mi">_</span>    <span class="o">-&gt;</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
 
 <h1 id="creating-new-patterns">Creating New Patterns</h1>
+
+<p>All functions that take a single parameter and return either
+a boolean or a <code>Maybe 't</code> can be used in a pattern expression.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">positive:</span> <span class="kt">i32</span> x <span class="o">=</span>
+    x <span class="o">&gt;</span> <span class="mi">0</span>
+
+<span class="k">match</span> <span class="mi">4</span> <span class="k">with</span>
+<span class="o">|</span> positive x <span class="o">-&gt;</span>
+    <span class="c c-Singleline">//the value bound of a boolean-returning function</span>
+    <span class="c c-Singleline">//is just the value being matched</span>
+    assert <span class="p">(</span>x<span class="o">==</span><span class="mi">4</span><span class="p">)</span>
+    <span class="s">&quot;4 is positive!&quot;</span>
+
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;4 is not positive.&quot;</span>
+</code></pre></div>
+
+<p>As seen above, in the case of a boolean-returning function, the
+matched value is bound to the identifier following the function
+name.  If some other value should be bound instead, a function
+returning a <code>Maybe</code> type can be used instead.  If the function
+returns <code>Some val</code> then the pattern will be matched and the identifier
+will be bound to <code>val</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">positive:</span> <span class="kt">i32</span> x <span class="o">=</span>
+    <span class="k">if</span> x <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="kt">Some</span> <span class="s">&quot;${x} is positive!&quot;</span>
+    <span class="k">else</span> <span class="kt">None</span>
+
+<span class="k">match</span> <span class="mi">4</span> <span class="k">with</span>
+<span class="o">|</span> positive msg <span class="o">-&gt;</span>
+    assert <span class="p">(</span>msg <span class="o">==</span> <span class="s">&quot;4 is positive!&quot;</span><span class="p">)</span>
+    print msg
+
+<span class="c c-Singleline">//If this pattern is matched, then positive returned None</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;4 is not positive.&quot;</span>
+</code></pre></div>
+
+<p>If the function requires multiple arguments, the other arguments
+can be specified as constants.  This is also how the binary logical operators
+function within patterns:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">approxEq:</span> <span class="kt">f64</span> a b <span class="o">=</span>
+    abs <span class="p">(</span>a <span class="o">-</span> b<span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.0001</span>
+
+
+<span class="k">match</span> <span class="mf">56.0</span> <span class="k">with</span>
+<span class="o">|</span> approxEq x <span class="mf">34.2</span> <span class="o">-&gt;</span> <span class="s">&quot;x = 34.2&quot;</span>
+<span class="o">|</span> approxEq x <span class="mf">56.0</span> <span class="o">-&gt;</span> <span class="s">&quot;x = 34.2&quot;</span>
+<span class="o">|</span> x <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="s">&quot;x &lt; 2&quot;</span>
+<span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;x = ?&quot;</span>
+</code></pre></div>
 
 </div>
 
