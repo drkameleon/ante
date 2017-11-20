@@ -50,9 +50,93 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
+<p>As the &ldquo;compile-time&rdquo; language Ante naturally needs a mechanism for
+interacting with the compiler and other compile-time constructs.
+Of course, you can use the <code>ante</code> modifier or any of the builtin
+compile-time functions in the <code>Ante</code> module but to properly leverage
+the full power of Ante it is necessary to learn about compiler directives.</p>
+
+<p>In Ante, compiler directives are essentially user-defined modifiers.  Just
+like modifiers, compiler-directives can be used to modify variable declarations,
+function declarations, or even arbitrary expressions.  The semantics of this
+modification of course depends on the the modifier itself.</p>
+
+<p>A compiler directive is in the form <code>![name arg1 arg2 ... argn]</code>.
+As you have probably noticed from this, compiler directives, like functions,
+can take arguments.  Like <code>ante</code> functions, these arguments must all
+be compile-time constants.  There also exists a shorthand for compiler
+directives that take no arguments, <code>!name</code>.</p>
+
+<p>You may be thinking they sound very similar to functions, and you are right.
+If we really wanted to, we could define a
+compiler directive that adds two numbers during compile-time:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="o">!</span><span class="p">[</span>add <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>  <span class="c c-Singleline">//=&gt; 3</span>
+</code></pre></div>
+
+<p>Although such a function would be better performed by an <code>ante</code> function.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> add <span class="o">=</span> <span class="k">ante</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span>
+
+add <span class="mi">1</span> <span class="mi">2</span>  <span class="c c-Singleline">//=&gt; 3</span>
+</code></pre></div>
+
+<p>Generally, ante functions should be preferred when possible.  The main
+advantage compiler directives have over ante functions is their ability
+to precede function/variable/type declarations as modifiers.</p>
+
 <h1 id="as-modifiers">As Modifiers</h1>
 
+<p>Modifiers can appear before and modify any declaration (function, variable, or type),
+any type, or any arbitrary expression.  Naturally, because compiler directives
+are modifiers, they can also be used in these places as well.</p>
+
+<p>The most common location for compiler directives is before declarations:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!inline</span>
+<span class="k">fun</span> <span class="nf">id:</span> x <span class="o">=</span> x
+
+<span class="cp">!packed</span>
+<span class="k">type</span> <span class="kt">T</span> <span class="o">=</span> <span class="kt">bool</span> a b<span class="o">,</span> <span class="kt">i32</span> i
+
+<span class="cp">!pure</span>
+<span class="cp">![prereq</span> <span class="cp">(x</span> <span class="cp">&gt;</span> <span class="mi">0</span><span class="cp">)]</span>
+<span class="k">fun</span> <span class="nf">fact:</span> <span class="kt">Int</span> x <span class="o">=</span>
+    <span class="k">if</span> x <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span> <span class="mi">1</span>
+    <span class="k">else</span> x <span class="o">*</span> fact <span class="p">(</span>x<span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>They can also appear before types and arbitrary expressions however:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">reverse:</span> <span class="cp">!gc</span> <span class="kt">List</span> l <span class="o">=</span>
+    foldl cons empty l
+
+
+<span class="c c-Singleline">//Like ante functions, compiler directives can modify parse trees:</span>
+<span class="cp">!class</span> <span class="cp">!nametypedecl</span>
+<span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span>
+    <span class="nf">id:</span> <span class="cp">!unique</span> <span class="kt">Nat</span>
+    <span class="nf">tasks:</span> <span class="cp">!gc</span> <span class="kt">List</span> <span class="kt">Str</span>
+
+    <span class="k">fun</span> <span class="nf">doWork:</span> self
+        <span class="k">match</span> self<span class="o">.</span>tasks <span class="k">with</span>
+        <span class="o">|</span> <span class="nf">t:</span><span class="p">:</span>ts <span class="o">-&gt;</span> print <span class="s">&quot;Doing ${pop tasks}&quot;</span>
+        <span class="o">|</span> <span class="p">[]</span> <span class="o">-&gt;</span> print <span class="s">&quot;Nothing to do.&quot;</span>
+
+    <span class="k">fun</span> <span class="nf">get_name:</span> self <span class="o">=</span>
+        <span class="s">&quot;Bob. Probably.&quot;</span>
+
+
+<span class="k">let</span> ntc <span class="o">=</span> <span class="cp">![reinterpret_as</span> <span class="kt">Arr</span> <span class="kt">u8</span><span class="cp">]</span> <span class="kt">Person</span><span class="p">(</span><span class="k">new</span> <span class="mi">3</span><span class="o">,</span> <span class="p">[</span><span class="s">&quot;Work&quot;</span><span class="p">])</span>
+
+<span class="c c-Singleline">//In most cases, compiler directives on arbitrary expressions</span>
+<span class="c c-Singleline">//could be better represented with a function.</span>
+<span class="k">let</span> ntc <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="k">new</span> <span class="mi">3</span><span class="o">,</span> <span class="p">[</span><span class="s">&quot;Work&quot;</span><span class="p">])</span><span class="o">.</span>reinterpret_as <span class="kt">Arr</span> <span class="kt">u8</span>
+</code></pre></div>
+
 <h1 id="creating-new-compiler-directives">Creating New Compiler Directives</h1>
+
+<p>To be written.</p>
+
+<h1 id="builtin-compiler-directives">Builtin Compiler Directives</h1>
+
+<p>To be written.</p>
 
 </div>
 

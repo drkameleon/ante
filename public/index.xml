@@ -86,7 +86,8 @@ Perhaps most importantly, pattern Matches with are completeness checked, so all 
       <pubDate>Wed, 15 Nov 2017 14:11:01 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/compiler-directives/</guid>
-      <description> As Modifiers Creating New Compiler Directives </description>
+      <description>As the &amp;ldquo;compile-time&amp;rdquo; language Ante naturally needs a mechanism for interacting with the compiler and other compile-time constructs. Of course, you can use the ante modifier or any of the builtin compile-time functions in the Ante module but to properly leverage the full power of Ante it is necessary to learn about compiler directives.
+In Ante, compiler directives are essentially user-defined modifiers. Just like modifiers, compiler-directives can be used to modify variable declarations, function declarations, or even arbitrary expressions.</description>
     </item>
     
     <item>
@@ -95,7 +96,9 @@ Perhaps most importantly, pattern Matches with are completeness checked, so all 
       <pubDate>Wed, 15 Nov 2017 14:10:13 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/modifiers/</guid>
-      <description>pub, pri, pro, const raw noinit global ante</description>
+      <description>pub, pri, pro, const raw noinit global ante
+Modifiers can appear before and modify any declaration (function, variable, or type), any type, or any arbitrary expression.
+For example, the ante modifier used before a function marks the function&amp;rsquo;s parameters and its output as compile-time constants and the function itself to be executed during compile-time. Before a type declaration, it signifies the value of the type should always be known during compile-time.</description>
     </item>
     
     <item>

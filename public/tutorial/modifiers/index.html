@@ -55,6 +55,32 @@ noinit
 global
 ante</p>
 
+<p>Modifiers can appear before and modify any declaration (function, variable, or type),
+any type, or any arbitrary expression.</p>
+
+<p>For example, the <code>ante</code> modifier used before a function marks the function&rsquo;s parameters
+and its output as compile-time constants and the function itself to be executed during
+compile-time.  Before a type declaration, it signifies the value of the type should
+always be known during compile-time.  Before a variable it signifies the variable should
+be known during compile-time, and before an expression it will evaluate the expression
+during compile-time.  Consider the type of an integer literal in Ante:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">type</span> <span class="kt">IntLit</span> <span class="o">=</span> <span class="kt">Int</span>
+</code></pre></div>
+
+<p>Note that because modifiers can also apply to types directly the above is equivalent to:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">IntLit</span> <span class="o">=</span> <span class="k">ante</span> <span class="kt">Int</span>
+</code></pre></div>
+
+<p>That is, an integer literal is an arbitrarily sized integer that is always known during
+compile time.  This enables the compiler to perform implicit conversions on integers
+safely without any runtime confusion or slowdowns.  For example, in time-sensitive code,
+a function may take in an <code>i32</code> and Ante will convert the <code>IntLit</code> to an <code>i32</code> provided
+it is small enough without ever needing to store the arbitrarily sized integer during runtime.
+For the reverse, if an arbitrarily sized integer is needed, it will be converted into an
+<code>Int</code> and simply lose its <code>ante</code> modifier.  Implicit conversions are a strong tool that
+can easily lead to hard to find mistakes if its semantics aren&rsquo;t clear.  For this reason,
+implicit conversions are defined manually for a given type.</p>
+
 </div>
 
 
