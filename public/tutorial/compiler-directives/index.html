@@ -70,7 +70,7 @@ directives that take no arguments, <code>!name</code>.</p>
 <p>You may be thinking they sound very similar to functions, and you are right.
 If we really wanted to, we could define a
 compiler directive that adds two numbers during compile-time:</p>
-<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="o">!</span><span class="p">[</span>add <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>  <span class="c c-Singleline">//=&gt; 3</span>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">![add</span> <span class="mi">1</span> <span class="mi">2</span><span class="cp">]</span>  <span class="c c-Singleline">//=&gt; 3</span>
 </code></pre></div>
 
 <p>Although such a function would be better performed by an <code>ante</code> function.</p>
@@ -116,7 +116,7 @@ are modifiers, they can also be used in these places as well.</p>
 
     <span class="k">fun</span> <span class="nf">doWork:</span> self
         <span class="k">match</span> self<span class="o">.</span>tasks <span class="k">with</span>
-        <span class="o">|</span> <span class="nf">t:</span><span class="p">:</span>ts <span class="o">-&gt;</span> print <span class="s">&quot;Doing ${pop tasks}&quot;</span>
+        <span class="o">|</span> <span class="nf">t:</span><span class="p">:</span>ts <span class="o">-&gt;</span> print <span class="s">&quot;Doing ${pop self.tasks}&quot;</span>
         <span class="o">|</span> <span class="p">[]</span> <span class="o">-&gt;</span> print <span class="s">&quot;Nothing to do.&quot;</span>
 
     <span class="k">fun</span> <span class="nf">get_name:</span> self <span class="o">=</span>
@@ -132,7 +132,60 @@ are modifiers, they can also be used in these places as well.</p>
 
 <h1 id="creating-new-compiler-directives">Creating New Compiler Directives</h1>
 
-<p>To be written.</p>
+<p>To create your own compiler directive, tag a function
+with <code>!compiler_directive</code>.  As with functions, the parameters of
+a compiler directive determine what it can be used with.  If
+the newly created compiler directive should be used with function
+declarations its first parameter should be a <code>FuncDecl</code>, likewise if it
+is to be used with a type declaration or a variable declaration
+its first parameter should be a <code>TypeDecl</code> or <code>VarDecl</code> respectively.
+If it can operate on any declaration, it should take a <code>Decl</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">test:</span> <span class="kt">FuncDecl</span> fd<span class="o">,</span> <span class="kt">Args</span> a<span class="o">,</span> <span class="kt">&#39;t</span> val
+    <span class="k">if</span> fd a <span class="o">!=</span> val <span class="k">then</span>
+        <span class="kt">Ante</span><span class="o">.</span>error <span class="s">&quot;${fd.name} ${a} != ${val}&quot;</span>
+
+
+<span class="cp">![test</span> <span class="mi">1</span> <span class="mi">1</span><span class="cp">]</span>
+<span class="cp">![test</span> <span class="mi">5</span> <span class="mi">120</span><span class="cp">]</span>
+<span class="k">fun</span> <span class="nf">fact:</span> <span class="kt">i32</span> x <span class="o">=</span>
+    <span class="k">if</span> x <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span> <span class="mi">1</span>
+    <span class="k">else</span> x <span class="o">*</span> fact <span class="p">(</span>x<span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The following example implements the function typeof on
+any type that includes <code>!typeid</code> in its definition.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//map types to their type ids</span>
+<span class="k">var</span> type_tbl <span class="o">=</span> <span class="kt">Vec</span> <span class="kt">Type</span>
+
+<span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">typeid:</span> <span class="k">mut</span> <span class="kt">TypeDecl</span> td
+    <span class="c c-Singleline">//inject a hidden field with a default value of len type_tbl</span>
+    td<span class="o">.</span>inject_hidden <span class="s">&quot;u64 type_id&quot;</span> <span class="nf">default:</span><span class="p">(</span>len type_tbl<span class="p">)</span>
+    type_tbl<span class="o">.</span>push td
+
+    td<span class="o">.</span>define <span class="s">&quot;typeof&quot;</span> <span class="p">(</span><span class="k">fun</span> self <span class="o">=</span>
+        type_tbl<span class="o">#</span>td<span class="o">.</span>get_hidden <span class="s">&quot;type_id&quot;</span><span class="p">)</span>
+
+
+<span class="cp">!typeid</span> <span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name job<span class="o">,</span> <span class="kt">u8</span> age
+
+<span class="cp">!typeid</span> <span class="k">type</span> <span class="kt">Animal</span> <span class="o">=</span> <span class="kt">Str</span> name species<span class="o">,</span> <span class="kt">u8</span> age
+
+
+<span class="k">let</span> p <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="o">,</span> <span class="s">&quot;Programmer&quot;</span><span class="o">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="k">let</span> a <span class="o">=</span> <span class="kt">Animal</span><span class="p">(</span><span class="s">&quot;Spot&quot;</span><span class="o">,</span> <span class="s">&quot;Dog&quot;</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>
+do_thing p
+do_thing a
+
+<span class="k">fun</span> <span class="nf">do_thing:</span> <span class="kt">&#39;t</span> val
+    <span class="k">if</span> typeof val <span class="o">==</span> <span class="kt">Person</span> <span class="k">then</span>
+        print <span class="s">&quot;${val.name}, get back to being a ${val.job}&quot;</span>
+    <span class="k">elif</span> typeof val <span class="o">==</span> <span class="kt">Animal</span> <span class="k">and</span> val<span class="o">.</span>species <span class="o">==</span> <span class="s">&quot;Dog&quot;</span> <span class="k">then</span>
+        print <span class="s">&quot;Who&#39;s a good boy? ${val.name} is!&quot;</span>
+    <span class="k">else</span>
+        print <span class="s">&quot;I don&#39;t know what you are, but do your thing!&quot;</span>
+</code></pre></div>
 
 <h1 id="builtin-compiler-directives">Builtin Compiler Directives</h1>
 

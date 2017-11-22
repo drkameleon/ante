@@ -77,7 +77,7 @@ type Person =
 
     fun doWork: self
         match self.tasks with
-        | t::ts -> print "Doing ${pop tasks}"
+        | t::ts -> print "Doing ${pop self.tasks}"
         | [] -> print "Nothing to do."
 
     fun get_name: self =
@@ -93,7 +93,64 @@ let ntc = Person(new 3, ["Work"]).reinterpret_as Arr u8
 
 # Creating New Compiler Directives
 
-To be written.
+To create your own compiler directive, tag a function
+with `!compiler_directive`.  As with functions, the parameters of
+a compiler directive determine what it can be used with.  If
+the newly created compiler directive should be used with function
+declarations its first parameter should be a `FuncDecl`, likewise if it
+is to be used with a type declaration or a variable declaration
+its first parameter should be a `TypeDecl` or `VarDecl` respectively.
+If it can operate on any declaration, it should take a `Decl`.
+
+```ante
+!compiler_directive
+fun test: FuncDecl fd, Args a, 't val
+    if fd a != val then
+        Ante.error "${fd.name} ${a} != ${val}"
+
+
+![test 1 1]
+![test 5 120]
+fun fact: i32 x =
+    if x == 1 then 1
+    else x * fact (x-1)
+```
+
+The following example implements the function typeof on
+any type that includes `!typeid` in its definition.
+
+```ante
+//map types to their type ids
+var type_tbl = Vec Type
+
+!compiler_directive
+fun typeid: mut TypeDecl td
+    //inject a hidden field with a default value of len type_tbl
+    td.inject_hidden "u64 type_id" default:(len type_tbl)
+    type_tbl.push td
+
+    td.define "typeof" (fun self =
+        type_tbl#td.get_hidden "type_id")
+
+
+!typeid type Person = Str name job, u8 age
+
+!typeid type Animal = Str name species, u8 age
+
+
+let p = Person("John", "Programmer", 32)
+let a = Animal("Spot", "Dog", 3)
+do_thing p
+do_thing a
+
+fun do_thing: 't val
+    if typeof val == Person then
+        print "${val.name}, get back to being a ${val.job}"
+    elif typeof val == Animal and val.species == "Dog" then
+        print "Who's a good boy? ${val.name} is!"
+    else
+        print "I don't know what you are, but do your thing!"
+```
 
 # Builtin Compiler Directives
 
