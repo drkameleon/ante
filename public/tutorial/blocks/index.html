@@ -50,11 +50,118 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="block-keyword">Block Keyword</h1>
+<p>Like Ante is an indentation sensitive language.  That is,
+the beginning and end of blocks are marked by an increase in
+indentation and a decrease in indentation respectively.  The
+indentation before a line of non-comment code is called
+significant whitespace.  Ante&rsquo;s policy on significant whitespace is
+to keep it as intuitive as possible by preventing inconsistensies that
+would otherwise hamper code readability.  For example, indentations of
+a single space in size are considered to be a mistake and will trigger
+an appropriate error message.  Additionally, significant whitespace is
+comprised solely of spaces, tabs are prohibited to keep indentation
+consistent and to prevent the intermingling of tabs and spaces while
+keeping the ability to vertically align blocks to other code components.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//error, random indents are prohibited</span>
+<span class="k">let</span> t <span class="o">=</span> <span class="mi">32</span>
+    <span class="k">let</span> x <span class="o">=</span> <span class="mi">5</span>
 
-<h1 id="indentation-ignored-within-and">Indentation Ignored within (), [], and {}</h1>
+<span class="c c-Singleline">//error, indents must be at least two spaces in size</span>
+<span class="k">if</span> <span class="l l-Boolean">true</span> <span class="k">then</span>
+ print <span class="s">&quot;hello&quot;</span>
+</code></pre></div>
 
-<h2 id="and-can-replace-indents">{ and } can replace indents</h2>
+<h2 id="block-keyword">Block Keyword</h2>
+
+<p>Ante does not allow for stray indents in unexpected areas.  In fact,
+indents are usually only allowed following a function header, any of
+the if expression or loop expression keywords, or any binary operator
+(most notably <code>=</code> and <code>-&gt;</code>).  In the cases where a new block in the
+middle of a statement list is desired, the <code>block</code> keyword
+can be used to introduce a new scope.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> x <span class="o">=</span> <span class="mi">42</span>
+<span class="k">block</span>
+    <span class="k">let</span> x <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">let</span> y <span class="o">=</span> <span class="mi">5</span>
+
+print x  <span class="c c-Singleline">//=&gt; prints 42</span>
+print y  <span class="c c-Singleline">//=&gt; error, y is not in scope</span>
+</code></pre></div>
+
+<h2 id="line-continuation">Line Continuation</h2>
+
+<p>If a line is too long, it can be split into two with a <code>\</code> preceeding
+the newline.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>some_very_long_function_name other_similarly_long_argument_name_1 <span class="err">\</span>
+                             other_similarly_long_argument_name_2 <span class="err">\</span>
+                             other_similarly_long_argument_name_3
+</code></pre></div>
+
+<p>The spaces preceeding <code>other_similarly_long_argument_name</code> 2 and 3 are
+not considered to be the start of a line and thus are not significant whitespace.</p>
+
+<h2 id="indentation-ignored-within-and">Indentation Ignored within (), [], and {}</h2>
+
+<p>Changes to indentation are ignored while between an opening
+parenthesis, bracket, or brace.  This is particularly useful
+in long initialization expressions.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> matrix <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+              <span class="p">[</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+              <span class="p">[</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">,</span>
+              <span class="p">[</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="k">let</span> map <span class="o">=</span> <span class="p">[</span><span class="s">&quot;one&quot;</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="o">,</span>
+           <span class="s">&quot;two&quot;</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="o">,</span>
+           <span class="s">&quot;three&quot;</span> <span class="o">-&gt;</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+
+<h3 id="braces-can-replace-indents">Braces can replace indents</h3>
+
+<p>If explicit indentation is preferred, <code>{</code> and <code>}</code> can be used for this
+purpose similarly to their counterparts in c-like languages.  Within
+blocks delimited by <code>{</code> and <code>}</code> all indentation is ignored (and consequently
+any contained sub-blocks must also use <code>{</code> and <code>}</code>).  Most of the time,
+changes in scope are better and more tersely expressed through indentation.
+For this reason, it is not idiomatic to use braces for indentation unless they
+are needed in rare cases such as posting source code to a website that may
+strip spaces or inputting a one-liner in the terminal.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">fact:</span> <span class="kt">u32</span> x <span class="o">-&gt;</span> <span class="kt">u32</span> <span class="p">{</span>
+    <span class="k">if</span> x <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span><span class="p">{</span>
+        <span class="mi">1</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        x <span class="o">*</span> fact <span class="p">(</span>x<span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> s <span class="o">=</span> <span class="k">match</span> fact <span class="mi">5</span> <span class="k">with</span>
+<span class="o">|</span> <span class="mi">120</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="s">&quot;fact 5 = 120&quot;</span> <span class="p">}</span>
+<span class="o">|</span> n <span class="o">-&gt;</span> <span class="p">{</span> <span class="s">&quot;fact 5 should not equal ${n}&quot;</span> <span class="p">}</span>
+
+<span class="k">type</span> <span class="kt">Shape</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="o">|</span> <span class="kt">Circle</span> <span class="kt">f64</span>
+   <span class="o">|</span> <span class="kt">Square</span> <span class="kt">f64</span>
+   <span class="o">|</span> <span class="kt">Rectangle</span> <span class="kt">f64</span><span class="o">,</span><span class="kt">f64</span>
+   <span class="o">|</span> <span class="kt">Triangle</span> <span class="kt">f64</span><span class="o">,</span><span class="kt">f64</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">area:</span> <span class="kt">Shape</span> s <span class="o">=</span> <span class="p">{</span>
+    <span class="k">match</span> s <span class="k">with</span>
+    <span class="o">|</span> <span class="kt">Circle</span> r <span class="o">-&gt;</span> <span class="kt">Math</span><span class="o">.</span>pi <span class="o">*</span> r<span class="o">^</span><span class="mi">2</span>
+    <span class="o">|</span> <span class="kt">Square</span> l <span class="o">-&gt;</span> l<span class="o">^</span><span class="mi">2</span>
+    <span class="o">|</span> <span class="kt">Rectangle</span> <span class="p">(</span>w<span class="o">,</span>h<span class="p">)</span> <span class="o">-&gt;</span> w <span class="o">*</span> h
+    <span class="o">|</span> <span class="kt">Triangle</span> <span class="p">(</span>b<span class="o">,</span>h<span class="p">)</span> <span class="o">-&gt;</span> <span class="mf">0.5</span> <span class="o">*</span> b <span class="o">*</span> h
+<span class="p">}</span>
+
+<span class="c c-Singleline">//invalid</span>
+<span class="c c-Singleline">//{</span>
+<span class="c c-Singleline">//    let x = 3</span>
+<span class="c c-Singleline">//}</span>
+
+<span class="c c-Singleline">//The block keyword is still required for mid-block changes in scope</span>
+<span class="k">block</span> <span class="p">{</span>
+    <span class="k">let</span> x <span class="o">=</span> <span class="mi">3</span>
+<span class="p">}</span>
+</code></pre></div>
 
 </div>
 

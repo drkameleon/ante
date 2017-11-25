@@ -83,6 +83,8 @@ add <span class="mi">1</span> <span class="mi">2</span>  <span class="c c-Single
 advantage compiler directives have over ante functions is their ability
 to precede function/variable/type declarations as modifiers.</p>
 
+<hr />
+
 <h1 id="as-modifiers">As Modifiers</h1>
 
 <p>Modifiers can appear before and modify any declaration (function, variable, or type),
@@ -130,6 +132,8 @@ are modifiers, they can also be used in these places as well.</p>
 <span class="k">let</span> ntc <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="k">new</span> <span class="mi">3</span><span class="o">,</span> <span class="p">[</span><span class="s">&quot;Work&quot;</span><span class="p">])</span><span class="o">.</span>reinterpret_as <span class="kt">Arr</span> <span class="kt">u8</span>
 </code></pre></div>
 
+<hr />
+
 <h1 id="creating-new-compiler-directives">Creating New Compiler Directives</h1>
 
 <p>To create your own compiler directive, tag a function
@@ -175,21 +179,81 @@ any type that includes <code>!typeid</code> in its definition.</p>
 
 <span class="k">let</span> p <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="o">,</span> <span class="s">&quot;Programmer&quot;</span><span class="o">,</span> <span class="mi">32</span><span class="p">)</span>
 <span class="k">let</span> a <span class="o">=</span> <span class="kt">Animal</span><span class="p">(</span><span class="s">&quot;Spot&quot;</span><span class="o">,</span> <span class="s">&quot;Dog&quot;</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>
-do_thing p
-do_thing a
+do_thing p  <span class="c c-Singleline">//=&gt; &quot;Do whatever it is Programmers do!&quot;</span>
+do_thing a  <span class="c c-Singleline">//=&gt; &quot;Go fetch!&quot;</span>
 
-<span class="k">fun</span> <span class="nf">do_thing:</span> <span class="kt">&#39;t</span> val
-    <span class="k">if</span> typeof val <span class="o">==</span> <span class="kt">Person</span> <span class="k">then</span>
-        print <span class="s">&quot;${val.name}, get back to being a ${val.job}&quot;</span>
-    <span class="k">elif</span> typeof val <span class="o">==</span> <span class="kt">Animal</span> <span class="k">and</span> val<span class="o">.</span>species <span class="o">==</span> <span class="s">&quot;Dog&quot;</span> <span class="k">then</span>
-        print <span class="s">&quot;Who&#39;s a good boy? ${val.name} is!&quot;</span>
-    <span class="k">else</span>
-        print <span class="s">&quot;I don&#39;t know what you are, but do your thing!&quot;</span>
+<span class="k">fun</span> <span class="nf">get_task_for:</span> <span class="kt">&#39;t</span> val
+    <span class="k">match</span> typeof val <span class="k">with</span>
+    <span class="o">|</span> <span class="kt">Person</span> <span class="o">-&gt;</span> <span class="s">&quot;Do whatever it is ${val.job}s do&quot;</span>
+    <span class="o">|</span> <span class="kt">Animal</span> <span class="k">where</span> val<span class="o">.</span>species <span class="o">==</span> <span class="s">&quot;Dog&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Go fetch!&quot;</span>
+    <span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;Wait, oh unknown value&quot;</span>
 </code></pre></div>
+
+<hr />
 
 <h1 id="builtin-compiler-directives">Builtin Compiler Directives</h1>
 
-<p>To be written.</p>
+<hr />
+
+<h2 id="inline">inline</h2>
+
+<p>Inlines a function at its callsite whenever possible.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!inline</span>
+<span class="k">fun</span> <span class="nf">add:</span> <span class="kt">i32</span> a b <span class="o">=</span> a <span class="o">+</span> b
+
+<span class="cp">!inline</span>
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">Str</span> s
+    puts s<span class="o">.</span>cStr
+</code></pre></div>
+
+<hr />
+
+<h2 id="compiler-directive">compiler_directive</h2>
+
+<p>Creates a new compiler directive with fd as its implementation.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">debug:</span> <span class="kt">&#39;t</span> v <span class="o">=</span> print v
+
+<span class="cp">!debug</span>
+<span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">test:</span> <span class="kt">FuncDecl</span> fd<span class="o">,</span> <span class="kt">Args</span> a
+    print <span class="s">&quot;test &lt;| ${fd} ${a} = &quot;</span> <span class="p">(</span>fd a<span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="noinit">noinit</h2>
+
+<p>Declares a variable without an initialization.  Variables declared
+with noinit will issue an error if they are used in an expression when
+the compiler cannot guarentee that they have been initialized.  Noinit
+vars are usually used paired with c functions that expect to initialize
+the values themselves.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Mpz</span> <span class="o">=</span> <span class="kt">void</span><span class="o">*</span>
+<span class="k">fun</span> <span class="nf">mpz_init:</span> <span class="k">mut</span> <span class="kt">Mpz</span> out<span class="o">;</span>
+
+<span class="k">fun</span> <span class="kt">Mpz</span><span class="o">.</span><span class="nf">init:</span> <span class="o">-&gt;</span> <span class="kt">Mpz</span>
+    <span class="cp">!noinit</span> <span class="k">var</span> <span class="kt">Mpz</span> t
+    mpz_init t
+    t
+</code></pre></div>
+
+<hr />
+
+<h2 id="raw">raw</h2>
+
+<p>Explicitly declares an unmanaged pointer.  If the <code>GC</code> or <code>Ownership</code>
+modules are imported this variable or type will remain manually
+managed.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">alloc_int:</span> <span class="kt">Int</span> i <span class="o">-&gt;</span> <span class="cp">!raw</span> <span class="kt">Int</span><span class="o">*</span>
+    <span class="k">new</span> i
+
+<span class="k">let</span> <span class="cp">!raw</span> mem <span class="o">=</span> malloc <span class="mi">8</span>
+<span class="k">let</span> int <span class="o">=</span> alloc_int <span class="mi">10</span>
+
+free mem
+free int
+</code></pre></div>
 
 </div>
 

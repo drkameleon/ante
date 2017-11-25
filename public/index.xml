@@ -50,7 +50,8 @@ Perhaps most importantly, pattern Matches with are completeness checked, so all 
       <pubDate>Wed, 15 Nov 2017 14:14:02 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/if/</guid>
-      <description> Expressions Elif Chains Return Value </description>
+      <description>In Ante if is an expression that can conditionally do one thing if its condition is true and otherwise do something else if its condition is false. For example, if you wanted to print &amp;ldquo;good afternoon&amp;rdquo; only if the time on the clock is after 12:00 then you could write:
+if Time.is_after &amp;quot;12:00&amp;quot; then print &amp;quot;good afternoon&amp;quot;  An else branch can also be added to do something if the given condition was false.</description>
     </item>
     
     <item>
@@ -59,7 +60,7 @@ Perhaps most importantly, pattern Matches with are completeness checked, so all 
       <pubDate>Wed, 15 Nov 2017 14:12:44 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/blocks/</guid>
-      <description> Block Keyword Indentation Ignored within (), [], and {} { and } can replace indents </description>
+      <description>Like Ante is an indentation sensitive language. That is, the beginning and end of blocks are marked by an increase in indentation and a decrease in indentation respectively. The indentation before a line of non-comment code is called significant whitespace. Ante&amp;rsquo;s policy on significant whitespace is to keep it as intuitive as possible by preventing inconsistensies that would otherwise hamper code readability. For example, indentations of a single space in size are considered to be a mistake and will trigger an appropriate error message.</description>
     </item>
     
     <item>
@@ -68,7 +69,7 @@ Perhaps most importantly, pattern Matches with are completeness checked, so all 
       <pubDate>Wed, 15 Nov 2017 14:11:54 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/traits/</guid>
-      <description> In Type Declarations Extending A Type With A Trait In External Modules </description>
+      <description>Traits are a way to express the desired behaviour of a type without stating which type you need specifically. A function taking in a parameter with a trait type can take any argument whose type implements that trait. Traits are generally advantageous over type variables because they provide better error messages. For example, if a given type that does not implement a print function is passed to a function expecting a Printable variable the compiler will issue an error saying that the provided argument must implement Printable and list the functions required to do so.</description>
     </item>
     
     <item>
@@ -96,9 +97,8 @@ In Ante, compiler directives are essentially user-defined modifiers. Just like m
       <pubDate>Wed, 15 Nov 2017 14:10:13 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/modifiers/</guid>
-      <description>pub, pri, pro, const raw noinit global ante
-Modifiers can appear before and modify any declaration (function, variable, or type), any type, or any arbitrary expression.
-For example, the ante modifier used before a function marks the function&amp;rsquo;s parameters and its output as compile-time constants and the function itself to be executed during compile-time. Before a type declaration, it signifies the value of the type should always be known during compile-time.</description>
+      <description>Depending on the semantics of the modifier, modifiers appear before any function declaration, variable declaration, type declaration, type, or arbitrary expression. All modifiers can be used before a block to apply the modifier to the entire block.
+Visibility Modifiers The visibility modifiers control how &amp;ldquo;visible&amp;rdquo; declarations are to external modules. There are three visibility modifiers in Ante: pub, pri, and pro, short for public, private, and protected respectively. Something that is public is visible to all modules, something that is private is visible to only the current module, and something that is protected is visible only to modules that extend the current module.</description>
     </item>
     
     <item>
@@ -126,13 +126,17 @@ print 2 &amp;quot;three&amp;quot;  UFCS Universal Function Call Syntax is fully 
       <pubDate>Wed, 15 Nov 2017 14:03:27 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/operators/</guid>
-      <description>Binary Arithmetic + - * / %
-Logical &amp;lt; &amp;gt; &amp;lt;= &amp;gt;= == != is and or
-Assignment = &amp;lt;binop&amp;gt;=
-Bitwise implemented as library functions. Bitwise.xor a b
-Other in ++ .. # ; . |&amp;gt; &amp;lt;|
-Unary not new - @ &amp;amp;
-Operator Precedence    Operator Unary or Binary Associativity Precedence     . Binary Left 17   &amp;amp; Unary Right 16   new Unary Right 15   - Unary Right 15   @ Unary Right 15   # Binary Left 14   * Binary Left 13   / Binary Left 13   % Binary Left 13   + Binary Left 12   - Binary Left 12   .</description>
+      <description>Ante supports a variety of common operators including arithmetic operators, logical operators, assignment operators, among others. The following is a quick run down on the purpose of each operator proceeded by a table of associativity and precedence for each.
+Arithmetic + Addition
+- Subtraction (binary), Negation (unary)
+* Multiplication
+/ Division
+% Remainder
+^ Exponentiation
+Logical &amp;lt; Less than
+&amp;gt; Greather than
+&amp;lt;= Less than or equal
+&amp;gt;= Greater than or equal</description>
     </item>
     
     <item>
@@ -150,7 +154,7 @@ Operator Precedence    Operator Unary or Binary Associativity Precedence     . B
       <pubDate>Wed, 15 Nov 2017 14:01:44 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/type_declarations/</guid>
-      <description> Basic Structs and Records Tagged Unions Type Aliases </description>
+      <description>Declaring a new type in Ante is accomplished with the type keyword. When a new type is declared it is considered to be different than the type(s) it contains. Resultingly, if a function requires a Str but a Name is given an error will be issued even if Name contains only a single Str. This feature provides additional type safety by protecting against the use of a value on a function that was defined with a different type in mind that may have different semantics than the newly-defined type.</description>
     </item>
     
     <item>

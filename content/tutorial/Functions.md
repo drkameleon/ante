@@ -3,7 +3,7 @@ title: "Functions"
 date: 2017-11-15T14:07:26-05:00
 menu: main
 ---
-
+---
 # Function Calls
 
 The syntax for calling a function is `f arg1 arg2 ... argn`.  The arguments are
@@ -33,7 +33,6 @@ let b = Bad 3
 print b     //Prints b
 b.print()   //Error: print is not a function, it is an i32!
 ```
-
 ## Mangling
 
 Function names in Ante are mangled to enable overloading for
@@ -96,6 +95,7 @@ Compilation aborted.
 */
 ```
 
+---
 # Function Definitions
 
 Normal function definitions that take a series of parameters and

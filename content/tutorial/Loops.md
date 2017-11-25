@@ -6,6 +6,7 @@ menu: main
 
 Ante provides two forms of loops: while and for.
 
+---
 # While
 
 While loops are the most basic form of loop, they
@@ -101,6 +102,7 @@ while true do
             break 2
 ```
 
+---
 # For
 
 In contrast with while loops, for loops are used for iterating over a set

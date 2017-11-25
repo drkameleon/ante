@@ -16,6 +16,7 @@ For example, a match against an integer x with a single
 pattern `0` (the equivalent of if x == 0) is rejected
 as it does not have a case for when x != 0.
 
+---
 # Patterns
 
 Every match expression must match a value against
@@ -144,6 +145,7 @@ fun fib: u32 n =
     | _ -> fib (n-1) + fib (n-2)
 ```
 
+---
 # Return Value
 
 A match expression shares much of the same semantics of an

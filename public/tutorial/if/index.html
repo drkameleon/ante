@@ -50,11 +50,67 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="expressions">Expressions</h1>
+<p>In Ante if is an expression that can
+conditionally do one thing if its condition
+is true and otherwise do something else if its
+condition is false.  For example, if you wanted
+to print &ldquo;good afternoon&rdquo; only if the time on the
+clock is after 12:00 then you could write:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">if</span> <span class="kt">Time</span><span class="o">.</span>is_after <span class="s">&quot;12:00&quot;</span> <span class="k">then</span>
+    print <span class="s">&quot;good afternoon&quot;</span>
+</code></pre></div>
 
-<h1 id="elif-chains">Elif Chains</h1>
+<p>An else branch can also be added to do something
+if the given condition was false.  In this case,
+if it is not after 12:00, then it must be the
+morning.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">if</span> <span class="kt">Time</span><span class="o">.</span>is_after <span class="s">&quot;12:00&quot;</span> <span class="k">then</span>
+    print <span class="s">&quot;good afternoon&quot;</span>
+<span class="k">else</span>
+    print <span class="s">&quot;good morning&quot;</span>
+</code></pre></div>
 
-<h1 id="return-value">Return Value</h1>
+<p>This is somewhat unsatisfactory as it does not account
+for nighttime.  If expressions can, however, be made
+to include more than two branches with the addition of
+one or more elif branchs.  Elif branches are matched if
+and only if its condition is true and all the above if
+and elif conditions were false.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//If the current time is between 12:00 and 19:00 (12pm and 7pm)</span>
+<span class="k">if</span> <span class="kt">Time</span><span class="o">.</span>now<span class="p">()</span> <span class="k">in</span> <span class="mi">12</span><span class="o">..</span><span class="mi">19</span> <span class="k">then</span>
+    print <span class="s">&quot;good afternoon&quot;</span>
+<span class="k">elif</span> <span class="kt">Time</span><span class="o">.</span>is_after <span class="mi">5</span> <span class="k">then</span>
+    print <span class="s">&quot;good morning&quot;</span>
+<span class="k">else</span>
+    print <span class="s">&quot;good night!&quot;</span>
+</code></pre></div>
+
+<h3 id="return-value">Return Value</h3>
+
+<p>The return value of an if statement is the return value of the
+matched branch.  For this reason, the return type of all branches within
+an if expression must match type.  In the case of an if without a
+corresponding else, no value is returned if the condition is false,
+so the overall return value is always void.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> int <span class="o">=</span>
+    <span class="k">if</span> <span class="mi">5</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">then</span> <span class="mi">10</span>
+    <span class="k">else</span> <span class="mi">5</span>
+
+<span class="k">let</span> greeting <span class="o">=</span> 
+    <span class="k">if</span> <span class="kt">Time</span><span class="o">.</span>now<span class="p">()</span> <span class="k">in</span> <span class="mi">12</span><span class="o">..</span><span class="mi">19</span> <span class="k">then</span>
+        <span class="s">&quot;good afternoon&quot;</span>
+    <span class="k">elif</span> <span class="kt">Time</span><span class="o">.</span>is_after <span class="mi">5</span> <span class="k">then</span>
+        <span class="s">&quot;good morning&quot;</span>
+    <span class="k">else</span>
+        <span class="s">&quot;good night!&quot;</span>
+
+<span class="c c-Singleline">//returns void even if the condition is always true</span>
+<span class="k">if</span> <span class="l l-Boolean">true</span> <span class="k">then</span>
+    <span class="mi">2</span>
+
+<span class="c c-Singleline">//error, return type of else branch does not match the then branch</span>
+<span class="k">let</span> t <span class="o">=</span> <span class="k">if</span> len greeting <span class="o">&gt;</span> <span class="mi">11</span> <span class="k">then</span> <span class="s">&quot;</span><span class="m">&quot;</span><span class="s"> else 3</span>
+</code></pre></div>
 
 </div>
 

@@ -50,11 +50,107 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="basic-structs-and-records">Basic Structs and Records</h1>
+<p>Declaring a new type in Ante is accomplished with the <code>type</code> keyword.
+When a new type is declared it is considered to be different than the type(s)
+it contains.  Resultingly, if a function requires a Str but a Name is
+given an error will be issued even if Name contains only a single Str.
+This feature provides additional type safety by protecting against the use
+of a value on a function that was defined with a different type in mind that
+may have different semantics than the newly-defined type.  In situations
+where this is not desirable, type aliases can be used.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Name</span> <span class="o">=</span> <span class="kt">Str</span>
 
-<h1 id="tagged-unions">Tagged Unions</h1>
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">Str</span> s <span class="o">=</span> <span class="o">...</span>
 
-<h1 id="type-aliases">Type Aliases</h1>
+<span class="k">let</span> n <span class="o">=</span> <span class="kt">Name</span> <span class="s">&quot;John&quot;</span>
+print n  <span class="c c-Singleline">//=&gt; error, print:Name not found</span>
+</code></pre></div>
+
+<h2 id="type-aliases">Type Aliases</h2>
+
+<p>An alias for a type can be used in any instance
+the original type is used, it is exactly equal to the
+original type.  The syntax for an alias declaration is
+the same as the syntax for a type declaration but with
+the <code>=</code> replaced with <code>is</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">AnotherNameForStr</span> <span class="k">is</span> <span class="kt">Str</span>
+<span class="k">type</span> <span class="kt">Coord</span> <span class="k">is</span> <span class="kt">i32</span><span class="o">,</span><span class="kt">i32</span>
+
+<span class="k">let</span> s <span class="o">=</span> <span class="kt">AnotherNameForStr</span> <span class="s">&quot;Greetings!&quot;</span>
+<span class="k">let</span> c <span class="o">=</span> <span class="kt">Coord</span><span class="p">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">Str</span> s <span class="o">=</span> <span class="o">...</span>
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">i32</span><span class="o">,</span><span class="kt">i32</span> c <span class="o">=</span> <span class="o">...</span>
+
+<span class="c c-Singleline">//ok!</span>
+print s
+print c
+</code></pre></div>
+
+<p>Types declared with <code>=</code> are considered separate types, but
+types declared with <code>is</code> are always exactly equal to the types
+on the right hand side of the declaration.  In this way, the
+distinction between type declaration with <code>=</code> and <code>is</code> is
+similar to the distinction between <code>==</code> and <code>is</code> when comparing
+two values.</p>
+
+<h2 id="structs-and-records">Structs and Records</h2>
+
+<p>If desired a types contained types can each be named and later
+accessed by this name.  These contained types would then be
+called the fields and the overall type would be called either
+a struct or a record type.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name<span class="o">,</span> <span class="kt">u8</span> age
+
+<span class="k">let</span> j <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="o">,</span> <span class="mi">24</span><span class="p">)</span>
+print j<span class="o">.</span>name
+</code></pre></div>
+
+<p>This can also be used on types with just a single field:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">MyStr</span> <span class="o">=</span> <span class="kt">Str</span> s
+
+<span class="k">let</span> str <span class="o">=</span> <span class="kt">MyStr</span> <span class="s">&quot;How are you doing today?&quot;</span>
+print str<span class="o">.</span>s
+</code></pre></div>
+
+<h2 id="tagged-unions">Tagged Unions</h2>
+
+<p>Tagged union types are types that can be one of several
+possible cases.  When declaring a tagged union each type
+must be separated with a &lsquo;|&rsquo;.  Additionally, each case
+must be given a name to distinguish it from the other
+cases.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Day</span> <span class="o">=</span> <span class="kt">Mon</span> <span class="o">|</span> <span class="kt">Tue</span> <span class="o">|</span> <span class="kt">Wed</span> <span class="o">|</span> <span class="kt">Thurs</span> <span class="o">|</span> <span class="kt">Fri</span> <span class="o">|</span> <span class="kt">Sat</span> <span class="o">|</span> <span class="kt">Sun</span>
+</code></pre></div>
+
+<p>These types can also have associated values:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//Both Absolute and Relative Paths have an associated Dir</span>
+<span class="k">type</span> <span class="kt">Path</span> <span class="o">=</span>
+   <span class="o">|</span> <span class="kt">Absolute</span> <span class="kt">Dir</span>
+   <span class="o">|</span> <span class="kt">Relative</span> <span class="kt">Dir</span>
+
+<span class="c c-Singleline">//If made with the S constructor, this type has</span>
+<span class="c c-Singleline">//a contained Str.  Otherwise, it has an Int</span>
+<span class="k">type</span> <span class="kt">StrOrInt</span> <span class="o">=</span>
+   <span class="o">|</span> <span class="kt">S</span> <span class="kt">Str</span>
+   <span class="o">|</span> <span class="kt">I</span> <span class="kt">Int</span>
+</code></pre></div>
+
+<p>The only way to extract values from a tagged union type
+is to use pattern matching across each possible case.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//The Maybe type represents having either a value or the</span>
+<span class="c c-Singleline">//absence of a value and is often used to represent failure.</span>
+<span class="k">type</span> <span class="kt">Maybe</span> <span class="kt">&#39;t</span> <span class="o">=</span>
+   <span class="o">|</span> <span class="kt">Some</span> <span class="kt">&#39;t</span>
+   <span class="o">|</span> <span class="kt">None</span>
+
+<span class="k">let</span> val <span class="o">=</span> <span class="kt">Some</span> <span class="mi">3</span>
+
+<span class="c c-Singleline">//to print the underlying value if it exists:</span>
+<span class="k">match</span> val <span class="k">with</span>
+<span class="o">|</span> <span class="kt">Some</span> int <span class="o">-&gt;</span> print int
+<span class="o">|</span> <span class="kt">None</span> <span class="o">-&gt;</span> print <span class="s">&quot;No integer found!&quot;</span>
+</code></pre></div>
 
 </div>
 

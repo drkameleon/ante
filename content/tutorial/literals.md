@@ -7,6 +7,7 @@ menu: main
 Ante has four types of literal values: integers, floats, booleans, and strings.  Every literal,
 except for strings, is a primitive type.
 
+---
 ## Integers
 
 Integer literals in Ante can be any primitive integer type, i8, i16, i32, i64, u8, u16, u32, u64, isz, or usz.  Without a type suffix,
@@ -35,6 +36,7 @@ After the sign specification comes the optional size specification which can be 
 bits of the integer.  A type suffix of i8 specifies an 8-bit signed integer, and a type suffix of usz specifies an unsigned integer
 of pointer-size.  Literals with a sign specification but no size specification will be the default integer size.
 
+---
 ## Floats
 
 Floating-point literals come in three varieties according to their type: f16, f32, and f64, which correspond to an IEEE half, IEEE single,
@@ -54,12 +56,14 @@ literal is either f16, f32, or f64.  If none are specified, the default is f64.
 43.four  //method/field access on the integer 43
 ```
 
+---
 ## Booleans
 
 Boolean literals are either `true` or `false`, and are always of type `bool`.  `bool` values may
 occupy anwhere from 1 to 8 bits depending on the target and optimization techniques used, but only 1 bit is able to be viewed or modified.
 Boolean values are not integer types.
 
+---
 ## Strings
 
 String literals are denoted by matching double-quotes around a string of text.  Characters preceeded by a backslash will be interpretted

@@ -50,11 +50,114 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="in-type-declarations">In Type Declarations</h1>
+<p>Traits are a way to express the desired behaviour of
+a type without stating which type you need specifically.
+A function taking in a parameter with a trait type can
+take any argument whose type implements that trait.  Traits
+are generally advantageous over type variables because they
+provide better error messages.  For example, if a given type
+that does not implement a <code>print</code> function is passed to a
+function expecting a <code>Printable</code> variable the compiler will
+issue an error saying that the provided argument must implement
+<code>Printable</code> and list the functions required to do so.  If the
+function instead accepted a <code>'t</code> then the compiler would issue
+an error at the callsite of <code>print</code> followed by possibly more cryptic errors.</p>
 
-<h1 id="extending-a-type-with-a-trait">Extending A Type With A Trait</h1>
+<p>A new trait is declared by specifying the trait&rsquo;s name,
+which must be a valid type name, followed by a block of
+function headers that values of that trait must implement.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">trait</span> <span class="kt">Eq</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">Eq</span> a b <span class="o">-&gt;</span> <span class="kt">bool</span>
+</code></pre></div>
 
-<h1 id="in-external-modules">In External Modules</h1>
+<p>Implementing a trait is done within a type extension.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ext</span> <span class="kt">Str</span><span class="p">:</span> <span class="kt">Eq</span>
+    <span class="c c-Singleline">//now we must implement (==) or get an error</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">Str</span> l r <span class="o">=</span>
+        strcmp l r <span class="o">==</span> <span class="mi">0</span>
+</code></pre></div>
+
+<p>Multiple traits can be implemented in a single type extension
+by separating each trait name with a comma.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ext</span> <span class="kt">Str</span><span class="p">:</span> <span class="kt">Eq</span><span class="o">,</span> <span class="kt">Printable</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">Str</span> l r <span class="o">=</span>
+        strcmp l r <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="k">fun</span> <span class="nf">print:</span> <span class="kt">Str</span> s
+        puts s<span class="o">.</span>cStr
+</code></pre></div>
+
+<h2 id="as-parameters">As Parameters</h2>
+
+<p>Functions taking in a trait-typed parameter accept any type
+that implements that trait.  A trait type is distinct from the
+type that implements it.  Fields from the implementing type
+cannot be accessed with a value of the trait type because it
+may be that the value is actually of a different type that
+also implements the trait.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//iter cannot differentiate between a range of integers</span>
+<span class="c c-Singleline">//and an array of integers.</span>
+<span class="k">fun</span> <span class="nf">iter:</span> <span class="kt">Iterable</span> <span class="kt">&#39;t</span> it<span class="o">,</span> <span class="kt">&#39;t</span><span class="o">-&gt;</span><span class="kt">&#39;u</span> f
+    <span class="c c-Singleline">//print it.step</span>
+    <span class="c c-Singleline">//=&gt; error, method/field step not found in type Iterable</span>
+    <span class="k">for</span> e <span class="k">in</span> it <span class="k">do</span>
+        f e
+
+iter <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span> print
+iter <span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="p">]</span> print
+</code></pre></div>
+
+<h2 id="default-functions">Default Functions</h2>
+
+<p>If a full function definition is provided within a trait instead
+of just the header then that function definition will be used by
+default and types implementing the trait will not need to
+reimplement it to implement the trait.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">trait</span> <span class="kt">RelOps</span>
+    <span class="c c-Singleline">//require == and &lt; to be implemented</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">-&gt;</span> <span class="kt">bool</span>
+
+    <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">-&gt;</span> <span class="kt">bool</span>
+
+    <span class="c c-Singleline">//and implement other operators based on those</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">!=</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
+        <span class="k">not</span> <span class="p">(</span>a <span class="o">==</span> b<span class="p">)</span>
+
+    <span class="k">fun</span> <span class="p">(</span><span class="o">&gt;=</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
+        <span class="k">not</span> <span class="p">(</span>a <span class="o">&lt;</span> b<span class="p">)</span>
+
+    <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;=</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
+        a <span class="o">&lt;</span> b <span class="k">or</span> a <span class="o">==</span> b
+
+    <span class="k">fun</span> <span class="p">(</span><span class="o">&gt;</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
+        <span class="k">not</span> <span class="p">(</span>a <span class="o">&gt;</span> b<span class="p">)</span>
+
+
+<span class="k">ext</span> <span class="kt">Str</span><span class="p">:</span> <span class="kt">RelOps</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">Str</span> l r <span class="o">=</span>
+        strcmp l r <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">):</span> <span class="kt">Str</span> l r <span class="o">=</span>
+        strcmp l r <span class="o">&lt;</span> <span class="mi">0</span>
+
+<span class="c c-Singleline">//now ==, &lt;, !=, &gt;=, &lt;=, and &gt; are defined for Str</span>
+</code></pre></div>
+
+<h2 id="combining-traits">Combining Traits</h2>
+
+<p>Functions requiring a value with multiple traits may combine
+traits with <code>+</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">print_eq:</span> <span class="kt">Eq</span><span class="o">+</span><span class="kt">Printable</span> a b
+    print a <span class="s">&quot;==&quot;</span> b <span class="s">&quot;is&quot;</span> <span class="p">(</span>a <span class="o">==</span> b<span class="p">)</span>
+</code></pre></div>
+
+<p>Alternatively, a name can be given to a trait combination by
+using type aliasing:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">EqPrint</span> <span class="k">is</span> <span class="kt">Eq</span> <span class="o">+</span> <span class="kt">Printable</span>
+
+<span class="k">fun</span> <span class="nf">print_eq:</span> <span class="kt">EqPrint</span> a b
+    print a <span class="s">&quot;==&quot;</span> b <span class="s">&quot;is&quot;</span> <span class="p">(</span>a <span class="o">==</span> b<span class="p">)</span>
+</code></pre></div>
 
 </div>
 

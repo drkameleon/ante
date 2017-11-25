@@ -50,56 +50,123 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="binary">Binary</h1>
+<p>Ante supports a variety of common operators including arithmetic
+operators, logical operators, assignment operators, among others.
+The following is a quick run down on the purpose of each operator
+proceeded by a table of associativity and precedence for each.</p>
+
+<hr />
 
 <h2 id="arithmetic">Arithmetic</h2>
 
-<p>+
--
-*
-/
-%</p>
+<p><code>+</code> Addition</p>
+
+<p><code>-</code> Subtraction (binary), Negation (unary)</p>
+
+<p><code>*</code> Multiplication</p>
+
+<p><code>/</code> Division</p>
+
+<p><code>%</code> Remainder</p>
+
+<p><code>^</code> Exponentiation</p>
 
 <h2 id="logical">Logical</h2>
 
-<p>&lt;
-&gt;
-&lt;=
- &gt;=
- ==
-!=
-is
-and
-or</p>
+<p><code>&lt;</code> Less than</p>
+
+<p><code>&gt;</code> Greather than</p>
+
+<p><code>&lt;=</code> Less than or equal</p>
+
+<p><code>&gt;=</code> Greater than or equal</p>
+
+<p><code>==</code> Is equal to, structural equality</p>
+
+<p><code>!=</code> Not equal to</p>
+
+<p><code>is</code> Is exactly equal to, referential equality</p>
+
+<p><code>and</code> Logical and, short-circuiting</p>
+
+<p><code>or</code> Logical or, short-circuiting</p>
+
+<p><code>not</code> Logical not</p>
+
+<p>A note on <code>==</code> and <code>is</code>:</p>
+
+<p>If two values contain the same values, for example if two
+tuples contained the same elements within, they are structurally equal.
+If we had two pointers to two separate structurally equal tuples those
+pointers would be equal as well.  The pointers would not be the same value
+however.  If one were to mutate the contents of its tuple the other tuple
+would not necessarily change unless they point to the same value.  If two
+pointers point to the same value then they are referentially equal, and
+one pointer <code>is</code> the other because they point to the same value.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> a <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">&quot;five&quot;</span><span class="p">)</span>
+<span class="k">let</span> b <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">&quot;five&quot;</span><span class="p">)</span>
+<span class="k">let</span> c <span class="o">=</span> a
+
+a <span class="o">==</span> b  <span class="c c-Singleline">//=&gt; true</span>
+a <span class="o">==</span> c  <span class="c c-Singleline">//=&gt; true</span>
+
+a <span class="k">is</span> b  <span class="c c-Singleline">//=&gt; false</span>
+a <span class="k">is</span> c  <span class="c c-Singleline">//=&gt; true</span>
+</code></pre></div>
 
 <h2 id="assignment">Assignment</h2>
 
-<p>=
-&lt;binop&gt;=</p>
+<p><code>=</code> Assigns a value to a variable</p>
+
+<p><code>&lt;binop&gt;=</code> Assigns a value to a variable after performing
+            the operation on the previous value and the expression.  ex.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">var</span> a <span class="o">=</span> <span class="mi">3</span>
+a <span class="o">+=</span> <span class="mi">4</span>  <span class="c c-Singleline">//a is now 7</span>
+</code></pre></div>
 
 <h2 id="bitwise">Bitwise</h2>
 
-<p>implemented as library functions.
-Bitwise.xor a b</p>
+<p>Bitwise operations are implemented as library functions.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">import</span> <span class="kt">Bitwise</span>
+
+band <span class="mi">3</span> <span class="mi">6</span>  <span class="c c-Singleline">//=&gt; 2</span>
+bxor <span class="mi">3</span> <span class="mi">6</span>  <span class="c c-Singleline">//=&gt; 5</span>
+bor  <span class="mi">3</span> <span class="mi">6</span>  <span class="c c-Singleline">//=&gt; 7</span>
+bnot <span class="mi">0</span>    <span class="c c-Singleline">//=&gt; -1</span>
+
+<span class="c c-Singleline">//sl and sr are shift left and shift right respectively.</span>
+sl <span class="mi">1</span> <span class="mi">3</span>  <span class="c c-Singleline">//=&gt; 8</span>
+
+<span class="c c-Singleline">//sr is arithmetic if its first operand is unsigned,</span>
+<span class="c c-Singleline">//and logical otherwise. lsr and asr are available as well.</span>
+sr <span class="mi">8</span> <span class="mi">3</span>  <span class="c c-Singleline">//=&gt; 1</span>
+</code></pre></div>
 
 <h2 id="other">Other</h2>
 
-<p>in
-++
-..
-#
-;
-.
-|&gt;
-&lt;|</p>
+<p><code>in</code> Test if a value is in a collection</p>
 
-<h1 id="unary">Unary</h1>
+<p><code>++</code> Append</p>
 
-<p>not
-new
--
-@
-&amp;</p>
+<p><code>..</code> Range, inclusive</p>
+
+<p><code>#</code> Subscript, array/collection access</p>
+
+<p><code>;</code> Sequencing</p>
+
+<p><code>.</code> Field accessor</p>
+
+<p><code>|&gt;</code> Applies a value to a function on the rhs</p>
+
+<p><code>&lt;|</code> Applies a value to a function on the lhs</p>
+
+<p><code>new</code> Allocates and stores a value</p>
+
+<p><code>@</code> Pointer dereference</p>
+
+<p><code>&amp;</code> Address-of</p>
+
+<hr />
 
 <h1 id="operator-precedence">Operator Precedence</h1>
 
@@ -132,27 +199,34 @@ new
 <td align="center">new</td>
 <td align="center">Unary</td>
 <td align="center">Right</td>
-<td align="center">15</td>
+<td align="center">16</td>
 </tr>
 
 <tr>
 <td align="center">-</td>
 <td align="center">Unary</td>
 <td align="center">Right</td>
-<td align="center">15</td>
+<td align="center">16</td>
 </tr>
 
 <tr>
 <td align="center">@</td>
 <td align="center">Unary</td>
 <td align="center">Right</td>
-<td align="center">15</td>
+<td align="center">16</td>
 </tr>
 
 <tr>
 <td align="center">#</td>
 <td align="center">Binary</td>
 <td align="center">Left</td>
+<td align="center">15</td>
+</tr>
+
+<tr>
+<td align="center">^</td>
+<td align="center">Binary</td>
+<td align="center">Right</td>
 <td align="center">14</td>
 </tr>
 

@@ -48,17 +48,95 @@
     <div class="post">
   <h1>Modifiers</h1>
   <span class="post-date">Wed, Nov 15, 2017</span>
-  <p>pub, pri, pro,
-const
-raw
-noinit
-global
-ante</p>
+  
 
-<p>Modifiers can appear before and modify any declaration (function, variable, or type),
-any type, or any arbitrary expression.</p>
+<p>Depending on the semantics of the modifier, modifiers appear before
+any function declaration, variable declaration, type declaration,
+type, or arbitrary expression.  All modifiers can be used before
+a block to apply the modifier to the entire block.</p>
 
-<p>For example, the <code>ante</code> modifier used before a function marks the function&rsquo;s parameters
+<h2 id="visibility-modifiers">Visibility Modifiers</h2>
+
+<p>The visibility modifiers control how &ldquo;visible&rdquo; declarations are
+to external modules.  There are three visibility modifiers in Ante:
+<code>pub</code>, <code>pri</code>, and <code>pro</code>, short for public, private, and protected
+respectively.  Something that is public is visible to all modules,
+something that is private is visible to only the current module,
+and something that is protected is visible only to modules that
+extend the current module.  The default visibility is public
+for functions and types and private for global variables.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">// math.an:</span>
+<span class="k">pro</span> <span class="k">type</span> <span class="kt">T</span> <span class="o">=</span> <span class="kt">Num</span>
+
+<span class="k">pub</span> <span class="k">fun</span> <span class="nf">id:</span> <span class="kt">T</span> x <span class="o">=</span> x
+
+<span class="k">pri</span> <span class="k">fun</span> add1<span class="p">:</span> <span class="kt">T</span> x <span class="o">=</span> x <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">pub</span> <span class="k">global</span> pi <span class="o">=</span> acos <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="o">...</span>
+<span class="c c-Singleline">// circle.an:</span>
+<span class="k">ext</span> <span class="kt">Math</span>
+    <span class="c c-Singleline">//T is visible</span>
+    <span class="k">fun</span> add2<span class="p">:</span> <span class="kt">T</span> x <span class="o">=</span>
+        <span class="c c-Singleline">//add1 is not visible</span>
+        <span class="c c-Singleline">//add1 (add1 x)</span>
+        x <span class="o">+</span> <span class="mi">2</span>
+
+<span class="k">let</span> radius <span class="o">=</span> <span class="kt">Math</span><span class="o">.</span>add2 <span class="mi">0</span>
+<span class="k">let</span> circ_area <span class="o">=</span> <span class="kt">Math</span><span class="o">.</span>pi <span class="o">*</span> radius<span class="o">^</span><span class="mi">2</span>
+</code></pre></div>
+
+<h2 id="mut">Mut</h2>
+
+<p>Marks a type as mutable.  Variables created with <code>var</code> as opposed
+to <code>let</code> are mutable.  Like immutability, mutability is transitive.
+That is, if some type T is mutable, all of its contained types are
+as well, unless any of those types are explicitly marked <code>const</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">store:</span> <span class="k">mut</span> <span class="kt">&#39;t</span><span class="o">*</span> dest<span class="o">,</span> <span class="kt">&#39;t</span> val
+    <span class="o">@</span>dest <span class="o">=</span> val
+
+store <span class="p">(</span>malloc <span class="p">(</span><span class="kt">Ante</span><span class="o">.</span>sizeof <span class="kt">Str</span><span class="p">))</span> <span class="s">&quot;Hello there&quot;</span>
+</code></pre></div>
+
+<h2 id="const">Const</h2>
+
+<p>Types in Ante are immutable by default, although they can be marked
+as mutable with the <code>mut</code> keyword.  The <code>const</code> keyword is the counterpart
+to <code>mut</code> in that it prevents a type from being mutable even when explicitly
+marked as such.  Const is useful when designing types in such a way that
+they are always used immutably.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Age</span> <span class="k">is</span> <span class="k">const</span> <span class="kt">u8</span>
+<span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name<span class="o">,</span> <span class="kt">Age</span> age
+
+<span class="k">fun</span> <span class="nf">birthday:</span> <span class="k">mut</span> <span class="kt">Age</span> a  <span class="c c-Singleline">//error, cannot use mut on const type Age</span>
+    a <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="k">fun</span> <span class="nf">birthday:</span> <span class="k">mut</span> <span class="kt">Person</span> p
+    p<span class="o">.</span>age <span class="o">+=</span> <span class="mi">1</span>  <span class="c c-Singleline">//error, age field is marked const</span>
+</code></pre></div>
+
+<h2 id="global">Global</h2>
+
+<p>Declares a global variable when used on a variable declaration, otherwise
+it imports the given global variables into the current scope.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">global</span> pi <span class="o">=</span> acos <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">fun</span> <span class="nf">circle_area:</span> <span class="kt">Num</span> radius <span class="o">=</span>
+    <span class="k">global</span> pi
+    pi <span class="o">*</span> radius<span class="o">^</span><span class="mi">2</span>
+
+<span class="c c-Singleline">//The result of the expression global var1 var2 ...</span>
+<span class="c c-Singleline">//is the last variable imported.</span>
+<span class="k">fun</span> <span class="nf">sphere_volume:</span> <span class="kt">Num</span> radius <span class="o">=</span>
+    <span class="mi">4</span><span class="o">/</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="k">global</span> pi<span class="p">)</span> <span class="o">*</span> radius<span class="o">^</span><span class="mi">3</span>
+</code></pre></div>
+
+<h2 id="ante">Ante</h2>
+
+<p>The <code>ante</code> modifier is Ante&rsquo;s primary way of executing compile-time code.  It is
+used to either execute arbitrary expressions during compile-time or to mark types
+as compile-time constants.  Using it before a function marks the function&rsquo;s parameters
 and its output as compile-time constants and the function itself to be executed during
 compile-time.  Before a type declaration, it signifies the value of the type should
 always be known during compile-time.  Before a variable it signifies the variable should
@@ -77,9 +155,43 @@ safely without any runtime confusion or slowdowns.  For example, in time-sensiti
 a function may take in an <code>i32</code> and Ante will convert the <code>IntLit</code> to an <code>i32</code> provided
 it is small enough without ever needing to store the arbitrarily sized integer during runtime.
 For the reverse, if an arbitrarily sized integer is needed, it will be converted into an
-<code>Int</code> and simply lose its <code>ante</code> modifier.  Implicit conversions are a strong tool that
-can easily lead to hard to find mistakes if its semantics aren&rsquo;t clear.  For this reason,
-implicit conversions are defined manually for a given type.</p>
+<code>Int</code> and simply lose its <code>ante</code> modifier.</p>
+
+<p>Perhaps the most common use case is on functions to mark them to run during compile-time only:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">load_static:</span> <span class="kt">File</span> f <span class="o">=</span> <span class="kt">Image</span> f
+
+<span class="c c-Singleline">//load assets during compile-time</span>
+<span class="k">let</span> bg <span class="o">=</span> load_static <span class="s">&quot;background.png&quot;</span>
+
+<span class="k">let</span> p <span class="o">=</span> load_static <span class="s">&quot;player.png&quot;</span>
+</code></pre></div>
+
+<p>As seen above, calling an ante function is no different from calling a normal function.
+To execute an arbitrary expression during compile-time simply prefix it with ante:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> ans <span class="o">=</span> <span class="k">ante</span> input <span class="s">&quot;Do you want to stop compiling? (y/N): &quot;</span>
+<span class="k">if</span> ans <span class="o">==</span> <span class="s">&quot;y&quot;</span> <span class="k">then</span>
+    <span class="kt">Ante</span><span class="o">.</span>error <span class="s">&quot;Well you did say you wanted to stop&quot;</span>
+</code></pre></div>
+
+<p>The one type of value that cannot be in an ante expression is a parameter from a function
+as it is impossible to backtrace the value from every callsite simultaneously:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">say_something:</span> <span class="kt">Str</span> a
+    <span class="c c-Singleline">//error, a is a parameter, mark it with ante</span>
+    <span class="c c-Singleline">//to use in an ante expression</span>
+    <span class="k">ante</span> print a
+
+
+<span class="c c-Singleline">//as the error says, in this case the best fix would be to</span>
+<span class="c c-Singleline">//change the parameter&#39;s type from Str to ante Str</span>
+<span class="k">fun</span> <span class="nf">say_something:</span> <span class="k">ante</span> <span class="kt">Str</span> a
+    <span class="c c-Singleline">//print a during compile-time</span>
+    <span class="k">ante</span> print a
+</code></pre></div>
+
+<p>Using compile-time code execution properly can lead to not only small to large
+optimizations but also to better error messages and ease of debugging.  It is
+also a building block for even more powerful features from Ante&rsquo;s integrated build
+system to its gradually managed memory and extensible type system.</p>
 
 </div>
 
