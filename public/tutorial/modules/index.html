@@ -50,11 +50,184 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="imports">Imports</h1>
+<p>Modules provide a method to separate implementation from interface.
+They may contain types, traits, functions, and global variables, although
+the latter is discouraged.  Before importing a module, the modules names
+can be accessed through indexing the hierarchy of modules with the <code>.</code> operator.
+For example, accessing a function <code>f</code> in the module <code>SubModule</code> which itself
+is within the module <code>Module</code> can be done with <code>Module.SubModule.f</code>.  This
+is the primary method to access other modules, with the one exception that
+the current module has all of its names already imported, thus if the current
+module is the <code>SubModule</code> above then the function can be accessed with just <code>f</code>.</p>
 
-<h1 id="visibility">Visibility</h1>
+<hr />
 
-<h1 id="type-extensions">Type Extensions</h1>
+<h2 id="directory-structure">Directory Structure</h2>
+
+<p>By default, every file is wrapped in a module whose name matches the
+file&rsquo;s name but in PascalCase.  It is standard practice to have file
+names be in lowercase or snake_case.  If the name is not translated
+correctly into PascalCase it can be changed within a module expression.</p>
+
+<p>Ante converts a directory of source files into a hierarchy of modules
+with the following rules:</p>
+
+<ol>
+<li>All paths are relative from the file containing the program&rsquo;s start point.</li>
+<li>Folder names are converted into module names</li>
+<li>Files inside folders are converted into submodules of the folder module</li>
+<li>If a file&rsquo;s name matches the folder it is in, it is the implementation
+for the folder&rsquo;s module</li>
+</ol>
+
+<p>For example the following directory tree will produce the corresponding
+modules on the right.</p>
+
+<pre><code>.
+|- driver.an       -&gt; Driver
+|- helper.an       -&gt; Helper
+|- folder          -&gt; Folder
+   |- folder.an    -&gt; Folder
+   |- helper.an    -&gt; Folder.Helper
+   |- subfolder    -&gt; Folder.Subfolder
+      |- file.an   -&gt; Folder.Subfolder.File
+</code></pre>
+
+<hr />
+
+<h2 id="imports">Imports</h2>
+
+<p>Importing a module brings all of its names into scope and is not required
+to use the module.  A module&rsquo;s names can still be accessed with the
+<code>Module.name</code> syntax afterward.</p>
+
+<p>If an imported module&rsquo;s names conflict with a module already imported
+then an error is issued.  In this case, the error can be resolved by
+either renaming one module, importing only the desired functions, or
+not importing the module at all.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">import</span> <span class="kt">Math</span>
+
+<span class="kt">Math</span><span class="o">.</span>sqrt <span class="mi">16</span>  <span class="c c-Singleline">//=&gt; 4.0</span>
+sqrt <span class="mi">16</span>  <span class="c c-Singleline">//=&gt; 4.0</span>
+</code></pre></div>
+
+<p>Import expressions actually accept a variety of arguments from lists of
+modules to strings and lists of strings.  They can also be overloaded like
+other operators to import special files in different ways.  The arguments
+to import must be compile-time constants, and if they are not then import attempts
+to execute them as such (thus <code>import</code> is equivalent to <code>import ante</code>)</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//import a file from a string</span>
+<span class="k">import</span> <span class="s">&quot;../file_in_parent_dir.an&quot;</span>
+
+<span class="c c-Singleline">//import multiple files</span>
+<span class="k">import</span> <span class="s">&quot;file1.an&quot;</span><span class="o">,</span> <span class="s">&quot;file2.an&quot;</span><span class="o">,</span> <span class="kt">File3</span><span class="o">,</span> <span class="kt">File4</span>
+
+<span class="c c-Singleline">//import arbitrary string expressions:</span>
+<span class="k">import</span> <span class="s">&quot;quile.an&quot;</span><span class="o">.</span>replace <span class="s">&quot;qu&quot;</span> <span class="s">&quot;f&quot;</span>
+
+<span class="k">import</span> many_files<span class="p">()</span>
+
+<span class="c c-Singleline">//Ask for which file to import during compile-time</span>
+<span class="k">import</span> input <span class="s">&quot;Input the file to import: &quot;</span>
+</code></pre></div>
+
+<p>Overloading import for different types is done like any other operator.
+The following will import a c source file, assuming the functions parse
+and decls exist.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">C</span> <span class="o">=</span> <span class="kt">Str</span> file lib
+
+<span class="c c-Singleline">//import a c src file</span>
+<span class="k">fun</span> <span class="p">(</span><span class="k">import</span><span class="p">):</span> <span class="kt">C</span> src
+    <span class="c c-Singleline">//import directly from the ast</span>
+    <span class="k">import</span> parse src
+    <span class="kt">Ante</span><span class="o">.</span><span class="kt">Compiler</span><span class="o">.</span>link_with src<span class="o">.</span>lib
+
+<span class="k">import</span> <span class="kt">C</span><span class="p">(</span><span class="s">&quot;file.h&quot;</span><span class="o">,</span> <span class="s">&quot;libname&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="module-expressions">Module Expressions</h2>
+
+<p>The module expression is a special expression that is run before
+the main body of the file is executed.</p>
+
+<p>A module expression can optionally include a module name.  If one
+is included it is taken to be the name of a submodule that is
+contained within the expression.  If no name is specified, then
+the module expression refers to the current module.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//in file File.an</span>
+
+<span class="c c-Singleline">//four can use inc that is declared later because module</span>
+<span class="c c-Singleline">//expressions are executed before the main body of a file</span>
+<span class="k">let</span> four <span class="o">=</span> inc <span class="mi">3</span>
+
+<span class="k">let</span> six <span class="o">=</span> <span class="kt">Util</span><span class="o">.</span>double <span class="mi">3</span>
+
+<span class="k">module</span>
+    <span class="k">let</span> inc <span class="o">=</span> <span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">module</span> <span class="kt">Util</span>
+    <span class="k">let</span> double <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The fact that module expressions are run before the main body of
+a file may seem odd at first but it is helpful when managing
+imports and exports.  Typically stating the imports and
+exports of a module is done at the top of a file using functions
+such as <code>export</code> that would typically not be run when the compiler
+is only looking for function/type/trait declarations to import.
+Putting these functions within a module expression would cause them
+to run and expand into the desired function declarations to import.
+In this way, a module expression can be thought of as an <code>ante</code> block
+that is run while importing a file.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">module</span>
+    <span class="c c-Singleline">//Every module that imports this module</span>
+    <span class="c c-Singleline">//will now also import Math</span>
+    <span class="k">import</span> <span class="kt">Math</span>
+
+    <span class="c c-Singleline">//export function is run while importing this file</span>
+    export inc
+
+<span class="k">let</span> inc <span class="o">=</span> <span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="visibility">Visibility</h2>
+
+<p>The declarations visible to external modules are handled through the
+visibility modifiers (see the <a href="../modifiers">modifiers</a> section).</p>
+
+<p>Alternatively, functions can be used to manually export functions.
+In the following example, public exports are created with the export
+function.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">module</span>
+    <span class="k">let</span> add <span class="o">=</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span>
+    <span class="k">let</span> sub <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="p">)</span>
+    <span class="k">let</span> mul <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>
+    <span class="k">let</span> div <span class="o">=</span> <span class="p">(</span><span class="o">/</span><span class="p">)</span>
+    export add sub mul div
+
+    <span class="c c-Singleline">//not exported</span>
+    <span class="k">let</span> rem <span class="o">=</span> <span class="p">(</span><span class="o">%</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="type-extensions">Type Extensions</h2>
+
+<p>Type extensions can be used to extend modules as well as types.  Adding
+new functions to a module is as simple as creating an extension with those
+functions.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ext</span> <span class="kt">Math</span>
+    <span class="k">fun</span> <span class="nf">fact:</span> <span class="kt">Nat</span> n <span class="o">=</span>
+        <span class="k">if</span> n <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span> <span class="mi">1</span>
+        <span class="k">else</span> n <span class="o">*</span> fact <span class="p">(</span>n <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">fun</span> zero <span class="p">:</span><span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>
 
 </div>
 

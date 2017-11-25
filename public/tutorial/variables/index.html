@@ -50,13 +50,55 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="let">Let</h1>
+<p>Variables come in two main varieties: mutable and immutable.
+Immutable variables cannot be changed once set although they
+can shadow other variables of the same name.  Mutable variables
+on the other hand can be changed, or &ldquo;assigned&rdquo;.  Following an
+assignment the mutable variable then refers to the newly assigned
+value and the old value, unless it is also stored elsewhere, is lost.</p>
 
-<h1 id="var">Var</h1>
+<p>Both forms of declaration infer the type of the variable from the
+type of the expression so it is never necessary to write out the
+type of the variable.</p>
 
-<h1 id="assignment">Assignment</h1>
+<h2 id="let">Let</h2>
 
-<h1 id="explicit-types">Explicit Types</h1>
+<p>Declares an immutable variable.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> x <span class="o">=</span> <span class="mi">2</span>
+print x  <span class="c c-Singleline">//=&gt; 2</span>
+
+<span class="c c-Singleline">//Note that in the binding below the original x is not</span>
+<span class="c c-Singleline">//changed.  Instead, the value 3 is bound to another x</span>
+<span class="c c-Singleline">//that shadows the original</span>
+<span class="k">let</span> x <span class="o">=</span> <span class="mi">3</span>
+print x  <span class="c c-Singleline">//=&gt; 3</span>
+</code></pre></div>
+
+<h2 id="var">Var</h2>
+
+<p>Declares a mutable variable.  Assigning new values to mutable variables
+can be done with the <code>=</code> operator.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">var</span> x <span class="o">=</span> <span class="mi">2</span>
+print x  <span class="c c-Singleline">//=&gt; 2</span>
+
+x <span class="o">=</span> <span class="mi">3</span>
+print x  <span class="c c-Singleline">//=&gt; 3</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="explicit-types">Explicit Types</h2>
+
+<p>If one wishes to specify the type of the variable to enforce that
+it is of the desired type, the type can be optionaly specified after
+let/var.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> <span class="kt">i32</span> x <span class="o">=</span> <span class="mi">5</span>
+
+<span class="k">let</span> <span class="kt">Str</span> s <span class="o">=</span> <span class="s">&quot;hi&quot;</span>
+
+<span class="k">let</span> <span class="kt">bool</span> b <span class="o">=</span> <span class="mi">10</span>  <span class="c c-Singleline">//=&gt; error, b was declared to be a bool</span>
+                 <span class="c c-Singleline">//but the expression is of the type i32</span>
+</code></pre></div>
 
 </div>
 

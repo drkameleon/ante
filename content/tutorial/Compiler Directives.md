@@ -169,7 +169,8 @@ fun print: Str s
 ---
 ## compiler_directive
 
-Creates a new compiler directive with fd as its implementation.
+Creates a new compiler directive with the given function
+as its implementation.
 
 ```ante
 !compiler_directive
@@ -179,6 +180,29 @@ fun debug: 't v = print v
 !compiler_directive
 fun test: FuncDecl fd, Args a
     print "test <| ${fd} ${a} = " (fd a)
+```
+
+---
+## implicit
+
+If used on a cast function, marks the function as an implicit cast.
+If used on a type, enables implicit casts to that type.
+
+```ante
+type Vec 't = ...
+type Arr 't = ...
+
+ext Arr 't
+    !implicit fun init: Vec 't v = ...
+
+fun print_arr: !implicit Arr arr
+    print "Array" arr "of length" arr.len
+
+let a = Arr[1, 5, 9]
+let v = Vec[1, 3, 7]
+
+print a  //Arr is already Arr
+print v  //Vec is converted to Arr
 ```
 
 ---
@@ -192,8 +216,11 @@ the values themselves.
 
 ```ante
 type Mpz = void*
-fun mpz_init: mut Mpz out;
 
+//Declare mpz_init to accept possibly uninitialized values
+fun mpz_init: !noinit mut Mpz out;
+
+//Create a wrapper around the c-style initialization
 fun Mpz.init: -> Mpz
     !noinit var Mpz t
     mpz_init t

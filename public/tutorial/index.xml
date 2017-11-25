@@ -66,7 +66,7 @@ if Time.is_after &amp;quot;12:00&amp;quot; then print &amp;quot;good afternoon&a
       <pubDate>Wed, 15 Nov 2017 14:11:33 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/modules/</guid>
-      <description> Imports Visibility Type Extensions </description>
+      <description>Modules provide a method to separate implementation from interface. They may contain types, traits, functions, and global variables, although the latter is discouraged. Before importing a module, the modules names can be accessed through indexing the hierarchy of modules with the . operator. For example, accessing a function f in the module SubModule which itself is within the module Module can be done with Module.SubModule.f. This is the primary method to access other modules, with the one exception that the current module has all of its names already imported, thus if the current module is the SubModule above then the function can be accessed with just f.</description>
     </item>
     
     <item>
@@ -95,7 +95,8 @@ Visibility Modifiers The visibility modifiers control how &amp;ldquo;visible&amp
       <pubDate>Wed, 15 Nov 2017 14:09:45 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/variables/</guid>
-      <description> Let Var Assignment Explicit Types </description>
+      <description>Variables come in two main varieties: mutable and immutable. Immutable variables cannot be changed once set although they can shadow other variables of the same name. Mutable variables on the other hand can be changed, or &amp;ldquo;assigned&amp;rdquo;. Following an assignment the mutable variable then refers to the newly assigned value and the old value, unless it is also stored elsewhere, is lost.
+Both forms of declaration infer the type of the variable from the type of the expression so it is never necessary to write out the type of the variable.</description>
     </item>
     
     <item>
@@ -133,7 +134,7 @@ Logical &amp;lt; Less than
       <pubDate>Wed, 15 Nov 2017 14:02:48 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/type-casts/</guid>
-      <description> Explicit Casts Generic Casts Implicit Casts </description>
+      <description>Type casts in Ante are performed with the Type val syntax in which val is casted to the type Type. Unlike functions, type casts cast a singular value to another type, and thus its arguments are not separated by spaces. If multiple arguments are needed to cast to a given type they can be wrapped in a tuple. The contents of the tuple should match the tuple that the type was originally defined as.</description>
     </item>
     
     <item>

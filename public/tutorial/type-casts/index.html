@@ -50,11 +50,49 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="explicit-casts">Explicit Casts</h1>
+<p>Type casts in Ante are performed with the <code>Type val</code> syntax in
+which <code>val</code> is casted to the type <code>Type</code>.  Unlike functions,
+type casts cast a singular value to another type, and thus its
+arguments are not separated by spaces.  If multiple arguments
+are needed to cast to a given type they can be wrapped in a tuple.
+The contents of the tuple should match the tuple that the type
+was originally defined as.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name<span class="o">,</span> <span class="kt">u8</span> age  <span class="c c-Singleline">//Str and u8</span>
 
-<h1 id="generic-casts">Generic Casts</h1>
+<span class="k">let</span> p <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;Mary&quot;</span><span class="o">,</span> <span class="mi">42u8</span><span class="p">)</span> <span class="c c-Singleline">//Str and u8</span>
+</code></pre></div>
 
-<h1 id="implicit-casts">Implicit Casts</h1>
+<h2 id="explicit-casts">Explicit Casts</h2>
+
+<p>All casts in Ante are explicit by default, and only through a
+compiler extension can they be made implicit.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> three <span class="o">=</span> <span class="kt">Str</span> <span class="mi">3</span>  <span class="c c-Singleline">//=&gt; &quot;3&quot;</span>
+
+<span class="k">fun</span> <span class="nf">add:</span> <span class="kt">usz</span> a b <span class="o">=</span> a <span class="o">+</span> b
+
+add <span class="mi">4u8</span> <span class="mi">5u8</span>  <span class="c c-Singleline">//=&gt; error, mismatching types!</span>
+add <span class="mi">4usz</span> <span class="mi">5usz</span>  <span class="c c-Singleline">//good!</span>
+</code></pre></div>
+
+<h2 id="generic-casts">Generic Casts</h2>
+
+<p>When casting to generic types, Ante makes gracious use of type
+inference, inferring the specific variant of the generic type based
+on the type being cast from and the cast functions available.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">// cast from [3 i32] to Vec i32</span>
+<span class="k">let</span> v <span class="o">=</span> <span class="kt">Vec</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+
+<p>If the specific generic variant is ever needed to be explicitly stated,
+such as when declaring an empty container type, the type arguments
+follow the type name.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> empty <span class="o">=</span> <span class="kt">Vec</span> <span class="kt">i32</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="implicit-casts">Implicit Casts</h2>
+
+<p>Implicit casts can be achieved with the <code>!implicit</code> compiler directive.
+See its section in <a href="../compiler-directives">compiler directives</a>.</p>
 
 </div>
 

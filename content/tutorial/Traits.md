@@ -78,33 +78,34 @@ reimplement it to implement the trait.
 
 ```ante
 trait RelOps
-    //require == and < to be implemented
-    fun (==): RelOps a b -> bool
+    //require cmp to be implemented
+    fun cmp: RelOps a b -> i32
 
-    fun (<): RelOps a b -> bool
+    //and implement all comparison operators based on cmp
+    fun (==): RelOps a b =
+        cmp a b == 0
 
-    //and implement other operators based on those
+    fun (<): RelOps a b =
+        cmp a b < 0
+
     fun (!=): RelOps a b =
-        not (a == b)
+        cmp a b != 0
 
     fun (>=): RelOps a b =
-        not (a < b)
+        cmp a b >= 0
 
     fun (<=): RelOps a b =
-        a < b or a == b
+        cmp a b <= 0
 
     fun (>): RelOps a b =
-        not (a > b)
+        cmp a b > 0
 
 
 ext Str: RelOps
-    fun (==): Str l r =
-        strcmp l r == 0
+    fun cmp: Str l r =
+        strcmp l r
 
-    fun (<): Str l r =
-        strcmp l r < 0
-
-//now ==, <, !=, >=, <=, and > are defined for Str
+//now cmp, ==, <, !=, >=, <=, and > are defined for Str
 ```
 
 ## Combining Traits

@@ -210,7 +210,8 @@ do_thing a  <span class="c c-Singleline">//=&gt; &quot;Go fetch!&quot;</span>
 
 <h2 id="compiler-directive">compiler_directive</h2>
 
-<p>Creates a new compiler directive with fd as its implementation.</p>
+<p>Creates a new compiler directive with the given function
+as its implementation.</p>
 <div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!compiler_directive</span>
 <span class="k">fun</span> <span class="nf">debug:</span> <span class="kt">&#39;t</span> v <span class="o">=</span> print v
 
@@ -218,6 +219,28 @@ do_thing a  <span class="c c-Singleline">//=&gt; &quot;Go fetch!&quot;</span>
 <span class="cp">!compiler_directive</span>
 <span class="k">fun</span> <span class="nf">test:</span> <span class="kt">FuncDecl</span> fd<span class="o">,</span> <span class="kt">Args</span> a
     print <span class="s">&quot;test &lt;| ${fd} ${a} = &quot;</span> <span class="p">(</span>fd a<span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="implicit">implicit</h2>
+
+<p>If used on a cast function, marks the function as an implicit cast.
+If used on a type, enables implicit casts to that type.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Vec</span> <span class="kt">&#39;t</span> <span class="o">=</span> <span class="o">...</span>
+<span class="k">type</span> <span class="kt">Arr</span> <span class="kt">&#39;t</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">ext</span> <span class="kt">Arr</span> <span class="kt">&#39;t</span>
+    <span class="cp">!implicit</span> <span class="k">fun</span> <span class="nf">init:</span> <span class="kt">Vec</span> <span class="kt">&#39;t</span> v <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">fun</span> <span class="nf">print_arr:</span> <span class="cp">!implicit</span> <span class="kt">Arr</span> arr
+    print <span class="s">&quot;Array&quot;</span> arr <span class="s">&quot;of length&quot;</span> arr<span class="o">.</span>len
+
+<span class="k">let</span> a <span class="o">=</span> <span class="kt">Arr</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="k">let</span> v <span class="o">=</span> <span class="kt">Vec</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">7</span><span class="p">]</span>
+
+print a  <span class="c c-Singleline">//Arr is already Arr</span>
+print v  <span class="c c-Singleline">//Vec is converted to Arr</span>
 </code></pre></div>
 
 <hr />
@@ -230,8 +253,11 @@ the compiler cannot guarentee that they have been initialized.  Noinit
 vars are usually used paired with c functions that expect to initialize
 the values themselves.</p>
 <div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Mpz</span> <span class="o">=</span> <span class="kt">void</span><span class="o">*</span>
-<span class="k">fun</span> <span class="nf">mpz_init:</span> <span class="k">mut</span> <span class="kt">Mpz</span> out<span class="o">;</span>
 
+<span class="c c-Singleline">//Declare mpz_init to accept possibly uninitialized values</span>
+<span class="k">fun</span> <span class="nf">mpz_init:</span> <span class="cp">!noinit</span> <span class="k">mut</span> <span class="kt">Mpz</span> out<span class="o">;</span>
+
+<span class="c c-Singleline">//Create a wrapper around the c-style initialization</span>
 <span class="k">fun</span> <span class="kt">Mpz</span><span class="o">.</span><span class="nf">init:</span> <span class="o">-&gt;</span> <span class="kt">Mpz</span>
     <span class="cp">!noinit</span> <span class="k">var</span> <span class="kt">Mpz</span> t
     mpz_init t

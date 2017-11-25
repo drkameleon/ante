@@ -114,33 +114,34 @@ of just the header then that function definition will be used by
 default and types implementing the trait will not need to
 reimplement it to implement the trait.</p>
 <div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">trait</span> <span class="kt">RelOps</span>
-    <span class="c c-Singleline">//require == and &lt; to be implemented</span>
-    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">-&gt;</span> <span class="kt">bool</span>
+    <span class="c c-Singleline">//require cmp to be implemented</span>
+    <span class="k">fun</span> <span class="nf">cmp:</span> <span class="kt">RelOps</span> a b <span class="o">-&gt;</span> <span class="kt">i32</span>
 
-    <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">-&gt;</span> <span class="kt">bool</span>
+    <span class="c c-Singleline">//and implement all comparison operators based on cmp</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
+        cmp a b <span class="o">==</span> <span class="mi">0</span>
 
-    <span class="c c-Singleline">//and implement other operators based on those</span>
+    <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
+        cmp a b <span class="o">&lt;</span> <span class="mi">0</span>
+
     <span class="k">fun</span> <span class="p">(</span><span class="o">!=</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
-        <span class="k">not</span> <span class="p">(</span>a <span class="o">==</span> b<span class="p">)</span>
+        cmp a b <span class="o">!=</span> <span class="mi">0</span>
 
     <span class="k">fun</span> <span class="p">(</span><span class="o">&gt;=</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
-        <span class="k">not</span> <span class="p">(</span>a <span class="o">&lt;</span> b<span class="p">)</span>
+        cmp a b <span class="o">&gt;=</span> <span class="mi">0</span>
 
     <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;=</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
-        a <span class="o">&lt;</span> b <span class="k">or</span> a <span class="o">==</span> b
+        cmp a b <span class="o">&lt;=</span> <span class="mi">0</span>
 
     <span class="k">fun</span> <span class="p">(</span><span class="o">&gt;</span><span class="p">):</span> <span class="kt">RelOps</span> a b <span class="o">=</span>
-        <span class="k">not</span> <span class="p">(</span>a <span class="o">&gt;</span> b<span class="p">)</span>
+        cmp a b <span class="o">&gt;</span> <span class="mi">0</span>
 
 
 <span class="k">ext</span> <span class="kt">Str</span><span class="p">:</span> <span class="kt">RelOps</span>
-    <span class="k">fun</span> <span class="p">(</span><span class="o">==</span><span class="p">):</span> <span class="kt">Str</span> l r <span class="o">=</span>
-        strcmp l r <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">fun</span> <span class="nf">cmp:</span> <span class="kt">Str</span> l r <span class="o">=</span>
+        strcmp l r
 
-    <span class="k">fun</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">):</span> <span class="kt">Str</span> l r <span class="o">=</span>
-        strcmp l r <span class="o">&lt;</span> <span class="mi">0</span>
-
-<span class="c c-Singleline">//now ==, &lt;, !=, &gt;=, &lt;=, and &gt; are defined for Str</span>
+<span class="c c-Singleline">//now cmp, ==, &lt;, !=, &gt;=, &lt;=, and &gt; are defined for Str</span>
 </code></pre></div>
 
 <h2 id="combining-traits">Combining Traits</h2>

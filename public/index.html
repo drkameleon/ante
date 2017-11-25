@@ -117,7 +117,11 @@ if Time.is_after &quot;12:00&quot; then print &quot;good afternoon&quot;  An els
   <h1 class="post-title">
     <a href="https://jfecher.github.io/ante/public/tutorial/modules/">Modules</a>
   </h1>
-   Imports Visibility Type Extensions 
+  Modules provide a method to separate implementation from interface. They may contain types, traits, functions, and global variables, although the latter is discouraged. Before importing a module, the modules names can be accessed through indexing the hierarchy of modules with the . operator. For example, accessing a function f in the module SubModule which itself is within the module Module can be done with Module.SubModule.f. This is the primary method to access other modules, with the one exception that the current module has all of its names already imported, thus if the current module is the SubModule above then the function can be accessed with just f.
+  
+  <div class="read-more-link">
+    <a href="/ante/public/tutorial/modules/">Read More…</a>
+  </div>
   
 </div><div class="post">
   <h1 class="post-title">
@@ -145,7 +149,12 @@ Visibility Modifiers The visibility modifiers control how &ldquo;visible&rdquo; 
   <h1 class="post-title">
     <a href="https://jfecher.github.io/ante/public/tutorial/variables/">Variables</a>
   </h1>
-   Let Var Assignment Explicit Types 
+  Variables come in two main varieties: mutable and immutable. Immutable variables cannot be changed once set although they can shadow other variables of the same name. Mutable variables on the other hand can be changed, or &ldquo;assigned&rdquo;. Following an assignment the mutable variable then refers to the newly assigned value and the old value, unless it is also stored elsewhere, is lost.
+Both forms of declaration infer the type of the variable from the type of the expression so it is never necessary to write out the type of the variable.
+  
+  <div class="read-more-link">
+    <a href="/ante/public/tutorial/variables/">Read More…</a>
+  </div>
   
 </div><div class="post">
   <h1 class="post-title">
@@ -182,7 +191,11 @@ Logical &lt; Less than
   <h1 class="post-title">
     <a href="https://jfecher.github.io/ante/public/tutorial/type-casts/">Type Casts</a>
   </h1>
-   Explicit Casts Generic Casts Implicit Casts 
+  Type casts in Ante are performed with the Type val syntax in which val is casted to the type Type. Unlike functions, type casts cast a singular value to another type, and thus its arguments are not separated by spaces. If multiple arguments are needed to cast to a given type they can be wrapped in a tuple. The contents of the tuple should match the tuple that the type was originally defined as.
+  
+  <div class="read-more-link">
+    <a href="/ante/public/tutorial/type-casts/">Read More…</a>
+  </div>
   
 </div><div class="post">
   <h1 class="post-title">
