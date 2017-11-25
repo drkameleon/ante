@@ -37,7 +37,7 @@
 
     <ul class="sidebar-nav">
       <li><a href="https://jfecher.github.io/ante/public/">Home</a> </li>
-      <li><a href="/ante/public/tutorial/blocks/"> Blocks </a></li><li><a href="/ante/public/compiler-extensions/build-system/"> Build System </a></li><li><a href="/ante/public/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/ante/public/tutorial/functions/"> Functions </a></li><li><a href="/ante/public/tutorial/if/"> If </a></li><li><a href="/ante/public/tutorial/literals/"> Literals </a></li><li><a href="/ante/public/tutorial/loops/"> Loops </a></li><li><a href="/ante/public/tutorial/modifiers/"> Modifiers </a></li><li><a href="/ante/public/tutorial/modules/"> Modules </a></li><li><a href="/ante/public/tutorial/operators/"> Operators </a></li><li><a href="/ante/public/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/ante/public/tutorial/traits/"> Traits </a></li><li><a href="/ante/public/tutorial/type-casts/"> Type Casts </a></li><li><a href="/ante/public/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/ante/public/tutorial/types/"> Types </a></li><li><a href="/ante/public/tutorial/variables/"> Variables </a></li>
+      <li><a href="/ante/public/tutorial/blocks/"> Blocks </a></li><li><a href="/ante/public/compiler-extensions/build-system/"> Build System </a></li><li><a href="/ante/public/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/ante/public/tutorial/functions/"> Functions </a></li><li><a href="/ante/public/tutorial/if/"> If </a></li><li><a href="/ante/public/tutorial/literals/"> Literals </a></li><li><a href="/ante/public/tutorial/loops/"> Loops </a></li><li><a href="/ante/public/tutorial/modifiers/"> Modifiers </a></li><li><a href="/ante/public/tutorial/modules/"> Modules </a></li><li><a href="/ante/public/tutorial/operators/"> Operators </a></li><li><a href="/ante/public/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/ante/public/tutorial/traits/"> Traits </a></li><li><a href="/ante/public/tutorial/type-casts/"> Type Casts </a></li><li><a href="/ante/public/tutorial/type-declarations/"> Type Declarations </a></li><li><a href="/ante/public/tutorial/types/"> Types </a></li><li><a href="/ante/public/tutorial/variables/"> Variables </a></li>
     </ul>
 
     <p>&copy; 2017. All rights reserved. </p>
@@ -50,19 +50,211 @@
   <span class="post-date">Wed, Nov 15, 2017</span>
   
 
-<h1 id="primitives">Primitives</h1>
+<p>Types in Ante are lexically distinct from identifiers.  All
+user-defined types are in the form <code>[A-Z][A-Za-z]*</code>, and
+all other types are in the forms described below.</p>
 
-<h1 id="pointers">Pointers</h1>
+<hr />
 
-<h1 id="arrays">Arrays</h1>
+<h2 id="primitive-types">Primitive Types</h2>
 
-<h1 id="tuples">Tuples</h1>
+<p>Most primitive types are in the form of <code>[a-z]\d+</code>.
+Where the letter specifies its general type (signed integer,
+unsigned integer, floating-point, or char), and the number
+afterwards specifies its size in bits.  The size may also
+be <code>sz</code> which indicates that the type is the size of a pointer
+on the current platform.</p>
 
-<h1 id="sum-types">Sum Types</h1>
+<p>Signed integer types: <code>i8</code> <code>i16</code> <code>i32</code> <code>i64</code> <code>isz</code></p>
 
-<h1 id="type-variables">Type Variables</h1>
+<p>Unsigned integer types: <code>u8</code> <code>u16</code> <code>u32</code> <code>u64</code> <code>usz</code></p>
 
-<h1 id="trait-types">Trait Types</h1>
+<p>Floating-point types: <code>f16</code> <code>f32</code> <code>f64</code></p>
+
+<p>Character types: <code>c8</code> <code>c16</code> <code>c32</code> <code>c64</code></p>
+
+<p>Other: <code>bool</code> <code>void</code></p>
+
+<p>Despite its name, Ante&rsquo;s <code>void</code> type is more analogous to a unit
+type in other languages rather than the conventional void type.
+This is due to it having  <code>()</code> as its single value rather than
+most void types which have no values.</p>
+
+<hr />
+
+<h2 id="pointer-types">Pointer Types</h2>
+
+<p>Pointer types are in the form of <code>&lt;type&gt;\*</code> and represent
+a C-style pointer to the given type.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>typeof <span class="p">(</span><span class="k">new</span> <span class="mi">3</span><span class="p">)</span>      <span class="c c-Singleline">//=&gt; i32*</span>
+typeof <span class="p">(</span><span class="k">new</span> <span class="k">new</span> <span class="mi">3</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; i32**</span>
+</code></pre></div>
+
+<p>Pointer types are unmanaged by default.  It is strongly reccomended
+to choose a memory management strategy early on by importing either
+the standard <code>GC</code> module or the <code>Ownership</code> module.</p>
+
+<hr />
+
+<h2 id="array-types">Array Types</h2>
+
+<p>Array types are in the form <code>\[&lt;size&gt; &lt;type&gt;\]</code> where
+the size is optional.  If the size is included then the
+array is a constant array without a length field.  If it
+is excluded it is a possibly dynamic array with a separate
+length field.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>typeof <span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c c-Singleline">//=&gt; [2 i32]</span>
+typeof <span class="p">[]</span>      <span class="c c-Singleline">//=&gt; [0 &#39;t]</span>
+
+typeof <span class="o">&lt;|</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span><span class="o">#</span><span class="p">(</span><span class="mi">2</span><span class="o">..</span><span class="mi">4</span><span class="p">)</span>        <span class="c c-Singleline">//=&gt; [3 i32]</span>
+typeof <span class="o">&lt;|</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span>slice <span class="p">(</span><span class="mi">2</span><span class="o">..</span><span class="mi">4</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; [i32]</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="tuple-types">Tuple Types</h2>
+
+<p>A tuple type is an aggregate type that is contiguous and heterogenous.
+Its type is a combination of each of its element types separated with a comma.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>typeof <span class="p">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>    <span class="c c-Singleline">//=&gt; i32, i32</span>
+typeof <span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="o">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c c-Singleline">//=&gt; Str, i32</span>
+
+typeof <span class="p">([</span><span class="s">&quot;three&quot;</span><span class="p">]</span><span class="o">,</span> <span class="k">new</span> <span class="mi">3</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; [1 Str], i32*</span>
+typeof <span class="p">(</span><span class="mi">1u8</span><span class="o">,</span> <span class="mi">2u16</span><span class="o">,</span> <span class="mi">3u32</span><span class="p">)</span>   <span class="c c-Singleline">//=&gt; u8, u16, u32</span>
+</code></pre></div>
+
+<p>A single element tuple is expressed with a trailing comma:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>typeof <span class="p">(</span><span class="mi">5</span><span class="o">,</span><span class="p">)</span>   <span class="c c-Singleline">//=&gt; i32,</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="function-types">Function Types</h2>
+
+<p>The type of a function is the tuple of its parameters followed by <code>-&gt;</code> and
+its return type.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">add:</span> <span class="kt">i32</span> a<span class="o">,</span> <span class="kt">i32</span> b <span class="o">-&gt;</span> <span class="kt">i32</span>
+    a <span class="o">+</span> b
+
+typeof add    <span class="c c-Singleline">//=&gt; (i32, i32) -&gt; i32</span>
+typeof puts   <span class="c c-Singleline">//=&gt; (c8*,) -&gt; i32</span>
+typeof printf <span class="c c-Singleline">//=&gt; (c8*, ...) -&gt; i32</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="record-types-and-sum-types">Record Types and Sum Types</h2>
+
+<p>Record types and sum types currently must be given a name after declaration
+as they have no inline equivalent.  See the <a href="../type-declarations">type declarations</a>
+section for info on how to declare these types.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//record type</span>
+<span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name<span class="o">,</span> <span class="kt">u8</span> age
+
+typeof <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;George&quot;</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; Person</span>
+
+<span class="c c-Singleline">//Sum type</span>
+<span class="k">type</span> <span class="kt">Day</span> <span class="o">=</span> <span class="kt">Mon</span> <span class="o">|</span> <span class="kt">Tue</span> <span class="o">|</span> <span class="kt">Wed</span> <span class="o">|</span> <span class="kt">Thurs</span> <span class="o">|</span> <span class="kt">Fri</span> <span class="o">|</span> <span class="kt">Sat</span> <span class="o">|</span> <span class="kt">Sun</span>
+
+typeof <span class="kt">Tue</span>  <span class="c c-Singleline">//=&gt; Day</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="type-variables">Type Variables</h2>
+
+<p>Type variables can stand in for any type and are the building block
+for generic types.  Their syntax is an apostrophe followed by an
+identifier.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//x is any type</span>
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">&#39;t</span> x <span class="o">=</span> <span class="o">...</span>
+
+<span class="c c-Singleline">//p is any pointer type</span>
+<span class="k">fun</span> <span class="nf">print_ptr:</span> <span class="kt">&#39;t</span><span class="o">*</span> p <span class="o">=</span> <span class="o">...</span>
+
+
+<span class="kt">&#39;t</span> <span class="o">==</span> <span class="kt">i32</span>               <span class="c c-Singleline">//=&gt; true</span>
+<span class="kt">&#39;u</span> <span class="o">==</span> <span class="p">(</span><span class="kt">Str</span><span class="o">,</span> <span class="kt">f64</span><span class="o">,</span> <span class="kt">bool</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; true</span>
+
+<span class="kt">&#39;t</span><span class="o">*</span> <span class="o">==</span> <span class="kt">i32</span><span class="o">*</span>       <span class="c c-Singleline">//=&gt; true</span>
+<span class="p">[</span><span class="kt">&#39;e</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="kt">bool</span><span class="p">]</span>    <span class="c c-Singleline">//=&gt; true</span>
+<span class="p">[</span><span class="kt">&#39;e</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">4</span> <span class="kt">bool</span><span class="p">]</span>  <span class="c c-Singleline">//=&gt; true</span>
+
+<span class="kt">&#39;a</span><span class="o">*</span> <span class="o">==</span> <span class="kt">i32</span>  <span class="c c-Singleline">//=&gt; false</span>
+<span class="p">(</span><span class="kt">i32</span><span class="o">,</span><span class="kt">&#39;t</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kt">Str</span><span class="o">,</span> <span class="kt">Str</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; false</span>
+</code></pre></div>
+
+<p>Functions that accept a type variable anywhere in their parameters are
+generic functions and are recompiled for every valid type variant of
+arguments that are used.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">inc:</span> <span class="kt">&#39;t</span> x <span class="o">=</span>
+    x <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c c-Singleline">//compile inc:i32, a variant just for i32s</span>
+inc <span class="mi">3</span>
+
+<span class="c c-Singleline">//compile inc:usz, a variant just for usz</span>
+inc <span class="mi">20_usz</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="generic-types">Generic Types</h2>
+
+<p>Generic types are types that themselves take other types of parameters.
+For example, the <code>Maybe</code> type is generic over the type of value it holds.
+The arguments of a generic type are specified after the type and are
+separated with spaces.  The generic type with no type arguments is
+referred to as the parent type (<code>Maybe</code> in this case), and each version
+with type arguments, eg. <code>Maybe i32</code> is a variant of the parent type.
+Two generic variants are equal if their parent types are equal and their
+generic arguments are equal.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>typeof <span class="p">(</span><span class="kt">Some</span> <span class="mi">3</span><span class="p">)</span>  <span class="c c-Singleline">//=&gt; Maybe i32</span>
+typeof <span class="p">[</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="p">]</span>    <span class="c c-Singleline">//=&gt; Vec i32</span>
+typeof <span class="p">(</span><span class="kt">Err</span> <span class="mi">0</span><span class="p">)</span>   <span class="c c-Singleline">//=&gt; Result &#39;t i32</span>
+</code></pre></div>
+
+<p>If a function omits the generic arguments of a parameter then the resulting
+type is the parent type, and is generic for any variant of the parent type.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//print will accept any variant of Maybe</span>
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">Maybe</span> m
+    <span class="k">match</span> m <span class="k">with</span>
+    <span class="o">|</span> <span class="kt">Some</span> val <span class="o">-&gt;</span> print val
+    <span class="o">|</span> <span class="kt">None</span> <span class="o">-&gt;</span> print <span class="s">&quot;None&quot;</span>
+
+<span class="k">let</span> m1 <span class="o">=</span> <span class="kt">Some</span> <span class="mi">3</span>
+<span class="k">let</span> m2 <span class="o">=</span> <span class="kt">Some</span> <span class="s">&quot;string&quot;</span>
+
+<span class="c c-Singleline">//both Maybe i32 and Maybe Str are valid inputs</span>
+print m1
+print m2
+</code></pre></div>
+
+<hr />
+
+<h2 id="trait-types">Trait Types</h2>
+
+<p>The type of a <a href="../traits">trait</a> is also its name.  The type of a type
+satisfying multiple traits can be expressed as each trait&rsquo;s type
+joined by <code>+</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">trait</span> <span class="kt">T1</span>
+<span class="k">trait</span> <span class="kt">T2</span>
+
+<span class="kt">T1</span>     <span class="c c-Singleline">//The type of the trait T1</span>
+<span class="kt">T1</span><span class="o">+</span><span class="kt">T2</span>  <span class="c c-Singleline">//The type of the composition of T1 and T2</span>
+</code></pre></div>
+
+<p>A function accepting a trait type as an argument is generic over any
+type that satisfies that trait.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">echo:</span> <span class="kt">Printable</span> p
+    print p
+
+<span class="c c-Singleline">//compiles a function echo:i32 for integers</span>
+echo <span class="mi">3</span>
+
+<span class="c c-Singleline">//compiles a function echo:c8* for c8 pointers</span>
+echo <span class="p">(</span><span class="k">new</span> <span class="sc">&#39;h&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 </div>
 

@@ -151,10 +151,10 @@ Logical &amp;lt; Less than
     
     <item>
       <title>Type Declarations</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/type_declarations/</link>
+      <link>https://jfecher.github.io/ante/public/tutorial/type-declarations/</link>
       <pubDate>Wed, 15 Nov 2017 14:01:44 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/type_declarations/</guid>
+      <guid>https://jfecher.github.io/ante/public/tutorial/type-declarations/</guid>
       <description>Declaring a new type in Ante is accomplished with the type keyword. When a new type is declared it is considered to be different than the type(s) it contains. Resultingly, if a function requires a Str but a Name is given an error will be issued even if Name contains only a single Str. This feature provides additional type safety by protecting against the use of a value on a function that was defined with a different type in mind that may have different semantics than the newly-defined type.</description>
     </item>
     
@@ -164,7 +164,8 @@ Logical &amp;lt; Less than
       <pubDate>Wed, 15 Nov 2017 14:00:44 -0500</pubDate>
       
       <guid>https://jfecher.github.io/ante/public/tutorial/types/</guid>
-      <description> Primitives Pointers Arrays Tuples Sum Types Type Variables Trait Types </description>
+      <description>Types in Ante are lexically distinct from identifiers. All user-defined types are in the form [A-Z][A-Za-z]*, and all other types are in the forms described below.
+Primitive Types Most primitive types are in the form of [a-z]\d+. Where the letter specifies its general type (signed integer, unsigned integer, floating-point, or char), and the number afterwards specifies its size in bits. The size may also be sz which indicates that the type is the size of a pointer on the current platform.</description>
     </item>
     
     <item>

@@ -37,7 +37,7 @@
 
     <ul class="sidebar-nav">
       <li><a href="https://jfecher.github.io/ante/public/">Home</a> </li>
-      <li><a href="/ante/public/tutorial/blocks/"> Blocks </a></li><li><a href="/ante/public/compiler-extensions/build-system/"> Build System </a></li><li><a href="/ante/public/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/ante/public/tutorial/functions/"> Functions </a></li><li><a href="/ante/public/tutorial/if/"> If </a></li><li><a href="/ante/public/tutorial/literals/"> Literals </a></li><li><a href="/ante/public/tutorial/loops/"> Loops </a></li><li><a href="/ante/public/tutorial/modifiers/"> Modifiers </a></li><li><a href="/ante/public/tutorial/modules/"> Modules </a></li><li><a href="/ante/public/tutorial/operators/"> Operators </a></li><li><a href="/ante/public/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/ante/public/tutorial/traits/"> Traits </a></li><li><a href="/ante/public/tutorial/type-casts/"> Type Casts </a></li><li><a href="/ante/public/tutorial/type_declarations/"> Type Declarations </a></li><li><a href="/ante/public/tutorial/types/"> Types </a></li><li><a href="/ante/public/tutorial/variables/"> Variables </a></li>
+      <li><a href="/ante/public/tutorial/blocks/"> Blocks </a></li><li><a href="/ante/public/compiler-extensions/build-system/"> Build System </a></li><li><a href="/ante/public/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/ante/public/tutorial/functions/"> Functions </a></li><li><a href="/ante/public/tutorial/if/"> If </a></li><li><a href="/ante/public/tutorial/literals/"> Literals </a></li><li><a href="/ante/public/tutorial/loops/"> Loops </a></li><li><a href="/ante/public/tutorial/modifiers/"> Modifiers </a></li><li><a href="/ante/public/tutorial/modules/"> Modules </a></li><li><a href="/ante/public/tutorial/operators/"> Operators </a></li><li><a href="/ante/public/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/ante/public/tutorial/traits/"> Traits </a></li><li><a href="/ante/public/tutorial/type-casts/"> Type Casts </a></li><li><a href="/ante/public/tutorial/type-declarations/"> Type Declarations </a></li><li><a href="/ante/public/tutorial/types/"> Types </a></li><li><a href="/ante/public/tutorial/variables/"> Variables </a></li>
     </ul>
 
     <p>&copy; 2017. All rights reserved. </p>
@@ -199,19 +199,24 @@ Logical &lt; Less than
   
 </div><div class="post">
   <h1 class="post-title">
-    <a href="https://jfecher.github.io/ante/public/tutorial/type_declarations/">Type Declarations</a>
+    <a href="https://jfecher.github.io/ante/public/tutorial/type-declarations/">Type Declarations</a>
   </h1>
   Declaring a new type in Ante is accomplished with the type keyword. When a new type is declared it is considered to be different than the type(s) it contains. Resultingly, if a function requires a Str but a Name is given an error will be issued even if Name contains only a single Str. This feature provides additional type safety by protecting against the use of a value on a function that was defined with a different type in mind that may have different semantics than the newly-defined type.
   
   <div class="read-more-link">
-    <a href="/ante/public/tutorial/type_declarations/">Read More…</a>
+    <a href="/ante/public/tutorial/type-declarations/">Read More…</a>
   </div>
   
 </div><div class="post">
   <h1 class="post-title">
     <a href="https://jfecher.github.io/ante/public/tutorial/types/">Types</a>
   </h1>
-   Primitives Pointers Arrays Tuples Sum Types Type Variables Trait Types 
+  Types in Ante are lexically distinct from identifiers. All user-defined types are in the form [A-Z][A-Za-z]*, and all other types are in the forms described below.
+Primitive Types Most primitive types are in the form of [a-z]\d+. Where the letter specifies its general type (signed integer, unsigned integer, floating-point, or char), and the number afterwards specifies its size in bits. The size may also be sz which indicates that the type is the size of a pointer on the current platform.
+  
+  <div class="read-more-link">
+    <a href="/ante/public/tutorial/types/">Read More…</a>
+  </div>
   
 </div><div class="post">
   <h1 class="post-title">
