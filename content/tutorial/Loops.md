@@ -169,7 +169,7 @@ be called to get the iterator used:
 for e in iterable do ...
 ```
 
-Is equivalent do:
+Is equivalent to:
 ```ante
 var it = into_iter iterable
 while has_next it do
