@@ -210,7 +210,7 @@ fun approxEq: f64 a b =
 
 match 56.0 with
 | approxEq x 34.2 -> "x = 34.2"
-| approxEq x 56.0 -> "x = 34.2"
+| approxEq x 56.0 -> "x = 56.0"
 | x < 2 -> "x < 2"
 | _ -> "x = ?"
 ```
