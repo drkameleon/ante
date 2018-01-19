@@ -34,6 +34,9 @@
 
   
   <link href="https://jfecher.github.io/ante/public/css/custom.css" rel="stylesheet">
+ 
+  
+  <link rel="stylesheet" href="https://jfecher.github.io/ante/public/css/syntax.css">
 
   
   
@@ -83,6 +86,18 @@
                     <span class="sr-only">Ante - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
+                        <div class="navbar-collapse collapse" id="navigation">
+                            <ul class="nav navbar-nav navbar-right">
+                            
+                            <li class="dropdown">
+                                <a href="https://jfecher.github.io/ante/public/">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="https://jfecher.github.io/ante/public//tutorial/literals">Tutorial</a>
+                            </li>
+
+                            </ul>
+                        </div>
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
                       <span class="sr-only">Toggle Navigation</span>
                         <i class="fa fa-align-justify"></i>
@@ -91,119 +106,7 @@
             </div>
             
 
-            <div class="navbar-collapse collapse" id="navigation">
-                <ul class="nav navbar-nav navbar-right">
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/">Home</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/">Docs</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/blocks/">Blocks</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/compiler-extensions/build-system/">Build System</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/compiler-directives/">Compiler Directives</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/functions/">Functions</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/if/">If</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/literals/">Literals</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/loops/">Loops</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/modifiers/">Modifiers</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/modules/">Modules</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/operators/">Operators</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/pattern-matching/">Pattern Matching</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/traits/">Traits</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/type-casts/">Type Casts</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/type-declarations/">Type Declarations</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/types/">Types</a>
-                    
-                  </li>
-                  
-                  <li class="dropdown">
-                    
-                    <a href="/ante/public/tutorial/variables/">Variables</a>
-                    
-                  </li>
-                  
-                </ul>
-            </div>
+            
             
 
             <div class="collapse clearfix" id="search">
@@ -245,15 +148,15 @@
                 <div class="item">
                     <div class="row">
                         <div class="col-sm-5 right">
-                            <h1>Item 1</h1>
-                            <ul class="list-style-none">
-    <li>First bullet</li>
-    <li>Second bullet</li>
-</ul>
+                            <h1>Factorial</h1>
+                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante"> fun fact: i32 x =
+    if x == 1 then 1
+    else x * fact (x-1)
+</code> </pre> </div>
 
                         </div>
                         <div class="col-sm-7">
-                            <img class="img-responsive" src="img/ante_lowres.png" alt="">
+                            <img class="img-responsive" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -261,47 +164,14 @@
                 <div class="item">
                     <div class="row">
                         <div class="col-sm-5 right">
-                            <h1>Item 2</h1>
-                            <ul class="list-style-none">
-    <li>First bullet</li>
-    <li>Second bullet</li>
-</ul>
+                            <h1>Dot Product</h1>
+                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante"> fun dotproduct: a, b =
+    (a,b).zip(*).reduce(+)
+</code> </pre> </div>
 
                         </div>
                         <div class="col-sm-7">
-                            <img class="img-responsive" src="img/ante_lowres.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item">
-                    <div class="row">
-                        <div class="col-sm-5 right">
-                            <h1>Item 3</h1>
-                            <ul class="list-style-none">
-    <li>First bullet</li>
-    <li>Second bullet</li>
-</ul>
-
-                        </div>
-                        <div class="col-sm-7">
-                            <img class="img-responsive" src="img/ante_lowres.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item">
-                    <div class="row">
-                        <div class="col-sm-5 right">
-                            <h1>Item 4</h1>
-                            <ul class="list-style-none">
-    <li>First bullet</li>
-    <li>Second bullet</li>
-</ul>
-
-                        </div>
-                        <div class="col-sm-7">
-                            <img class="img-responsive" src="img/ante_lowres.png" alt="">
+                            <img class="img-responsive" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -331,8 +201,8 @@
                         <div class="icon">
                             <i class="fa fa-envelope-o"></i>
                         </div>
-                        <h3>Feature 1</h3>
-                        <p>This is the first feature.  Isn&rsquo;t it great?</p>
+                        <h3>Strongly, Statically Typed</h3>
+                        <p>Ante&rsquo;s algebraic type system can prevent entire classes of bugs so you can catch them before ever running your program.  For example, null pointers are replaced with the much safer Maybe type, which prevents null pointer dereferences when used.</p>
                     </div>
                 </div>
 		
@@ -343,8 +213,8 @@
                         <div class="icon">
                             <i class="fa fa-envelope-o"></i>
                         </div>
-                        <h3>Feature 2</h3>
-                        <p>This is the second feature.  Isn&rsquo;t it great?</p>
+                        <h3>Extensible</h3>
+                        <p>A compile-time API for the compiler itself enables the creation of compiler extensions within the program itself.  This enables anything from creating new optimization passes to extending the type system with dependent types.</p>
                     </div>
                 </div>
 		
@@ -355,8 +225,8 @@
                         <div class="icon">
                             <i class="fa fa-envelope-o"></i>
                         </div>
-                        <h3>Feature 3</h3>
-                        <p>This is the third feature.  Isn&rsquo;t it great?</p>
+                        <h3>Robust Module System</h3>
+                        <p>Modules provide an easy way to manage multiple files and reason about large systems.  They also enable faster compilation through caching.</p>
                     </div>
                 </div>
 		
@@ -373,8 +243,8 @@
                         <div class="icon">
                             <i class="fa fa-envelope-o"></i>
                         </div>
-                        <h3>Feature 4</h3>
-                        <p>This is the fourth feature.  Isn&rsquo;t it great?</p>
+                        <h3>Integrated Build System</h3>
+                        <p>Build instructions can be specified within the source code itself, no makefile needed.  Additionally, no special syntax is required as it is implemented as a normal library module using Ante&rsquo;s compile-time API.</p>
                     </div>
                 </div>
 		
@@ -385,8 +255,8 @@
                         <div class="icon">
                             <i class="fa fa-envelope-o"></i>
                         </div>
-                        <h3>Feature 5</h3>
-                        <p>This is the fifth feature.  Isn&rsquo;t it great?</p>
+                        <h3>High &amp; Low Level language</h3>
+                        <p>Ante hosts a variety of high-level solutions such as smart pointers and first-class functions but also provides the ability to interact at a lower level if needed.</p>
                     </div>
                 </div>
 		
@@ -397,8 +267,8 @@
                         <div class="icon">
                             <i class="fa fa-envelope-o"></i>
                         </div>
-                        <h3>Feature 6</h3>
-                        <p>This is the sixth feature.  Isn&rsquo;t it great?</p>
+                        <h3>Gradual Memory Management</h3>
+                        <p>To support the largest variety of applications, Ante provides several different methods of memory management, including manual management.  Don&rsquo;t want to bother with any of it?  Simply <code>import GC</code> to use a garbage collector.</p>
                     </div>
                 </div>
 		
@@ -427,10 +297,10 @@
             <div class="col-md-12">
                 <div class="icon icon-lg"><i class="fa fa-file-code-o"></i>
                 </div>
-                <h3 class="text-uppercase">Do you want to see more?</h3>
-                <p class="lead">Too bad!</p>
+                <h3 class="text-uppercase">The compiler is on GitHub</h3>
+                <p class="lead">All are welcome to contribute!</p>
                 <p class="text-center">
-                    <a href="#" class="btn btn-template-transparent-black btn-lg">Follow this linke and begone!</a>
+                    <a href="https://github.com/jfecher/ante" class="btn btn-template-transparent-black btn-lg">github.com/jfecher/ante</a>
                 </p>
             </div>
 
@@ -452,7 +322,7 @@
             </div>
 
             <p class="lead">
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Why are you still reading?
+              Why are you still reading?
             </p>
 
             
@@ -535,6 +405,17 @@
     
 
     
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="https://jfecher.github.io/ante/public/js/front.js"></script>
+
 
 <script src="https://jfecher.github.io/ante/public/js/owl.carousel.min.js"></script>
 
