@@ -1,0 +1,11 @@
+weight: 1
+title: "Dot Product"
+description: >
+    <div class="highlight textalign-left">
+    <pre>
+    <code class="language/ante" data-lang="ante">
+    fun dotproduct: a, b =
+        (a,b).zip(*).reduce(+)
+    </code>
+    </pre>
+    </div>

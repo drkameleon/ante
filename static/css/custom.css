@@ -1,0 +1,74 @@
+
+/* homepage */
+.box-simple h3 {
+    color: #dddddd;
+}
+
+.textalign-left {
+    text-align: left;
+    background-color: rgba(0,0,0, 0.22);
+}
+
+body, .box-simple p, h1, h2, h3 {
+    color: #cccccc;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a{
+    color: #cccccc;
+}
+
+.navbar-default, .bar.background-white {
+    background: #1d1d1d;
+}
+
+#all {
+    background-color: rgb(15,15,15);
+}
+
+.sidebar-sticky {
+    position: sticky;
+}
+
+#footer {
+    display: none;
+    visibility: hidden;
+}
+
+
+/* homepage & post themes */
+#content {
+    background-color: transparent;
+}
+
+#blog-post {
+    background-color: rgb(33, 33, 33);
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+pre {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #dddddd;
+    border: transparent;
+}
+
+.sidebar-sticky {
+    background-color: rgb(33, 33, 33);
+    max-width: 150%;
+}
+
+code {
+    background-color: rgba(0,0,0,0.2);
+}
+
+#heading-breadcrumbs h1 {
+    color: #cccccc;
+}
+
+hr {
+    border-top: 1px solid rgba(255,255,255,0.22);
+}

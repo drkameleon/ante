@@ -1,0 +1,28 @@
+
+.box-simple h3 {
+    color: #dddddd;
+}
+
+body, .box-simple p, h2 {
+    color: #cccccc;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a{
+    color: #cccccc;
+}
+
+.navbar-default, .bar.background-white {
+    background: #1d1d1d;
+}
+
+#all {
+    background-color: #2d2d2d;
+}
+
+.sidebar-sticky {
+    position: sticky;
+}

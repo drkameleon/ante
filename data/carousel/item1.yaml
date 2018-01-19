@@ -1,0 +1,12 @@
+weight: 1
+title: "Factorial"
+description: >
+    <div class="highlight textalign-left">
+    <pre>
+    <code class="language/ante" data-lang="ante">
+    fun fact: i32 x =
+        if x == 1 then 1
+        else x * fact (x-1)
+    </code>
+    </pre>
+    </div>
