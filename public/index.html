@@ -149,23 +149,23 @@
                     <div class="row">
                         <div class="col-sm-5 right">
                             <h1>C and C&#43;&#43; ffi</h1>
-                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante" style="float: left;"> //in file.hpp
-class Triple {
-    int first, second, third;
+                            <div class="highlight-textalign-left"> <pre> <code class="language/ante" data-lang="ante" style="float: left;"> <span class="c1">//in file.hpp</span>
+<span class="k">class</span> <span class="kt">Triple</span> {
+    <span class="kt">int</span> first, second, third;
 
-public:
-    Triple(int a, int b, int c) :
+<span class="k">public</span>:
+    <span class="kt">Triple</span>(<span class="kt">int</span> a, <span class="kt">int</span> b, <span class="kt">int</span> c) :
         first(a), second(b), third(c){}
 
-    int firstPlus(int d){
-        return this.first + d;
+    <span class="kt">int</span> <span class="nf">firstPlus</span>(<span class="kt">int</span> d){
+        <span class="k">return</span> first + d;
     }
 }; </code
 <code class="language/ante" data-lang="ante">
-//in driver.an
-import Cpp "file.hpp"
-let t = Triple(1, 2, 3)
-t.firstPlus t.third  //=> 4 </code> </pre> </div>
+<span class="c1">//in driver.an</span>
+<span class="k">import</span> <span class="kt">Cpp</span> <span class="s">"file.hpp"</span>
+<span class="k">let</span> t = <span class="kt">Triple</span>(<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>)
+t.<span class="nf">firstPlus</span> t.third  <span class="c1">//=> 4</span> </code> </pre> </div>
 
                         </div>
                         <div class="col-sm-7">
@@ -178,11 +178,11 @@ t.firstPlus t.third  //=> 4 </code> </pre> </div>
                     <div class="row">
                         <div class="col-sm-5 right">
                             <h1>Factorial</h1>
-                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante"> fun fact: i32 x -> i32
-    if x == 1 then 1
-    else x * fact (x-1)
+                            <div class="highlight-textalign-left"> <pre> <code class="language/ante" data-lang="ante"> <span class="k">fun</span> <span class="nf">fact</span>: <span class="kt">i32</span> x -> <span class="kt">i32</span>
+    <span class="k">if</span> x == <span class="m">1</span> <span class="k">then</span> <span class="m">1</span>
+    <span class="k">else</span> x * <span class="nf">fact</span> (x-1)
 
-fact 5  //=> 120 </code> </pre> </div>
+<span class="nf">fact</span> <span class="m">5</span>  <span class="c1">//=> 120</span> </code> </pre> </div>
 
                         </div>
                         <div class="col-sm-7">
@@ -195,17 +195,17 @@ fact 5  //=> 120 </code> </pre> </div>
                     <div class="row">
                         <div class="col-sm-5 right">
                             <h1>Lazy Types</h1>
-                            <div class="highlight textalign-left"> <pre class="center-align"> <code class="language/ante" data-lang="ante"> fun when: Comparable cond, lazy 't a b c
-    match cond with
-    | LessThan -> a
-    | Equal -> b
-    | GreaterThan -> c
+                            <div class="highlight-textalign-left"> <pre class="center-align"> <code class="language/ante" data-lang="ante"> <span class="k">fun</span> <span class="nf">when</span>: <span class="kt">Comparable</span> cond, <span class="k">lazy</span> <span class="kt">'t</span> a b c
+    <span class="k">match</span> cond <span class="k">with</span>
+    | <span class="kt">LessThan</span> -> a
+    | <span class="kt">Equal</span> -> b
+    | <span class="kt">GreaterThan</span> -> c
 
-let rand = random 1 100
-let input = i32.parse (input "Enter your guess: ") ?
-    None -> error "Please enter an integer!"
+<span class="k">let</span> rand = <span class="nf">random</span> <span class="m">1 100</span>
+<span class="k">let</span> input = <span class="kt">i32</span>.parse (input <span class="s">"Enter your guess: "</span>) ?
+    <span class="kt">None</span> -> <span class="nf">error</span> <span class="s">"Please enter an integer!"</span>
 
-when (input.compare rand) "too low!" "just right!" "too high!"
+<span class="nf">when</span> (input.<span class="nf">compare</span> rand) <span class="s">"too low!" "just right!" "too high!"</span>
 </code> </pre> </div>
 
                         </div>
@@ -219,11 +219,11 @@ when (input.compare rand) "too low!" "just right!" "too high!"
                     <div class="row">
                         <div class="col-sm-5 right">
                             <h1>Dot Product</h1>
-                            <div class="highlight textalign-left"> <pre class="center-align"> <code class="language/ante" data-lang="ante"> fun dotproduct: a, b =
-    (a,b).zip(*).reduce(+)
+                            <div class="highlight-textalign-left"> <pre class="center-align"> <code class="language/ante" data-lang="ante"> <span class="k">fun</span> <span class="nf">dotproduct</span>: a, b =
+    (a,b).<span class="nf">zip</span>(*).<span class="nf">reduce</span>(+)
 
 
-dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
+<span class="nf">dotproduct</span> [<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>] [<span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span>]  <span class="c1">//=> 32</span> </code> </pre> </div>
 
                         </div>
                         <div class="col-sm-7">
@@ -254,9 +254,11 @@ dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 		
 				<div class="col-md-4">
                     <div class="box-simple">
-                        <div class="icon">
-                            <i class="fa fa-bug"></i>
-                        </div>
+                        <a href="tutorial/types">
+                            <div class="icon">
+                                <i class="fa fa-bug"></i>
+                            </div>
+                        </a>
                         <h3>Strongly, Statically Typed</h3>
                         <p>Ante&rsquo;s algebraic type system can prevent entire classes of bugs so you can catch them before ever running your program.  For example, null pointers are replaced with the much safer Maybe type, which prevents null pointer dereferences when used.</p>
                     </div>
@@ -266,9 +268,11 @@ dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 		
 				<div class="col-md-4">
                     <div class="box-simple">
-                        <div class="icon">
-                            <i class="fa fa-chevron-right"></i>
-                        </div>
+                        <a href="tutorial/modifiers">
+                            <div class="icon">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </a>
                         <h3>Extensible</h3>
                         <p>A compile-time API for the compiler itself enables the creation of compiler extensions within the program itself.  This enables anything from creating new optimization passes to extending the type system with dependent types.</p>
                     </div>
@@ -278,9 +282,11 @@ dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 		
 				<div class="col-md-4">
                     <div class="box-simple">
-                        <div class="icon">
-                            <i class="fa fa-cube"></i>
-                        </div>
+                        <a href="tutorial/modules">
+                            <div class="icon">
+                                <i class="fa fa-cube"></i>
+                            </div>
+                        </a>
                         <h3>Robust Module System</h3>
                         <p>Modules provide an easy way to manage multiple files and reason about large systems.  They also enable faster compilation through caching.</p>
                     </div>
@@ -296,9 +302,11 @@ dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 		
 				<div class="col-md-4">
                     <div class="box-simple">
-                        <div class="icon">
-                            <i class="fa fa-cubes"></i>
-                        </div>
+                        <a href="compiler-extensions/build-system">
+                            <div class="icon">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                        </a>
                         <h3>Integrated Build System</h3>
                         <p>Build instructions can be specified within the source code itself, no makefile needed.  Additionally, no special syntax is required as it is implemented as a normal library module using Ante&rsquo;s compile-time API.</p>
                     </div>
@@ -308,9 +316,11 @@ dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 		
 				<div class="col-md-4">
                     <div class="box-simple">
-                        <div class="icon">
-                            <i class="fa fa-code"></i>
-                        </div>
+                        <a href="tutorial/functions">
+                            <div class="icon">
+                                <i class="fa fa-code"></i>
+                            </div>
+                        </a>
                         <h3>High &amp; Low Level language</h3>
                         <p>Ante hosts a variety of high-level solutions such as smart pointers and first-class functions but also provides the ability to interact at a lower level if needed.</p>
                     </div>
@@ -320,9 +330,11 @@ dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 		
 				<div class="col-md-4">
                     <div class="box-simple">
-                        <div class="icon">
-                            <i class="fa fa-trash"></i>
-                        </div>
+                        <a href="">
+                            <div class="icon">
+                                <i class="fa fa-trash"></i>
+                            </div>
+                        </a>
                         <h3>Gradual Memory Management</h3>
                         <p>To support the largest variety of applications, Ante provides several different methods of memory management, including manual management.  Don&rsquo;t want to bother with any of it?  Simply <code>import GC</code> to use a garbage collector.</p>
                     </div>

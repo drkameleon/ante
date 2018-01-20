@@ -16,9 +16,9 @@
     text-align: center;
 }
 
-.textalign-left {
+.highlight-textalign-left {
     text-align: left;
-    background-color: rgba(0,0,0, 0.22);
+    background-color: rgb(26, 26, 26);
 }
 
 body, .box-simple p, h1, h2, h3 {

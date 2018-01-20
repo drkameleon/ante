@@ -2,3 +2,4 @@ weight: 1
 name: "Strongly, Statically Typed"
 icon: "fa fa-bug"
 description: "Ante's algebraic type system can prevent entire classes of bugs so you can catch them before ever running your program.  For example, null pointers are replaced with the much safer Maybe type, which prevents null pointer dereferences when used."
+link: "tutorial/types"

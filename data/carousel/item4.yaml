@@ -1,14 +1,14 @@
 weight: 4
 title: "Dot Product"
 description: >
-    <div class="highlight textalign-left">
+    <div class="highlight-textalign-left">
     <pre class="center-align">
     <code class="language/ante" data-lang="ante">
-    fun dotproduct: a, b =
-        (a,b).zip(*).reduce(+)
+    <span class="k">fun</span> <span class="nf">dotproduct</span>: a, b =
+        (a,b).<span class="nf">zip</span>(*).<span class="nf">reduce</span>(+)
 
 
-    dotproduct [1, 2, 3] [4, 5, 6]  //=> 32
+    <span class="nf">dotproduct</span> [<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>] [<span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span>]  <span class="c1">//=> 32</span>
     </code>
     </pre>
     </div>

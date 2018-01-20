@@ -1,33 +1,33 @@
 weight: 1
 title: "C and C++ ffi"
 description: >
-    <div class="highlight textalign-left">
+    <div class="highlight-textalign-left">
     <pre>
     <code class="language/ante" data-lang="ante" style="float: left;">
-    //in file.hpp
+    <span class="c1">//in file.hpp</span>
 
-    class Triple {
-        int first, second, third;
+    <span class="k">class</span> <span class="kt">Triple</span> {
+        <span class="kt">int</span> first, second, third;
 
-    public:
-        Triple(int a, int b, int c) :
+    <span class="k">public</span>:
+        <span class="kt">Triple</span>(<span class="kt">int</span> a, <span class="kt">int</span> b, <span class="kt">int</span> c) :
             first(a), second(b), third(c){}
 
-        int firstPlus(int d){
-            return this.first + d;
+        <span class="kt">int</span> <span class="nf">firstPlus</span>(<span class="kt">int</span> d){
+            <span class="k">return</span> first + d;
         }
     };
     </code
 
     <code class="language/ante" data-lang="ante">
     
-    //in driver.an
+    <span class="c1">//in driver.an</span>
     
-    import Cpp "file.hpp"
+    <span class="k">import</span> <span class="kt">Cpp</span> <span class="s">"file.hpp"</span>
     
-    let t = Triple(1, 2, 3)
+    <span class="k">let</span> t = <span class="kt">Triple</span>(<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>)
     
-    t.firstPlus t.third  //=> 4
+    t.<span class="nf">firstPlus</span> t.third  <span class="c1">//=> 4</span>
     </code>
     </pre>
     </div>
