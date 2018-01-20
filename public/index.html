@@ -148,10 +148,64 @@
                 <div class="item">
                     <div class="row">
                         <div class="col-sm-5 right">
+                            <h1>C and C&#43;&#43; ffi</h1>
+                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante" style="float: left;"> //in file.hpp
+class Triple {
+    int first, second, third;
+
+public:
+    Triple(int a, int b, int c) :
+        first(a), second(b), third(c){}
+
+    int firstPlus(int d){
+        return this.first + d;
+    }
+}; </code
+<code class="language/ante" data-lang="ante">
+//in driver.an
+import Cpp "file.hpp"
+let t = Triple(1, 2, 3)
+t.firstPlus t.third  //=> 4 </code> </pre> </div>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
                             <h1>Factorial</h1>
-                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante"> fun fact: i32 x =
+                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante"> fun fact: i32 x -> i32
     if x == 1 then 1
     else x * fact (x-1)
+
+fact 5  //=> 120 </code> </pre> </div>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>Lazy Types</h1>
+                            <div class="highlight textalign-left"> <pre class="center-align"> <code class="language/ante" data-lang="ante"> fun when: Comparable cond, lazy 't a b c
+    match cond with
+    | LessThan -> a
+    | Equal -> b
+    | GreaterThan -> c
+
+let rand = random 1 100
+let input = i32.parse (input "Enter your guess: ") ?
+    None -> error "Please enter an integer!"
+
+when (input.compare rand) "too low!" "just right!" "too high!"
 </code> </pre> </div>
 
                         </div>
@@ -165,9 +219,11 @@
                     <div class="row">
                         <div class="col-sm-5 right">
                             <h1>Dot Product</h1>
-                            <div class="highlight textalign-left"> <pre> <code class="language/ante" data-lang="ante"> fun dotproduct: a, b =
+                            <div class="highlight textalign-left"> <pre class="center-align"> <code class="language/ante" data-lang="ante"> fun dotproduct: a, b =
     (a,b).zip(*).reduce(+)
-</code> </pre> </div>
+
+
+dotproduct [1, 2, 3] [4, 5, 6]  //=> 32 </code> </pre> </div>
 
                         </div>
                         <div class="col-sm-7">

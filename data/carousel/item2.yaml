@@ -1,11 +1,14 @@
-weight: 1
-title: "Dot Product"
+weight: 2
+title: "Factorial"
 description: >
     <div class="highlight textalign-left">
     <pre>
     <code class="language/ante" data-lang="ante">
-    fun dotproduct: a, b =
-        (a,b).zip(*).reduce(+)
+    fun fact: i32 x -> i32
+        if x == 1 then 1
+        else x * fact (x-1)
+
+    fact 5  //=> 120
     </code>
     </pre>
     </div>

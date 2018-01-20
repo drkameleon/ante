@@ -1,12 +1,33 @@
 weight: 1
-title: "Factorial"
+title: "C and C++ ffi"
 description: >
     <div class="highlight textalign-left">
     <pre>
+    <code class="language/ante" data-lang="ante" style="float: left;">
+    //in file.hpp
+
+    class Triple {
+        int first, second, third;
+
+    public:
+        Triple(int a, int b, int c) :
+            first(a), second(b), third(c){}
+
+        int firstPlus(int d){
+            return this.first + d;
+        }
+    };
+    </code
+
     <code class="language/ante" data-lang="ante">
-    fun fact: i32 x =
-        if x == 1 then 1
-        else x * fact (x-1)
+    
+    //in driver.an
+    
+    import Cpp "file.hpp"
+    
+    let t = Triple(1, 2, 3)
+    
+    t.firstPlus t.third  //=> 4
     </code>
     </pre>
     </div>

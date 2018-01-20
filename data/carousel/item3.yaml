@@ -1,0 +1,22 @@
+weight: 3
+title: "Lazy Types"
+description: >
+    <div class="highlight textalign-left">
+    <pre class="center-align">
+    <code class="language/ante" data-lang="ante">
+    fun when: Comparable cond, lazy 't a b c
+        match cond with
+        | LessThan -> a
+        | Equal -> b
+        | GreaterThan -> c
+
+    let rand = random 1 100
+
+    let input = i32.parse (input "Enter your guess: ") ?
+        None -> error "Please enter an integer!"
+
+    when (input.compare rand) "too low!" "just right!" "too high!"
+
+    </code>
+    </pre>
+    </div>

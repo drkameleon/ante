@@ -4,6 +4,18 @@
     color: #dddddd;
 }
 
+.col-sm-5 {
+    width: 100%;
+}
+
+.center-align {
+    align-content: center;
+}
+
+.home-carousel h1 {
+    text-align: center;
+}
+
 .textalign-left {
     text-align: left;
     background-color: rgba(0,0,0, 0.22);
