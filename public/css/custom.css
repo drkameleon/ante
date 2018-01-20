@@ -18,7 +18,7 @@
 
 .highlight-textalign-left {
     text-align: left;
-    background-color: rgb(26, 26, 26);
+    background-color: rgba(26, 26, 26, 0.8);
 }
 
 body, .box-simple p, h1, h2, h3 {
