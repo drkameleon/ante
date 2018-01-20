@@ -38,7 +38,7 @@ newContentEditor = "vim"
     name = "GitHub"
     url = "https://github.com/jfecher/ante"
     pre = "<i class='fa fa-2x fa-github'></i>"
-    logo = "img/ante-lowres.png"
+    logo = "img/ante_white.svg"
 
 # Enable or disable top bar with social icons
 [params.topbar]
