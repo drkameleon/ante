@@ -92,6 +92,6 @@ newContentEditor = "vim"
     subtitle = ""
 
 [params.recent_posts]
-    enable = true
+    enable = false
     title = "From our Latin blog, apparently."
     subtitle = "Why are you still reading?"
