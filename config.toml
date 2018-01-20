@@ -77,7 +77,7 @@ newContentEditor = "vim"
 
 [params.see_more]
     enable = true
-    icon = "fa fa-file-code-o"
+    icon = "fa fa-github"
     title = "The compiler is on GitHub"
     subtitle = "All are welcome to contribute!"
     link_url = "https://github.com/jfecher/ante"
