@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ante</title>
-    <link>https://jfecher.github.io/ante/public/</link>
+    <link>http://antelang.org/</link>
     <description>Recent content on Ante</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 15 Nov 2017 14:33:28 -0500</lastBuildDate>
     
-	<atom:link href="https://jfecher.github.io/ante/public/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://antelang.org/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Build System</title>
-      <link>https://jfecher.github.io/ante/public/compiler-extensions/build-system/</link>
+      <link>http://antelang.org/compiler-extensions/build-system/</link>
       <pubDate>Wed, 15 Nov 2017 14:33:28 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/compiler-extensions/build-system/</guid>
+      <guid>http://antelang.org/compiler-extensions/build-system/</guid>
       <description>The Build module defines several useful functions for compiling and linking applications. Its interface is as follows:
 option ante fun option: Str opt  Equivalent to passing the string opt while evoking the compiler, eg. a call to option &amp;quot;-O3&amp;quot; is equivalent to compiling a module with ante -O3
 If the given option is not recognized a compilation error will be issued with the message &amp;ldquo;Unrecognized option ${opt}&amp;rdquo;
@@ -25,10 +25,10 @@ ante fun option: CompilerFlag f  Enables the compiler flag f.</description>
     
     <item>
       <title>Loops</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/loops/</link>
+      <link>http://antelang.org/tutorial/loops/</link>
       <pubDate>Wed, 15 Nov 2017 14:15:21 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/loops/</guid>
+      <guid>http://antelang.org/tutorial/loops/</guid>
       <description>Ante provides two forms of loops: while and for.
 While While loops are the most basic form of loop, they continue executing their body while the given condition remains true. The syntax is as follows:
 while &amp;lt;expr&amp;gt; do &amp;lt;expr&amp;gt;  The first expression is the loop condition and must evaluate to a bool. The second expression is the body to loop over, and is usually a block. While loops are often used when you are unsure precisely how many times you should loop.</description>
@@ -36,97 +36,97 @@ while &amp;lt;expr&amp;gt; do &amp;lt;expr&amp;gt;  The first expression is the 
     
     <item>
       <title>Pattern Matching</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/pattern-matching/</link>
+      <link>http://antelang.org/tutorial/pattern-matching/</link>
       <pubDate>Wed, 15 Nov 2017 14:14:23 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/pattern-matching/</guid>
+      <guid>http://antelang.org/tutorial/pattern-matching/</guid>
       <description>Pattern matching is a powerful tool that compares a value against a several patterns until it finds one that matches. These patterns can range from simple literal values to a complex assortment and combination of other patterns, most of which are covered below.
 Perhaps most importantly, pattern Matches with are completeness checked, so all possibilities for a given value must be covered. For example, a match against an integer x with a single pattern 0 (the equivalent of if x == 0) is rejected as it does not have a case for when x !</description>
     </item>
     
     <item>
       <title>If</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/if/</link>
+      <link>http://antelang.org/tutorial/if/</link>
       <pubDate>Wed, 15 Nov 2017 14:14:02 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/if/</guid>
+      <guid>http://antelang.org/tutorial/if/</guid>
       <description>In Ante if is an expression that can conditionally do one thing if its condition is true and otherwise do something else if its condition is false. For example, if you wanted to print &amp;ldquo;good afternoon&amp;rdquo; only if the time on the clock is after 12:00 then you could write:
 if Time.is_after &amp;quot;12:00&amp;quot; then print &amp;quot;good afternoon&amp;quot;  An else branch can also be added to do something if the given condition was false.</description>
     </item>
     
     <item>
       <title>Blocks</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/blocks/</link>
+      <link>http://antelang.org/tutorial/blocks/</link>
       <pubDate>Wed, 15 Nov 2017 14:12:44 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/blocks/</guid>
-      <description>Like Ante is an indentation sensitive language. That is, the beginning and end of blocks are marked by an increase in indentation and a decrease in indentation respectively. The indentation before a line of non-comment code is called significant whitespace. Ante&amp;rsquo;s policy on significant whitespace is to keep it as intuitive as possible by preventing inconsistensies that would otherwise hamper code readability. For example, indentations of a single space in size are considered to be a mistake and will trigger an appropriate error message.</description>
+      <guid>http://antelang.org/tutorial/blocks/</guid>
+      <description>Ante is an indentation sensitive language. The beginning and end of blocks are marked by an increase in indentation and a decrease in indentation respectively and the indentation before a line of non-comment code is called significant whitespace. Ante&amp;rsquo;s policy on significant whitespace is to keep it as intuitive as possible by preventing inconsistensies that would otherwise hamper code readability. For example, indentations of a single space in size are considered to be a mistake and will trigger an appropriate error message.</description>
     </item>
     
     <item>
       <title>Traits</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/traits/</link>
+      <link>http://antelang.org/tutorial/traits/</link>
       <pubDate>Wed, 15 Nov 2017 14:11:54 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/traits/</guid>
+      <guid>http://antelang.org/tutorial/traits/</guid>
       <description>Traits are a way to express the desired behaviour of a type without stating which type you need specifically. A function taking in a parameter with a trait type can take any argument whose type implements that trait. Traits are generally advantageous over type variables because they provide better error messages. For example, if a given type that does not implement a print function is passed to a function expecting a Printable variable the compiler will issue an error saying that the provided argument must implement Printable and list the functions required to do so.</description>
     </item>
     
     <item>
       <title>Modules</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/modules/</link>
+      <link>http://antelang.org/tutorial/modules/</link>
       <pubDate>Wed, 15 Nov 2017 14:11:33 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/modules/</guid>
+      <guid>http://antelang.org/tutorial/modules/</guid>
       <description>Modules provide a method to separate implementation from interface. They may contain types, traits, functions, and global variables, although the latter is discouraged. Before importing a module, the modules names can be accessed through indexing the hierarchy of modules with the . operator. For example, accessing a function f in the module SubModule which itself is within the module Module can be done with Module.SubModule.f. This is the primary method to access other modules, with the one exception that the current module has all of its names already imported, thus if the current module is the SubModule above then the function can be accessed with just f.</description>
     </item>
     
     <item>
       <title>Compiler Directives</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/compiler-directives/</link>
+      <link>http://antelang.org/tutorial/compiler-directives/</link>
       <pubDate>Wed, 15 Nov 2017 14:11:01 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/compiler-directives/</guid>
+      <guid>http://antelang.org/tutorial/compiler-directives/</guid>
       <description>As the &amp;ldquo;compile-time&amp;rdquo; language Ante naturally needs a mechanism for interacting with the compiler and other compile-time constructs. Of course, you can use the ante modifier or any of the builtin compile-time functions in the Ante module but to properly leverage the full power of Ante it is necessary to learn about compiler directives.
 In Ante, compiler directives are essentially user-defined modifiers. Just like modifiers, compiler-directives can be used to modify variable declarations, function declarations, or even arbitrary expressions.</description>
     </item>
     
     <item>
       <title>Modifiers</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/modifiers/</link>
+      <link>http://antelang.org/tutorial/modifiers/</link>
       <pubDate>Wed, 15 Nov 2017 14:10:13 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/modifiers/</guid>
+      <guid>http://antelang.org/tutorial/modifiers/</guid>
       <description>Depending on the semantics of the modifier, modifiers appear before any function declaration, variable declaration, type declaration, type, or arbitrary expression. All modifiers can be used before a block to apply the modifier to the entire block.
 Visibility Modifiers The visibility modifiers control how &amp;ldquo;visible&amp;rdquo; declarations are to external modules. There are three visibility modifiers in Ante: pub, pri, and pro, short for public, private, and protected respectively. Something that is public is visible to all modules, something that is private is visible to only the current module, and something that is protected is visible only to modules that extend the current module.</description>
     </item>
     
     <item>
       <title>Variables</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/variables/</link>
+      <link>http://antelang.org/tutorial/variables/</link>
       <pubDate>Wed, 15 Nov 2017 14:09:45 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/variables/</guid>
+      <guid>http://antelang.org/tutorial/variables/</guid>
       <description>Variables come in two main varieties: mutable and immutable. Immutable variables cannot be changed once set although they can shadow other variables of the same name. Mutable variables on the other hand can be changed, or &amp;ldquo;assigned&amp;rdquo;. Following an assignment the mutable variable then refers to the newly assigned value and the old value, unless it is also stored elsewhere, is lost.
 Both forms of declaration infer the type of the variable from the type of the expression so it is never necessary to write out the type of the variable.</description>
     </item>
     
     <item>
       <title>Functions</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/functions/</link>
+      <link>http://antelang.org/tutorial/functions/</link>
       <pubDate>Wed, 15 Nov 2017 14:07:26 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/functions/</guid>
+      <guid>http://antelang.org/tutorial/functions/</guid>
       <description>Function Calls The syntax for calling a function is f arg1 arg2 ... argn. The arguments are separated by spaces and are each expressions, although the only operator with a higher precedence than a function call is . to access fields. For example, to call the print function with the parameters 2 and &amp;ldquo;three&amp;rdquo;:
 print 2 &amp;quot;three&amp;quot;  UFCS Universal Function Call Syntax is fully supported on every function. That is to say that the call f arg1 arg2 .</description>
     </item>
     
     <item>
       <title>Operators</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/operators/</link>
+      <link>http://antelang.org/tutorial/operators/</link>
       <pubDate>Wed, 15 Nov 2017 14:03:27 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/operators/</guid>
+      <guid>http://antelang.org/tutorial/operators/</guid>
       <description>Ante supports a variety of common operators including arithmetic operators, logical operators, assignment operators, among others. The following is a quick run down on the purpose of each operator proceeded by a table of associativity and precedence for each.
 Arithmetic + Addition
 - Subtraction (binary), Negation (unary)
@@ -142,38 +142,38 @@ Logical &amp;lt; Less than
     
     <item>
       <title>Type Casts</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/type-casts/</link>
+      <link>http://antelang.org/tutorial/type-casts/</link>
       <pubDate>Wed, 15 Nov 2017 14:02:48 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/type-casts/</guid>
+      <guid>http://antelang.org/tutorial/type-casts/</guid>
       <description>Type casts in Ante are performed with the Type val syntax in which val is casted to the type Type. Unlike functions, type casts cast a singular value to another type, and thus its arguments are not separated by spaces. If multiple arguments are needed to cast to a given type they can be wrapped in a tuple. The contents of the tuple should match the tuple that the type was originally defined as.</description>
     </item>
     
     <item>
       <title>Type Declarations</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/type-declarations/</link>
+      <link>http://antelang.org/tutorial/type-declarations/</link>
       <pubDate>Wed, 15 Nov 2017 14:01:44 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/type-declarations/</guid>
+      <guid>http://antelang.org/tutorial/type-declarations/</guid>
       <description>Declaring a new type in Ante is accomplished with the type keyword. When a new type is declared it is considered to be different than the type(s) it contains. Resultingly, if a function requires a Str but a Name is given an error will be issued even if Name contains only a single Str. This feature provides additional type safety by protecting against the use of a value on a function that was defined with a different type in mind that may have different semantics than the newly-defined type.</description>
     </item>
     
     <item>
       <title>Types</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/types/</link>
+      <link>http://antelang.org/tutorial/types/</link>
       <pubDate>Wed, 15 Nov 2017 14:00:44 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/types/</guid>
+      <guid>http://antelang.org/tutorial/types/</guid>
       <description>Types in Ante are lexically distinct from identifiers. All user-defined types are in the form [A-Z][A-Za-z]*, and all other types are in the forms described below.
 Primitive Types Most primitive types are in the form of [a-z]\d+. Where the letter specifies its general type (signed integer, unsigned integer, floating-point, or char), and the number afterwards specifies its size in bits. The size may also be sz which indicates that the type is the size of a pointer on the current platform.</description>
     </item>
     
     <item>
       <title>Literals</title>
-      <link>https://jfecher.github.io/ante/public/tutorial/literals/</link>
+      <link>http://antelang.org/tutorial/literals/</link>
       <pubDate>Tue, 14 Nov 2017 17:53:00 -0500</pubDate>
       
-      <guid>https://jfecher.github.io/ante/public/tutorial/literals/</guid>
+      <guid>http://antelang.org/tutorial/literals/</guid>
       <description>Ante has four types of literal values: integers, floats, booleans, and strings. Every literal, except for strings, is a primitive type.
 Integers Integer literals in Ante can be any primitive integer type, i8, i16, i32, i64, u8, u16, u32, u64, isz, or usz. Without a type suffix, an integer literal&amp;rsquo;s default type is i32. Integer literals have four parts: the optional base notation, the number itself, the optional exponent, and the optional type suffix.</description>
     </item>

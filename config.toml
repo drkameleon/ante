@@ -1,4 +1,4 @@
-baseURL = "https://jfecher.github.io/ante/public/"
+baseURL = "http://antelang.org/"
 title = "Ante"
 
 theme = "hugo-universal-theme"
@@ -21,17 +21,6 @@ newContentEditor = "vim"
 
 
 [menu]
-
-[[menu.main]]
-    name = "Home"
-    url = "/"
-    weight = 1
-
-[[menu.main]]
-    name = "Docs"
-    url = "/tutorial/"
-    weight = 2
-
 
 [[menu.topbar]]
     weight = 1

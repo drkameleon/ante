@@ -19,6 +19,8 @@
 .highlight-textalign-left {
     text-align: left;
     background-color: rgba(26, 26, 26, 0.8);
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 body, .box-simple p, h1, h2, h3 {
@@ -48,6 +50,25 @@ body, .box-simple p, h1, h2, h3 {
 #footer {
     display: none;
     visibility: hidden;
+}
+
+/* fix bottom darkmask to match carousel darkmask */
+.bar .dark-mask {
+    background: #da4d4d;
+    opacity: 0.8;
+}
+
+.home-carousel .dark-mask {
+    opacity: 0.8;
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.logo {
+    float: left;
+    padding: 1rem;
 }
 
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+  {{ partial "head.html" . }}
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          {{ partial "top.html" . }}
+
+            <div data-spy="affix" data-offset-top="200">
+                <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                    <div class="container">
+                        <div class="navbar-header">
+                            <div class="navbar-buttons">
+                                    <div class="navbar-collapse collapse" id="navigation">
+                                        <ul class="nav navbar-nav navbar-right">
+                                        
+                                        <li class="dropdown">
+                                            <a href="{{ .Site.BaseURL }}">Home</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="{{ .Site.BaseURL }}/tutorial/literals">Tutorial</a>
+                                        </li>
+
+                                        </ul>
+                                    </div>
+                                <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                                <span class="sr-only">{{ i18n "navToggle" }}</span>
+                                    <i class="fa fa-align-justify"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="collapse clearfix" id="search">
+
+                            <form class="navbar-form" role="search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                    <span class="input-group-btn">
+
+                                <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+
+                            </span>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!--/.nav-collapse -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- /#navbar -->
+        </header>
+
+        <section class="bar background-white nopadding">
+            <div class="container">
+                <img src="{{ .Site.BaseURL }}img/ante_white.svg" class="logo" width="200rem" alt="{{ .Title }}">
+            
+                <div class="container" padding=0 margin=0>
+
+                    <h2>The compile-time language</h2>
+
+                    <div class="lead" text-align="center">{{ .Site.Params.description }}</div>
+                </div>
+            </div>
+        </section>
+
+
+        {{ partial "carousel.html" . }}
+
+        {{ partial "features.html" . }}
+
+        {{ partial "testimonials.html" . }}
+
+        {{ partial "see_more.html" . }}
+
+        {{ partial "recent_posts.html" . }}
+
+        {{ partial "clients.html" . }}
+
+        {{ partial "footer.html" . }}
+
+    </div>
+    <!-- /#all -->
+
+    {{ partial "scripts.html" . }}
+
+  </body>
+</html>

@@ -4,9 +4,9 @@ date: 2017-11-15T14:12:44-05:00
 menu: main
 ---
 
-Like Ante is an indentation sensitive language.  That is,
-the beginning and end of blocks are marked by an increase in
-indentation and a decrease in indentation respectively.  The
+Ante is an indentation sensitive language.
+The beginning and end of blocks are marked by an increase in
+indentation and a decrease in indentation respectively and the
 indentation before a line of non-comment code is called
 significant whitespace.  Ante's policy on significant whitespace is
 to keep it as intuitive as possible by preventing inconsistensies that

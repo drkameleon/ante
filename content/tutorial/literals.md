@@ -71,7 +71,7 @@ as an escape sequence.  Escape sequences not recognized by the compiler will gen
 The table below shows a list of all escape sequences used.
 
 
-| Escape Sequence | ASCII value    | Translation         |
+| Escape Sequence |  ASCII value   |    Translation      |
 |:---------------:|:--------------:|:-------------------:|
 |    \a           | 0x7            | Bell                |
 |    \b           | 0x8            | Backspace character |
@@ -110,7 +110,7 @@ print "Hello ${msg} Hello all!"
 
 
 type Person = Str name, i32 age
-fun Str: Person p = p.name
+fun Str.init: Person p = p.name
 
 let p = Person("John", 32)
 
