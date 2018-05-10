@@ -1,0 +1,22 @@
+weight: 2
+title: "Type Inference"
+description: >
+    <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="c1">//tup : (i32, f64, Str)</span>
+
+    <span class="k">mut</span> tup = (<span class="m">1</span>, <span class="m">2.0</span>, <span class="s">"three"</span>)
+
+
+    <span class="c1">//error: Cannot assign expression of type i32*
+
+    //       to tuple index 2 of type Str</span>
+
+    tup#<span class="m">2</span> = <span class="k">new</span> <span class="m">3</span>
+
+
+    <span class="c1">//Functions must document parameter types
+
+    //but can have their return type inferred</span>
+
+    <span class="k">fun</span> is_numeric: <span class="kt">c8</span> c =
+        c >= <span class="m">'0'</span> <span class="k">and</span> c <= <span class="m">'9'</span>
+    </code></pre></div>

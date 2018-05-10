@@ -15,7 +15,7 @@ newContentEditor = "vim"
 [params]
   description = "A systems programming language focused on providing extreme extensibility without compromising on speed or readability"
   author = "jfecher"
-  defaultKeywords = ["ante", "programming", "language", "compiler"]
+  defaultKeywords = ["ante", "programming", "language", "antelang", "lang"]
   style = "red"
   date_format = ""
 

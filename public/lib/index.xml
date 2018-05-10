@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Libs on Ante</title>
+    <link>http://antelang.org/lib/</link>
+    <description>Recent content in Libs on Ante</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 Mar 2018 14:30:00 -0500</lastBuildDate>
+    
+	<atom:link href="http://antelang.org/lib/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Prelude</title>
+      <link>http://antelang.org/lib/prelude/</link>
+      <pubDate>Wed, 28 Mar 2018 14:30:00 -0500</pubDate>
+      
+      <guid>http://antelang.org/lib/prelude/</guid>
+      <description>The Prelude module contains commonly used functions and types that are imported implicitly into every module.
+Types Str A string type that owns its contents.
+Strings in Ante are null terminated and contain a length field.
+type Str = c8* cStr, usz len  Examples let s1 = &amp;quot;Hello&amp;quot; let s2 = Str(&amp;quot;Hello&amp;quot;.cStr, 5usz) let s3 = Str(strdup &amp;quot;hi&amp;quot;, 2usz)  Maybe &amp;rsquo;t Represents either the presence of a value with Some, or the absence of a value with None.</description>
+    </item>
+    
+    <item>
+      <title>Vec</title>
+      <link>http://antelang.org/lib/vec/</link>
+      <pubDate>Wed, 28 Mar 2018 14:30:00 -0500</pubDate>
+      
+      <guid>http://antelang.org/lib/vec/</guid>
+      <description>The Vec module contains the vector type, a container for a contiguous region of memory with constant time access.
+Types Vec &amp;rsquo;t type Vec &amp;#39;t = &amp;#39;t* data, usz len cap  VecIter &amp;rsquo;t An iterator for a Vec.
+type VecIter &amp;#39;t = &amp;#39;t* view, usz idx len  Traits Vec : Iterable ext Vec : Iterable fun into_iter: Vec &amp;#39;t v -&amp;gt; VecIter &amp;#39;t  VecIter : Iterator ext VecIter : Iterator fun has_next: VecIter v -&amp;gt; bool fun unwrap: VecIter &amp;#39;t v -&amp;gt; &amp;#39;t fun next: VecIter &amp;#39;t v -&amp;gt; VecIter &amp;#39;t  Functions Vec.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,13 +9,10 @@
   <title>Ante</title>
   <meta name="author" content="" />
 
-  
-  <meta name="keywords" content="ante, programming, language, compiler">	
-  
+  <meta name="keywords" content="ante, programming, language, antelang, lang">	
+  <meta name="description" content="A systems programming language focused on providing extreme extensibility without compromising on speed or readability">
 
-  
-
-  <meta name="generator" content="Hugo 0.31.1" />
+  <meta name="generator" content="Hugo 0.39" />
 
   <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
 
@@ -87,7 +84,7 @@
                                             <a href="http://antelang.org/">Home</a>
                                         </li>
                                         <li class="dropdown">
-                                            <a href="http://antelang.org//tutorial/literals">Tutorial</a>
+                                            <a href="http://antelang.org//docs/literals">Docs</a>
                                         </li>
 
                                         </ul>
@@ -147,13 +144,80 @@
                 <div class="item">
                     <div class="row">
                         <div class="col-sm-5 right">
+                            <h1>Factorial</h1>
+                            <div class="highlight-textalign-left"><pre><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">fact</span>: <span class="kt">Nat</span> x -> <span class="kt">Nat</span>
+    <span class="k">if</span> x == <span class="m">1</span> <span class="k">then</span> <span class="m">1</span>
+    <span class="k">else</span> x * <span class="nf">fact</span> (x-1)
+
+<span class="nf">fact</span> <span class="m">5</span>  <span class="c1">//=> 120</span></code></pre></div>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>Type Inference</h1>
+                            <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="c1">//tup : (i32, f64, Str)</span>
+<span class="k">mut</span> tup = (<span class="m">1</span>, <span class="m">2.0</span>, <span class="s">"three"</span>)
+
+<span class="c1">//error: Cannot assign expression of type i32*
+//       to tuple index 2 of type Str</span>
+tup#<span class="m">2</span> = <span class="k">new</span> <span class="m">3</span>
+
+<span class="c1">//Functions must document parameter types
+//but can have their return type inferred</span>
+<span class="k">fun</span> is_numeric: <span class="kt">c8</span> c =
+    c >= <span class="m">'0'</span> <span class="k">and</span> c <= <span class="m">'9'</span>
+</code></pre></div>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
+                            <h1>Integrated Build System</h1>
+                            <div class="highlight-textalign-left"><pre><span class="c1">//build system is implemented as a library
+//with no syntax changes to the language itself</span>
+<span class="k">import</span> <span class="kt">Build</span>, <span class="kt">File</span>
+
+default_target <span class="s">"program"</span>
+
+target <span class="s">"program"</span> =
+    depend_on <span class="s">"legacy_cpp"</span>
+    compile <span class="s">"driver.an"</span>
+
+target <span class="s">"legacy_cpp"</span> =
+    <span class="k">let</span> cppfiles = glob <span class="s">"*.cpp"</span>
+    map cxx cppfiles
+    link_with cppfiles</span></code></pre></div>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <img class="img-responsive" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-5 right">
                             <h1>IO</h1>
                             <div class="highlight-textalign-left"><pre><span class="c">//print every line in the file</span>
-<code class="language/ante" data-lang="ante"><span class="k">let</span> f = <span class="kt">InFile</span> <span class="s">"file.txt"</span>
+<code class="language/ante" data-lang="ante"><span class="k">var</span> f = <span class="kt">InFile</span> <span class="s">"file.txt"</span>
 f.iter print
 
 <span class="c">//write everything from "answer" and on to out.txt</span>
-<span class="k">let</span> out = <span class="kt">OutFile</span> <span class="s">"out.txt"</span>
+<span class="k">var</span> out = <span class="kt">OutFile</span> <span class="s">"out.txt"</span>
 <span class="k">let</span> pos = f.find <span class="s">"answer"</span>
     ? <span class="kt">None</span> -> end f
 
@@ -171,19 +235,19 @@ out.write pos_to_end</code></pre></div>
                     <div class="row">
                         <div class="col-sm-5 right">
                             <h1>C and C&#43;&#43; ffi</h1>
-                            <div class="highlight-textalign-left"><pre><code class="language/ante" data-lang="ante" style="float: left;"><span class="c1">//in file.hpp</span>
-<span class="k">class</span> <span class="kt">Triple</span> {
+                            <div class="highlight-textalign-left"><pre><code class="language/ante" data-lang="ante" style="float: left; padding-right: 20px;"><span class="c1">//in file.hpp</span>
+<span class="k">struct</span> <span class="kt">Triple</span> {
     <span class="kt">int</span> first, second, third;
 
-<span class="k">public</span>:
     <span class="kt">Triple</span>(<span class="kt">int</span> a, <span class="kt">int</span> b, <span class="kt">int</span> c) :
         first(a), second(b), third(c){}
 
-    <span class="kt">int</span> <span class="nf">firstPlus</span>(<span class="kt">int</span> d){
+    <span class="kt">int</span> <span class="nf">firstPlus</span>(<span class="kt">int</span> d) <span class="kt">const</span> {
         <span class="k">return</span> first + d;
     }
 }; </code
 <code class="language/ante" data-lang="ante"><span class="c1">//in driver.an</span>
+<span class="c1">//call clang api to parse file and import functions</span>
 <span class="k">import</span> <span class="kt">Cpp</span> <span class="s">"file.hpp"</span>
 <span class="k">let</span> t = <span class="kt">Triple</span>(<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>)
 t.<span class="nf">firstPlus</span> t.third  <span class="c1">//=> 4</span></code></pre></div>
@@ -198,52 +262,20 @@ t.<span class="nf">firstPlus</span> t.third  <span class="c1">//=> 4</span></cod
                 <div class="item">
                     <div class="row">
                         <div class="col-sm-5 right">
-                            <h1>Factorial</h1>
-                            <div class="highlight-textalign-left"><pre><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">fact</span>: <span class="kt">i32</span> x -> <span class="kt">i32</span>
-    <span class="k">if</span> x == <span class="m">1</span> <span class="k">then</span> <span class="m">1</span>
-    <span class="k">else</span> x * <span class="nf">fact</span> (x-1)
-
-<span class="nf">fact</span> <span class="m">5</span>  <span class="c1">//=> 120</span></code></pre></div>
-
-                        </div>
-                        <div class="col-sm-7">
-                            <img class="img-responsive" src="" alt="">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item">
-                    <div class="row">
-                        <div class="col-sm-5 right">
                             <h1>Lazy Types</h1>
-                            <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">when</span>: <span class="kt">Comparable</span> cond, <span class="k">lazy</span> <span class="kt">'t</span> a b c
+                            <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">when</span>: <span class="kt">Comparable</span> cond, <span class="cp">!lazy</span> <span class="kt">'t</span> a b c
     <span class="k">match</span> cond <span class="k">with</span>
     | <span class="kt">LessThan</span> -> a
     | <span class="kt">Equal</span> -> b
     | <span class="kt">GreaterThan</span> -> c
 
-<span class="k">let</span> rand = <span class="nf">random</span> <span class="m">1 100</span>
-<span class="k">let</span> input = <span class="kt">i32</span>.parse (input <span class="s">"Enter your guess: "</span>) ?
-    <span class="kt">None</span> -> <span class="nf">error</span> <span class="s">"Please enter an integer!"</span>
+<span class="k">let</span> ans, guess = <span class="m">42</span>, <span class="m">53</span>
 
-<span class="nf">when</span> (input.<span class="nf">compare</span> rand) <span class="s">"too low!" "just right!" "too high!"</span></code></pre></div>
-
-                        </div>
-                        <div class="col-sm-7">
-                            <img class="img-responsive" src="" alt="">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item">
-                    <div class="row">
-                        <div class="col-sm-5 right">
-                            <h1>Dot Product</h1>
-                            <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">dotproduct</span>: a, b =
-    (a,b).<span class="nf">zip</span>(*).<span class="nf">reduce</span>(+)
-
-
-<span class="nf">dotproduct</span> [<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>] [<span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span>]  <span class="c1">//=> 32</span></code></pre></div>
+<span class="c1">//only "too high!" is outputted</span>
+<span class="nf">when</span> (guess.<span class="nf">compare</span> ans)
+    print <span class="s">"too low!"</span>
+    print <span class="s">"just right!"</span>
+    print <span class="s">"too high!"</span></span></code></pre></div>
 
                         </div>
                         <div class="col-sm-7">
@@ -456,7 +488,7 @@ t.<span class="nf">firstPlus</span> t.third  <span class="c1">//=> 4</span></cod
 
     
 <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>

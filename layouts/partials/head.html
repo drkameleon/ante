@@ -6,17 +6,8 @@
   <title>{{ .Title }}</title>
   <meta name="author" content="{{ .Site.Author.name }}" />
 
-  {{ if .Keywords }}
-  <meta name="keywords" content="{{ delimit .Keywords ", " }}">
-  {{ else if .Site.Params.DefaultKeywords }}
   <meta name="keywords" content="{{ delimit .Site.Params.DefaultKeywords ", " }}">	
-  {{ end }}
-
-  {{ if .Description }}
-  <meta name="description" content="{{ .Description }}">
-  {{ else if .Site.Params.DefaultDescription }}
-  <meta name="description" content="{{ .Site.Params.DefaultDescription }}">	
-  {{ end }}
+  <meta name="description" content="{{ .Site.Params.Description }}">
 
   {{ .Hugo.Generator }}
 

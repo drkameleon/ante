@@ -9,13 +9,10 @@
   <title>Build System</title>
   <meta name="author" content="" />
 
-  
-  <meta name="keywords" content="ante, programming, language, compiler">	
-  
+  <meta name="keywords" content="ante, programming, language, antelang, lang">	
+  <meta name="description" content="A systems programming language focused on providing extreme extensibility without compromising on speed or readability">
 
-  
-
-  <meta name="generator" content="Hugo 0.31.1" />
+  <meta name="generator" content="Hugo 0.39" />
 
   <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
 
@@ -90,7 +87,7 @@
                                 <a href="http://antelang.org/">Home</a>
                             </li>
                             <li class="dropdown">
-                                <a href="http://antelang.org//tutorial/literals">Tutorial</a>
+                                <a href="http://antelang.org//docs/literals">Docs</a>
                             </li>
 
                             </ul>
@@ -159,7 +156,168 @@
                           
 
 <p>The <code>Build</code> module defines several useful functions for
-compiling and linking applications.  Its interface is as follows:</p>
+compiling and linking applications.  It defines a DSL for
+building programs centered around the creation of targets.
+Each target represents a single output file and contains a list
+of dependencies and a build action.  If any of its dependencies
+are changed the build action is executed.</p>
+
+<p>Although this build system is defined in Ante it can also be
+used to build programs for abitrary languages and has built-in
+support (automatic dependency management) for Ante, C, and C++.</p>
+
+<hr />
+
+<h2 id="target">Target</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">type</span> <span class="kt">Target</span> <span class="o">=</span> <span class="kt">Str</span> name<span class="o">,</span> <span class="kt">Vec</span> <span class="kt">Target</span><span class="o">*</span> depends<span class="o">,</span> <span class="kt">Maybe</span> <span class="kt">Expr</span> action
+</code></pre></div>
+
+<p>Represents a build target.  Each Target can be referenced with the
+<code>target</code> function and associate actions with <code>=</code>.  If the target&rsquo;s
+list of dependencies are rebuilt the target will be rebuilt.</p>
+
+<hr />
+
+<h2 id="target-1">target</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">target:</span> <span class="kt">Str</span> name <span class="o">-&gt;</span> <span class="kt">Target</span>
+</code></pre></div>
+
+<p>Retrieve a reference to the given target.  If no target was found
+matching the given name an empty target will be created.</p>
+
+<h3 id="examples">Examples</h3>
+
+<p>Get and create the target &ldquo;hello&rdquo;:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>target <span class="s">&quot;hello&quot;</span> <span class="o">=</span>
+    print <span class="s">&quot;Hello, build system!&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="toc_3">=</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="p">(</span><span class="o">=</span><span class="p">):</span> <span class="k">mut</span> <span class="kt">Target</span> t<span class="o">,</span> <span class="kt">Expr</span> action
+</code></pre></div>
+
+<p>Associates a target with an action to perform upon building.
+This function will issue a compile-time error if the given
+target already has an action associated.</p>
+
+<h3 id="examples-1">Examples</h3>
+
+<p>Compiling a C file to an executable:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">import</span> <span class="kt">Build</span>
+
+target <span class="s">&quot;hello&quot;</span> <span class="o">=</span>
+    cc <span class="s">&quot;hello.c -o hello&quot;</span>
+</code></pre></div>
+
+<p>Compiling all C++ files in a directory to an object file and linking
+them with the current ante program:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">import</span> <span class="kt">Build</span><span class="o">,</span> <span class="kt">File</span>
+
+<span class="k">let</span> cxxflags <span class="o">=</span> <span class="s">&quot;-DNDEBUG -Wall -O3&quot;</span>
+<span class="k">let</span> cppfiles <span class="o">=</span> glob <span class="s">&quot;*.cpp&quot;</span>
+<span class="k">let</span> objfiles <span class="o">=</span> cppfiles<span class="o">.</span>replace_all <span class="s">&quot;.cpp&quot;</span> <span class="s">&quot;.o&quot;</span>
+
+default_target <span class="s">&quot;program&quot;</span>
+
+target <span class="s">&quot;program&quot;</span> <span class="o">=</span>
+    link_with objfiles
+    compile <span class="s">&quot;program.an&quot;</span>
+
+target objfiles <span class="o">=</span>
+    cxx <span class="s">&quot;${cxxflags} ${target} ${deps}&quot;</span>
+</code></pre></div>
+
+<p>Note that most of the time when compiling with C/C++ it is easier to use
+the C/C++ FFI support provided by the modules <code>Cpp</code> and <code>C</code>.  These modules
+overload imports of .cpp and .c files to auto-import symbols and link with
+libraries automatically.  It will still be necessary to have a build
+file to build the C++ or C programs if they are not built already however.</p>
+
+<hr />
+
+<h2 id="run">run</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">run:</span> <span class="kt">Target</span> target
+
+<span class="k">ante</span> <span class="k">fun</span> <span class="nf">run:</span> <span class="kt">Str</span> target_name
+</code></pre></div>
+
+<p>Executes the given target if any of its dependencies have been changed
+since the last time it was executed.</p>
+
+<h3 id="examples-2">Examples</h3>
+
+<p>Run a target conditionally:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">if</span> argv<span class="o">#</span><span class="mi">1</span> <span class="o">==</span> <span class="s">&quot;build&quot;</span> <span class="k">then</span>
+    run <span class="s">&quot;build&quot;</span>
+<span class="k">else</span>
+    run <span class="s">&quot;build_and_run&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="default-target">default_target</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">default_target:</span> <span class="kt">Str</span> target_name
+</code></pre></div>
+
+<p>Sets a target as the default target when the program is run with no
+arguments.  If a target with the given name does not exist when the
+program is run, an error will be issued during compile-time.</p>
+
+<h3 id="examples-3">Examples</h3>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//In file build.an</span>
+default_target <span class="s">&quot;debug&quot;</span>
+
+<span class="c c-Singleline">//build debug with &quot;ante build.an&quot;</span>
+target <span class="s">&quot;debug&quot;</span> <span class="o">=</span>
+    option <span class="s">&quot;-debug&quot;</span>
+    compile <span class="s">&quot;file.an&quot;</span>
+
+<span class="c c-Singleline">//build release with &quot;ante build.an -argv release&quot;</span>
+target <span class="s">&quot;release&quot;</span> <span class="o">=</span>
+    option <span class="s">&quot;-release&quot;</span>
+    compile <span class="s">&quot;file.an&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="depend-on">depend_on</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">depend_on:</span> <span class="k">mut</span> <span class="kt">Target</span> t<span class="o">,</span> <span class="kt">Vec</span> <span class="kt">Str</span> depends
+
+<span class="k">ante</span> <span class="k">fun</span> <span class="nf">depend_on:</span> <span class="k">mut</span> <span class="kt">Target</span> t<span class="o">,</span> <span class="kt">Str</span> depend
+</code></pre></div>
+
+<p>Appends a list of files or targets to the dependencies of the given target.
+When used within the action clause of a target the Target argument is implicitly
+given.</p>
+
+<p><code>depend_on</code> usually does not need to be manually called unless a build command
+does not automatically detect and add dependencies or an additional file that
+is not explicitely used should be depended on.</p>
+
+<h3 id="examples-4">Examples</h3>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> t <span class="o">=</span> target <span class="s">&quot;build&quot;</span>
+
+t<span class="o">.</span>depend_on <span class="p">[</span><span class="s">&quot;file1.an&quot;</span><span class="o">,</span> <span class="s">&quot;test&quot;</span><span class="p">]</span>
+
+target <span class="s">&quot;test&quot;</span> <span class="o">=</span>
+    <span class="c c-Singleline">//same as (target &quot;test&quot;).depend_on &quot;tests.txt&quot;</span>
+    depend_on <span class="s">&quot;tests.txt&quot;</span>
+    compile <span class="s">&quot;unittests.an&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="compile">compile</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">compile:</span> <span class="kt">Str</span> file <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Str</span>
+
+<span class="k">ante</span> <span class="k">fun</span> <span class="nf">compile:</span> <span class="kt">Str</span> file<span class="o">,</span> <span class="kt">Arr</span> <span class="kt">Str</span> args <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Str</span>
+
+<span class="k">ante</span> <span class="k">fun</span> <span class="nf">compile:</span> <span class="kt">Str</span> file<span class="o">,</span> <span class="kt">Arr</span> <span class="kt">CompilerFlag</span> args <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Str</span>
+</code></pre></div>
+
+<p>Compile an ante source file</p>
 
 <hr />
 
@@ -198,10 +356,10 @@ the message &ldquo;Flag ${f} requires no arguments but one was passed&rdquo;</p>
 
 <p>Executes the given function before the given phase begins.</p>
 
-<h4 id="examples">Examples</h4>
+<h4 id="examples-5">Examples</h4>
 
 <p>Timing compilation:</p>
-<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">var</span> timer <span class="o">=</span> <span class="kt">Timer</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">mut</span> timer <span class="o">=</span> <span class="kt">Timer</span><span class="p">()</span>
 before <span class="kt">Compilation</span> <span class="p">(</span>start timer<span class="p">)</span>
 
 before <span class="kt">Linking</span> <span class="p">(</span>
@@ -212,23 +370,33 @@ before <span class="kt">Linking</span> <span class="p">(</span>
 
 <p>Building a parser with bison:</p>
 <div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>before <span class="kt">Compilation</span> <span class="p">(</span>
-    sh <span class="s">&quot;bison syntax.y -oparser.c&quot;</span>
-    cc <span class="s">&quot;parser.c -oparser.o&quot;</span><span class="p">)</span>
+    system <span class="s">&quot;bison syntax.y -oparser.c&quot;</span>
+    cc <span class="s">&quot;parser.c -o parser.o&quot;</span><span class="p">)</span>
 </code></pre></div>
+
+<p>Note: if the flag Compilation is passed and the call to
+<code>before</code> is encountered while the program is already in the
+code generation phase then the body will be executed immediately.</p>
 
 <hr />
 
-<h2 id="sh">sh</h2>
-<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">sh:</span> <span class="kt">Str</span> cmd <span class="o">-&gt;</span> <span class="kt">i32</span>
+<h2 id="link-with">link_with</h2>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">ante</span> <span class="k">fun</span> <span class="nf">link_with:</span> <span class="kt">Str</span> lib
 </code></pre></div>
 
-<p>Executes the given command in the shell and returns
-the return status of that command.</p>
+<p>Adds the given library path to the list of files to
+link with.  The given string can be either an
+object file or a system library name such as libc.</p>
 
-<h4 id="examples-1">Examples</h4>
-<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>sh <span class="s">&quot;echo Hello&quot;</span>
+<p>If used within the action clause of a target then the given
+library or list of files is automatically added to the
+depends list of the current target.</p>
 
-sh <span class="s">&quot;yacc my_grammar.y&quot;</span>
+<h4 id="examples-6">Examples</h4>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span>link_with <span class="s">&quot;libc&quot;</span>
+
+cc <span class="s">&quot;file.c -o file.o&quot;</span>
+link_with <span class="s">&quot;file.o&quot;</span>
 </code></pre></div>
 
 <hr />
@@ -239,6 +407,11 @@ sh <span class="s">&quot;yacc my_grammar.y&quot;</span>
 
 <p>Evokes the System&rsquo;s default C compiler with
 the given command as an argument.</p>
+
+<p>If used within the action clause of a target this
+function will automatically add the implicit dependencies
+of the compiled file by analyzing the files opened by the
+invoked compiler.</p>
 
 <p>Returns the status of the C compiler on success</p>
 
@@ -253,6 +426,11 @@ will be issued in the form &ldquo;No default C compiler found&rdquo;</p>
 
 <p>Evokes the System&rsquo;s default C++ compiler with
 the given command as an argument.</p>
+
+<p>If used within the action clause of a target this
+function will automatically add the implicit dependencies
+of the compiled file by analyzing the files opened by the
+invoked compiler.</p>
 
 <p>Returns the status of the C++ compiler on success</p>
 
@@ -285,7 +463,7 @@ will be issued in the form &ldquo;No default C++ compiler found&rdquo;</p>
 
     <ul class="sidebar-nav">
       <li><a href="http://antelang.org/">Home</a> </li>
-      <li><a href="/tutorial/blocks/"> Blocks </a></li><li><a href="/compiler-extensions/build-system/"> Build System </a></li><li><a href="/tutorial/compiler-directives/"> Compiler Directives </a></li><li><a href="/tutorial/functions/"> Functions </a></li><li><a href="/tutorial/if/"> If </a></li><li><a href="/tutorial/literals/"> Literals </a></li><li><a href="/tutorial/loops/"> Loops </a></li><li><a href="/tutorial/modifiers/"> Modifiers </a></li><li><a href="/tutorial/modules/"> Modules </a></li><li><a href="/tutorial/operators/"> Operators </a></li><li><a href="/tutorial/pattern-matching/"> Pattern Matching </a></li><li><a href="/tutorial/traits/"> Traits </a></li><li><a href="/tutorial/type-casts/"> Type Casts </a></li><li><a href="/tutorial/type-declarations/"> Type Declarations </a></li><li><a href="/tutorial/types/"> Types </a></li><li><a href="/tutorial/variables/"> Variables </a></li>
+      <li><a href="/docs/blocks/"> Blocks </a></li><li><a href="/compiler-extensions/build-system/"> Build System </a></li><li><a href="/docs/compiler-directives/"> Compiler Directives </a></li><li><a href="/docs/functions/"> Functions </a></li><li><a href="/docs/if/"> If </a></li><li><a href="/docs/literals/"> Literals </a></li><li><a href="/docs/loops/"> Loops </a></li><li><a href="/docs/modifiers/"> Modifiers </a></li><li><a href="/docs/modules/"> Modules </a></li><li><a href="/docs/operators/"> Operators </a></li><li><a href="/docs/pattern-matching/"> Pattern Matching </a></li><li><a href="/lib/prelude/"> Prelude </a></li><li><a href="/docs/traits/"> Traits </a></li><li><a href="/docs/type-casts/"> Type Casts </a></li><li><a href="/docs/type-declarations/"> Type Declarations </a></li><li><a href="/docs/types/"> Types </a></li><li><a href="/docs/variables/"> Variables </a></li><li><a href="/lib/vec/"> Vec </a></li>
     </ul>
 
     <p>&copy; 2018. All rights reserved. </p>
@@ -355,7 +533,7 @@ will be issued in the form &ldquo;No default C++ compiler found&rdquo;</p>
 
     
 <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>

@@ -19,11 +19,10 @@
 .highlight-textalign-left {
     text-align: left;
     background-color: rgba(26, 26, 26, 0.8);
-    overflow-x: scroll;
     overflow-y: hidden;
 }
 
-body, .box-simple p, h1, h2, h3 {
+body, .box-simple p, h1, h2, h3, h4 {
     color: #cccccc;
 }
 
@@ -58,6 +57,10 @@ body, .box-simple p, h1, h2, h3 {
     opacity: 0.8;
 }
 
+.home-carousel .owl-carousel {
+    padding-top: 20px !important;
+}
+
 .home-carousel .dark-mask {
     opacity: 0.8;
 }
@@ -87,6 +90,10 @@ pre {
     background-color: rgba(0, 0, 0, 0.2);
     color: #dddddd;
     border: transparent;
+}
+
+pre code {
+    white-space: pre;
 }
 
 .sidebar-sticky {

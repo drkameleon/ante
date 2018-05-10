@@ -17,10 +17,8 @@
       <pubDate>Wed, 15 Nov 2017 14:33:28 -0500</pubDate>
       
       <guid>http://antelang.org/compiler-extensions/build-system/</guid>
-      <description>The Build module defines several useful functions for compiling and linking applications. Its interface is as follows:
-option ante fun option: Str opt  Equivalent to passing the string opt while evoking the compiler, eg. a call to option &amp;quot;-O3&amp;quot; is equivalent to compiling a module with ante -O3
-If the given option is not recognized a compilation error will be issued with the message &amp;ldquo;Unrecognized option ${opt}&amp;rdquo;
-ante fun option: CompilerFlag f  Enables the compiler flag f.</description>
+      <description>The Build module defines several useful functions for compiling and linking applications. It defines a DSL for building programs centered around the creation of targets. Each target represents a single output file and contains a list of dependencies and a build action. If any of its dependencies are changed the build action is executed.
+Although this build system is defined in Ante it can also be used to build programs for abitrary languages and has built-in support (automatic dependency management) for Ante, C, and C++.</description>
     </item>
     
   </channel>

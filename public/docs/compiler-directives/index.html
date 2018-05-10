@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compiler Directives</title>
+  <meta name="author" content="" />
+
+  <meta name="keywords" content="ante, programming, language, antelang, lang">	
+  <meta name="description" content="A systems programming language focused on providing extreme extensibility without compromising on speed or readability">
+
+  <meta name="generator" content="Hugo 0.39" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  
+  <link href="http://antelang.org/css/animate.css" rel="stylesheet">
+
+  
+  
+    <link href="http://antelang.org/css/style.red.css" rel="stylesheet" id="theme-stylesheet">
+  
+
+
+  
+  <link href="http://antelang.org/css/custom.css" rel="stylesheet">
+ 
+  
+  <link rel="stylesheet" href="http://antelang.org/css/syntax.css">
+
+  
+  
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+  <link rel="shortcut icon" href="http://antelang.org/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="http://antelang.org/img/apple-touch-icon.png" />
+  
+
+  <link href="http://antelang.org/css/owl.carousel.css" rel="stylesheet">
+  <link href="http://antelang.org/css/owl.theme.css" rel="stylesheet">
+
+  <link rel="alternate" href="http://antelang.org/index.xml" type="application/rss+xml" title="Ante">
+
+  
+  <meta property="og:title" content="Compiler Directives" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/docs/compiler-directives//" />
+  <meta property="og:image" content="" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand home" href="http://antelang.org/">
+                    <img src="http://antelang.org/img/ante_white.svg" width="90rem" alt="Compiler Directives" class="hidden-xs hidden-sm">
+                    <img src="http://antelang.org/img/ante_white.svg" width="90rem" alt="Compiler Directives" class="visible-xs visible-sm">
+                    <span class="sr-only">Compiler Directives - go to homepage</span>
+                </a>
+                <div class="navbar-buttons">
+                        <div class="navbar-collapse collapse" id="navigation">
+                            <ul class="nav navbar-nav navbar-right">
+                            
+                            <li class="dropdown">
+                                <a href="http://antelang.org/">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="http://antelang.org//docs/literals">Docs</a>
+                            </li>
+
+                            </ul>
+                        </div>
+                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                      <span class="sr-only">Toggle Navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                </div>
+            </div>
+            
+
+            
+            
+
+            <div class="collapse clearfix" id="search">
+
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+
+                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+
+                </span>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Compiler Directives</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right"></p>
+
+                        <div id="post-content">
+                          
+
+<p>As the &ldquo;compile-time&rdquo; language Ante naturally needs a mechanism for
+interacting with the compiler and other compile-time constructs.
+Of course, you can use the <code>ante</code> modifier or any of the builtin
+compile-time functions in the <code>Ante</code> module but to properly leverage
+the full power of Ante it is necessary to learn about compiler directives.</p>
+
+<p>In Ante, compiler directives are essentially user-defined modifiers.  Just
+like modifiers, compiler-directives can be used to modify variable declarations,
+function declarations, or even arbitrary expressions.  The semantics of this
+modification of course depends on the the modifier itself.</p>
+
+<p>A compiler directive is in the form <code>![name arg1 arg2 ... argn]</code>.
+As you have probably noticed from this, compiler directives, like functions,
+can take arguments.  Like <code>ante</code> functions, these arguments must all
+be compile-time constants.  There also exists a shorthand for compiler
+directives that take no arguments, <code>!name</code>.</p>
+
+<p>You may be thinking they sound very similar to functions, and you are right.
+If we really wanted to, we could define a
+compiler directive that adds two numbers during compile-time:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">![add</span> <span class="mi">1</span> <span class="mi">2</span><span class="cp">]</span>  <span class="c c-Singleline">//=&gt; 3</span>
+</code></pre></div>
+
+<p>Although such a function would be better performed by an <code>ante</code> function.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">let</span> add <span class="o">=</span> <span class="k">ante</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span>
+
+add <span class="mi">1</span> <span class="mi">2</span>  <span class="c c-Singleline">//=&gt; 3</span>
+</code></pre></div>
+
+<p>Generally, ante functions should be preferred when possible.  The main
+advantage compiler directives have over ante functions is their ability
+to precede function/variable/type declarations as modifiers.</p>
+
+<hr />
+
+<h1 id="as-modifiers">As Modifiers</h1>
+
+<p>Modifiers can appear before and modify any declaration (function, variable, or type),
+any type, or any arbitrary expression.  Naturally, because compiler directives
+are modifiers, they can also be used in these places as well.</p>
+
+<p>The most common location for compiler directives is before declarations:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!inline</span>
+<span class="k">fun</span> <span class="nf">id:</span> x <span class="o">=</span> x
+
+<span class="cp">!packed</span>
+<span class="k">type</span> <span class="kt">T</span> <span class="o">=</span> <span class="kt">bool</span> a b<span class="o">,</span> <span class="kt">i32</span> i
+
+<span class="cp">!pure</span>
+<span class="cp">![prereq</span> <span class="cp">(x</span> <span class="cp">&gt;</span> <span class="mi">0</span><span class="cp">)]</span>
+<span class="k">fun</span> <span class="nf">fact:</span> <span class="kt">Int</span> x <span class="o">=</span>
+    <span class="k">if</span> x <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span> <span class="mi">1</span>
+    <span class="k">else</span> x <span class="o">*</span> fact <span class="p">(</span>x<span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>They can also appear before types and arbitrary expressions however:</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">reverse:</span> <span class="cp">!gc</span> <span class="kt">List</span> l <span class="o">=</span>
+    foldl cons empty l
+
+
+<span class="c c-Singleline">//Like ante functions, compiler directives can modify parse trees:</span>
+<span class="cp">!class</span> <span class="cp">!nametypedecl</span>
+<span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span>
+    <span class="nf">id:</span> <span class="cp">!unique</span> <span class="kt">Nat</span>
+    <span class="nf">tasks:</span> <span class="cp">!gc</span> <span class="kt">List</span> <span class="kt">Str</span>
+
+    <span class="k">fun</span> <span class="nf">doWork:</span> self
+        <span class="k">match</span> self<span class="o">.</span>tasks <span class="k">with</span>
+        <span class="o">|</span> <span class="nf">t:</span><span class="p">:</span>ts <span class="o">-&gt;</span> print <span class="s">&quot;Doing ${pop self.tasks}&quot;</span>
+        <span class="o">|</span> <span class="p">[]</span> <span class="o">-&gt;</span> print <span class="s">&quot;Nothing to do.&quot;</span>
+
+    <span class="k">fun</span> <span class="nf">get_name:</span> self <span class="o">=</span>
+        <span class="s">&quot;Bob. Probably.&quot;</span>
+
+
+<span class="k">let</span> ntc <span class="o">=</span> <span class="cp">![reinterpret_as</span> <span class="kt">Arr</span> <span class="kt">u8</span><span class="cp">]</span> <span class="kt">Person</span><span class="p">(</span><span class="k">new</span> <span class="mi">3</span><span class="o">,</span> <span class="p">[</span><span class="s">&quot;Work&quot;</span><span class="p">])</span>
+
+<span class="c c-Singleline">//In most cases, compiler directives on arbitrary expressions</span>
+<span class="c c-Singleline">//could be better represented with a function.</span>
+<span class="k">let</span> ntc <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="k">new</span> <span class="mi">3</span><span class="o">,</span> <span class="p">[</span><span class="s">&quot;Work&quot;</span><span class="p">])</span><span class="o">.</span>reinterpret_as <span class="kt">Arr</span> <span class="kt">u8</span>
+</code></pre></div>
+
+<hr />
+
+<h1 id="creating-new-compiler-directives">Creating New Compiler Directives</h1>
+
+<p>To create your own compiler directive, tag a function
+with <code>!compiler_directive</code>.  As with functions, the parameters of
+a compiler directive determine what it can be used with.  If
+the newly created compiler directive should be used with function
+declarations its first parameter should be a <code>FuncDecl</code>, likewise if it
+is to be used with a type declaration or a variable declaration
+its first parameter should be a <code>TypeDecl</code> or <code>VarDecl</code> respectively.
+If it can operate on any declaration, it should take a <code>Decl</code>.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">test:</span> <span class="kt">FuncDecl</span> fd<span class="o">,</span> <span class="kt">Args</span> a<span class="o">,</span> <span class="kt">&#39;t</span> val
+    <span class="k">if</span> fd a <span class="o">!=</span> val <span class="k">then</span>
+        <span class="kt">Ante</span><span class="o">.</span>error <span class="s">&quot;${fd.name} ${a} != ${val}&quot;</span>
+
+
+<span class="cp">![test</span> <span class="mi">1</span> <span class="mi">1</span><span class="cp">]</span>
+<span class="cp">![test</span> <span class="mi">5</span> <span class="mi">120</span><span class="cp">]</span>
+<span class="k">fun</span> <span class="nf">fact:</span> <span class="kt">i32</span> x <span class="o">=</span>
+    <span class="k">if</span> x <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span> <span class="mi">1</span>
+    <span class="k">else</span> x <span class="o">*</span> fact <span class="p">(</span>x<span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The following example implements the function typeof on
+any type that includes <code>!typeid</code> in its definition.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="c c-Singleline">//map types to their type ids</span>
+<span class="k">mut</span> type_tbl <span class="o">=</span> <span class="kt">Vec</span> <span class="kt">Type</span>
+
+<span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">typeid:</span> <span class="k">mut</span> <span class="kt">TypeDecl</span> td
+    <span class="c c-Singleline">//inject a hidden field with a default value of len type_tbl</span>
+    td<span class="o">.</span>inject_hidden <span class="s">&quot;u64 type_id&quot;</span> <span class="nf">default:</span><span class="p">(</span>len type_tbl<span class="p">)</span>
+    type_tbl<span class="o">.</span>push td
+
+    td<span class="o">.</span>define <span class="s">&quot;typeof&quot;</span> <span class="p">(</span><span class="k">fun</span> self <span class="o">=</span>
+        type_tbl<span class="o">#</span>td<span class="o">.</span>get_hidden <span class="s">&quot;type_id&quot;</span><span class="p">)</span>
+
+
+<span class="cp">!typeid</span> <span class="k">type</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Str</span> name job<span class="o">,</span> <span class="kt">u8</span> age
+
+<span class="cp">!typeid</span> <span class="k">type</span> <span class="kt">Animal</span> <span class="o">=</span> <span class="kt">Str</span> name species<span class="o">,</span> <span class="kt">u8</span> age
+
+
+<span class="k">let</span> p <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="o">,</span> <span class="s">&quot;Programmer&quot;</span><span class="o">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="k">let</span> a <span class="o">=</span> <span class="kt">Animal</span><span class="p">(</span><span class="s">&quot;Spot&quot;</span><span class="o">,</span> <span class="s">&quot;Dog&quot;</span><span class="o">,</span> <span class="mi">3</span><span class="p">)</span>
+do_thing p  <span class="c c-Singleline">//=&gt; &quot;Do whatever it is Programmers do!&quot;</span>
+do_thing a  <span class="c c-Singleline">//=&gt; &quot;Go fetch!&quot;</span>
+
+<span class="k">fun</span> <span class="nf">do_thing:</span> <span class="kt">&#39;t</span> val
+    <span class="k">match</span> typeof val <span class="k">with</span>
+    <span class="o">|</span> <span class="kt">Person</span> <span class="o">-&gt;</span> <span class="s">&quot;Do whatever it is ${val.job}s do&quot;</span>
+    <span class="o">|</span> <span class="kt">Animal</span> <span class="k">where</span> val<span class="o">.</span>species <span class="o">==</span> <span class="s">&quot;Dog&quot;</span> <span class="o">-&gt;</span> <span class="s">&quot;Go fetch!&quot;</span>
+    <span class="o">|</span> <span class="mi">_</span> <span class="o">-&gt;</span> <span class="s">&quot;Wait, O unknown value&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h1 id="builtin-compiler-directives">Builtin Compiler Directives</h1>
+
+<hr />
+
+<h2 id="inline">!inline</h2>
+
+<p>Inlines a function at its callsite whenever possible.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!inline</span>
+<span class="k">fun</span> <span class="nf">add:</span> <span class="kt">i32</span> a b <span class="o">=</span> a <span class="o">+</span> b
+
+<span class="cp">!inline</span>
+<span class="k">fun</span> <span class="nf">print:</span> <span class="kt">Str</span> s
+    puts s<span class="o">.</span>cStr
+</code></pre></div>
+
+<hr />
+
+<h2 id="compiler-directive">!compiler_directive</h2>
+
+<p>Creates a new compiler directive with the given function
+as its implementation.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">debug:</span> <span class="kt">&#39;t</span> v <span class="o">=</span> print v
+
+<span class="cp">!debug</span>
+<span class="cp">!compiler_directive</span>
+<span class="k">fun</span> <span class="nf">test:</span> <span class="kt">FuncDecl</span> fd<span class="o">,</span> <span class="kt">Args</span> a
+    print <span class="s">&quot;test &lt;| ${fd} ${a} = &quot;</span> <span class="p">(</span>fd a<span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="implicit">!implicit</h2>
+
+<p>If used on a cast function, marks the function as an implicit cast.
+If used on a type, enables implicit casts to that type.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Vec</span> <span class="kt">&#39;t</span> <span class="o">=</span> <span class="o">...</span>
+<span class="k">type</span> <span class="kt">Arr</span> <span class="kt">&#39;t</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">ext</span> <span class="kt">Arr</span> <span class="kt">&#39;t</span>
+    <span class="cp">!implicit</span> <span class="k">fun</span> <span class="nf">init:</span> <span class="kt">Vec</span> <span class="kt">&#39;t</span> v <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">fun</span> <span class="nf">print_arr:</span> <span class="cp">!implicit</span> <span class="kt">Arr</span> arr
+    print <span class="s">&quot;Array&quot;</span> arr <span class="s">&quot;of length&quot;</span> arr<span class="o">.</span>len
+
+<span class="k">let</span> a <span class="o">=</span> <span class="kt">Arr</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="k">let</span> v <span class="o">=</span> <span class="kt">Vec</span><span class="p">[</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">7</span><span class="p">]</span>
+
+print_arr a  <span class="c c-Singleline">//Arr is already Arr</span>
+print_arr v  <span class="c c-Singleline">//Vec is converted to Arr</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="lazy">!lazy</h2>
+
+<p>Marks a type as lazy.  This type is guarenteed not to evaluate its
+value until forced into a non-lazy type.  Furthermore, the value
+is never double-evaluated.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">ThingNum</span> <span class="o">=</span> <span class="kt">One</span> <span class="o">|</span> <span class="kt">Two</span> <span class="o">|</span> <span class="kt">Three</span>
+
+<span class="k">fun</span> <span class="nf">do_thing:</span> <span class="kt">ThingNum</span> thing_num<span class="o">,</span> <span class="cp">!lazy</span> <span class="kt">&#39;t</span> <span class="err">thing</span><span class="mi">1</span> <span class="err">thing</span><span class="mi">2</span> <span class="err">thing</span><span class="mi">3</span> <span class="o">-&gt;</span> <span class="kt">&#39;t</span>
+    <span class="k">match</span> thing_num <span class="k">with</span>
+    <span class="o">|</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="err">thing</span><span class="mi">1</span>
+    <span class="o">|</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="err">thing</span><span class="mi">2</span>
+    <span class="o">|</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="err">thing</span><span class="mi">3</span>
+
+<span class="k">let</span> <span class="err">t</span><span class="mi">1</span> <span class="o">=</span> <span class="cp">!lazy</span> print <span class="s">&quot;one&quot;</span>
+
+<span class="c c-Singleline">//only print &quot;two&quot;</span>
+do_thing <span class="kt">Two</span> <span class="err">t</span><span class="mi">1</span> <span class="p">(</span>print <span class="s">&quot;two&quot;</span><span class="p">)</span> <span class="p">(</span>print <span class="s">&quot;three&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="noinit">!noinit</h2>
+
+<p>Declares a variable without an initialization.  Variables declared
+with noinit will issue an error if they are used in an expression when
+the compiler cannot guarentee that they have been initialized.  Noinit
+vars are usually used paired with c functions that expect to initialize
+the values themselves.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">type</span> <span class="kt">Mpz</span> <span class="o">=</span> <span class="kt">void</span><span class="o">*</span>
+
+<span class="c c-Singleline">//Declare mpz_init to accept possibly uninitialized values</span>
+<span class="k">fun</span> <span class="nf">mpz_init:</span> <span class="cp">!noinit</span> <span class="k">mut</span> <span class="kt">Mpz</span> out<span class="o">;</span>
+
+<span class="c c-Singleline">//Create a wrapper around the c-style initialization</span>
+<span class="k">fun</span> <span class="kt">Mpz</span><span class="o">.</span><span class="nf">init:</span> <span class="o">-&gt;</span> <span class="kt">Mpz</span>
+    <span class="cp">!noinit</span> <span class="k">mut</span> <span class="kt">Mpz</span> t
+    mpz_init t
+    t
+</code></pre></div>
+
+<hr />
+
+<h2 id="raw">!raw</h2>
+
+<p>Explicitly declares an unmanaged pointer.  If the <code>GC</code> or <code>Ownership</code>
+modules are imported this variable or type will remain manually
+managed.</p>
+<div class="highlight"><pre><code class="language-ante" data-lang="ante"><span></span><span class="k">fun</span> <span class="nf">alloc_int:</span> <span class="kt">Int</span> i <span class="o">-&gt;</span> <span class="cp">!raw</span> <span class="kt">Int</span><span class="o">*</span>
+    <span class="k">new</span> i
+
+<span class="k">let</span> <span class="cp">!raw</span> mem <span class="o">=</span> malloc <span class="mi">8</span>
+<span class="k">let</span> int <span class="o">=</span> alloc_int <span class="mi">10</span>
+
+free mem
+free int
+</code></pre></div>
+
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+
+                        <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://antelang.org/"><h1>Ante</h1></a>
+      <p class="lead">
+       A systems programming language focused on providing extreme extensibility without compromising on speed or readability 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="http://antelang.org/">Home</a> </li>
+      <li><a href="/docs/blocks/"> Blocks </a></li><li><a href="/compiler-extensions/build-system/"> Build System </a></li><li><a href="/docs/compiler-directives/"> Compiler Directives </a></li><li><a href="/docs/functions/"> Functions </a></li><li><a href="/docs/if/"> If </a></li><li><a href="/docs/literals/"> Literals </a></li><li><a href="/docs/loops/"> Loops </a></li><li><a href="/docs/modifiers/"> Modifiers </a></li><li><a href="/docs/modules/"> Modules </a></li><li><a href="/docs/operators/"> Operators </a></li><li><a href="/docs/pattern-matching/"> Pattern Matching </a></li><li><a href="/lib/prelude/"> Prelude </a></li><li><a href="/docs/traits/"> Traits </a></li><li><a href="/docs/type-casts/"> Type Casts </a></li><li><a href="/docs/type-declarations/"> Type Declarations </a></li><li><a href="/docs/types/"> Types </a></li><li><a href="/docs/variables/"> Variables </a></li><li><a href="/lib/vec/"> Vec </a></li>
+    </ul>
+
+    <p>&copy; 2018. All rights reserved. </p>
+  </div>
+</div>
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+
+        <div class="col-md-4 col-sm-6">
+
+              
+
+        </div>
+        
+
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-right">
+              Template by <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+              
+
+              Ported to Hugo by <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="http://antelang.org/js/front.js"></script>
+
+
+<script src="http://antelang.org/js/owl.carousel.min.js"></script>
+
+
+  </body>
+</html>
