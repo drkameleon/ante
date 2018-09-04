@@ -16,7 +16,8 @@ the ability to interact at a lower level if needed.
 
 ## Community
 - Join the official subreddit at [/r/ante](https://www.reddit.com/r/ante) for any and all discussion.  Everyone is welcome!
-- Looking to contribute?  Checkout [the documentation](http://jfecher.github.io/ante/html/index.html).
+- Want to learn Ante?  Check out [the website](http://antelang.org/).
+- Looking to contribute?  Check out [the documentation](http://antelang.org/doxygen/html/).
 
 ## Features
 * Lisp-esque compile-time execution combined with an extensible compiler API
@@ -28,7 +29,7 @@ the ability to interact at a lower level if needed.
 * Ability to write compiler plugins within the compiled program itself
 type and issue a compile-time error if it is invalidated
     -  Diverse and powerful compile-time analysis that can be custom programmed into
-any datatype creating eg. iterator invalidation, pointer-autofree, or even an ownership system.
+any datatype creating eg. domain-specific optimizations, pointer-autofree, or even an ownership system.
 The implementation of these features resembles that of a compiler plugin, except that it is written
 into the compiled module itself.
 
@@ -36,21 +37,21 @@ into the compiled module itself.
 here is an implementation of the goto construct in Ante
 
 ```go
-//The 'ante' keyword declares compile-time functions
+//The 'ante' keyword declares compile-time values
 ante
-fun goto: VarNode vn
-    let label = ctLookup vn ?
-        None -> compErr "Cannot goto undefined label ${vn.name}"
+    global mut labels = Map.of Str Llvm.BasicBlock
 
-    LLVM.setInsertPoint getCallSiteBlock{}
-    LLVM.createBr label
+    fun goto: VarNode vn
+        let label = labels.lookup vn.name ?
+            None -> Ante.error "Cannot goto undefined label ${vn}"
 
-ante
-fun label: VarNode vn
-    let ctxt = Ante.llvm_ctxt
-    let callingFn = getCallSiteBlock().getParentFn()
-    let lbl = LLVM.BasicBlock ctxt callingFn
-    ctStore vn lbl
+        Llvm.setInsertPoint (getCallSiteBlock ())
+        Llvm.createBr label
+
+    fun label: VarNode vn
+        let callingFn = getParentFn (getCallSiteBlock ())
+        let lbl = Llvm.BasicBlock(Ante.llvm_ctxt, callingFn)
+        labels#vn.name := lbl
 
 
 //test it out
@@ -77,8 +78,20 @@ distro's package manager.
 
 2. Run `$ git clone https://github.com/jfecher/ante.git`
 
-3. Run `$ cd ante && make && sudo make stdlib`
+3. Run `$ cd ante && make`
 
-    - NOTE: root permissions are only needed to export the standard library.  To export it manually, execute the following command as root:
+### Trying Ante in Docker
 
-        `# mkdir -p /usr/include/ante && cp stdlib/*.an /usr/include/ante`
+Alternatively, you can try Ante using Docker. You can build the image using:
+
+```
+docker build . -t ante
+```
+
+and then start it with:
+
+```
+docker run -it ante
+```
+
+At this point you can install an editor and use the compiler/REPL (in /home/ante/ante) to write some code and run it.
