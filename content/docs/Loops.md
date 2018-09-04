@@ -27,10 +27,11 @@ they input something other than "example".
 
 ```ante
 mut inp = input "Enter anything except 'example': "
-while inp == "example" do
-    inp = input "No no no, DON'T enter 'example': "
+while inp = "example" do
+    inp := input "No no no, DON'T enter 'example': "
 ```
 
+---
 ### Do While
 
 In many languages, the above could be simplified with a 'do-while'
@@ -45,10 +46,11 @@ that form.
 ```ante
 while
     let inp = input "Enter anything except 'example': "
-    inp == "example"
+    inp = "example"
 do ()
 ```
 
+---
 ### Break and Continue
 
 In many cases, it is necessary to either break out of a loop or
@@ -98,7 +100,7 @@ while true do
         print "${i} * ${j} = ${i * j}"
 
         //Jump out of both loops if i=50 and j=58
-        if i == 50 and j == 58 then
+        if i = 50 and j = 58 then
             break 2
 ```
 
@@ -111,21 +113,24 @@ of something.  Specifically, for loops can iterate over anything that is
 containers, although any type can be iterated over if it implements either
 the `Iterable` or `Iterator` traits.
 
+Note that ranges are beginning-inclusive and end-exclusive.
+
 Here is the print even numbers example using a for loop:
 ```ante
 //print even numbers from 1 to 100
-for i in 1..100 do
-    if i % 2 == 0 then
+for i in 1..101 do
+    if i % 2 = 0 then
         print i
 ```
 
 Even better, using a range with a step of 2:
 ```ante
-for i in (2,4)..100 do
+for i in (2,4)..101 do
     print i
 ```
 
 
+---
 ## Iterable
 
 ```ante
@@ -136,6 +141,7 @@ Types that are iterable define a single function, `into_iter`
 that simply returns an iterator for that type.  Types that
 are iterable include `Vec`, `Arr`, `Map`, and most other container types.
 
+---
 ## Iterator
 
 ```ante
@@ -160,7 +166,7 @@ mut it = iterator
 while has_next it do
     let e = unwrap it
     ...
-    it = next it
+    it := next it
 ```
 
 Similarly, looping over an `Iterable` just requires `into_iter` to
@@ -175,6 +181,6 @@ mut it = into_iter iterable
 while has_next it do
     let e = unwrap it
     ...
-    it = next it
+    it := next it
 ```
 

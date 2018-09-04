@@ -59,7 +59,7 @@ type T = bool a b, i32 i
 !pure
 ![prereq (x > 0)]
 fun fact: Int x =
-    if x == 1 then 1
+    if x = 1 then 1
     else x * fact (x-1)
 ```
 
@@ -113,7 +113,7 @@ fun test: FuncDecl fd, Args a, 't val
 ![test 1 1]
 ![test 5 120]
 fun fact: i32 x =
-    if x == 1 then 1
+    if x = 1 then 1
     else x * fact (x-1)
 ```
 
@@ -147,7 +147,7 @@ do_thing a  //=> "Go fetch!"
 fun do_thing: 't val
     match typeof val with
     | Person -> "Do whatever it is ${val.job}s do"
-    | Animal where val.species == "Dog" -> "Go fetch!"
+    | Animal where val.species = "Dog" -> "Go fetch!"
     | _ -> "Wait, O unknown value"
 ```
 
@@ -201,7 +201,7 @@ fun print_arr: !implicit Arr arr
 let a = Arr[1, 5, 9]
 let v = Vec[1, 3, 7]
 
-print_arr a  //Arr is already Arr
+print_arr a  //Arr is already an Arr
 print_arr v  //Vec is converted to Arr
 ```
 

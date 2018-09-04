@@ -13,7 +13,7 @@ most of which are covered below.
 Perhaps most importantly, pattern Matches with are completeness
 checked, so all possibilities for a given value must be covered.
 For example, a match against an integer x with a single
-pattern `0` (the equivalent of if x == 0) is rejected
+pattern `0` (the equivalent of if x = 0) is rejected
 as it does not have a case for when x != 0.
 
 ---
@@ -25,6 +25,7 @@ declaration.  There are several basic types of patterns:
 type cast patterns, operator patterns, destructures, clauses.
 Additionally, each type of pattern can be used within other patterns.
 
+---
 ## Type Cast Pattern
 
 Type cast patterns are in the form `Type val` and are matched
@@ -42,6 +43,7 @@ match t with
 | Some val -> print val
 ```
 
+---
 ## Operator Patterns
 
 An operator pattern is, simply put, a pattern that uses a
@@ -54,11 +56,11 @@ overload is used.  The other arithmetic operators follow this pattern as well.
 
 ```ante
 match 3 with
-| x + 2 -> assert(x == 1)
+| x + 2 -> assert(x = 1)
 
 match (55, 12) with
 | (y - 3, 15) -> assertUnreachable()
-| (z / 2, 12) -> assert (z == 55 * 2)
+| (z / 2, 12) -> assert (z = 55 * 2)
 | _ -> assertUnreachable()
 
 //Pattern matching cannot be used as an equations solver
@@ -88,6 +90,7 @@ match "my string" with
 | _ -> "Someone has something.  Probably."
 ```
 
+---
 ## Clauses
 
 Adding a clause in a pattern causes the pattern to only be
@@ -132,6 +135,7 @@ rebound.  The explicit `where` clause can help prevent the ambiguity
 that arises if it is unclear if `len` or `s` are already bound.
 
 
+---
 ## Multiple Patterns
 
 `|` can be placed between two patterns so that its
@@ -153,7 +157,7 @@ if expression in that the types of its branches must match
 and the value returned is the value of the matched branch.
 
 ```ante
-assert (3 == match "hi" with
+assert (3 = match "hi" with
      | "yo" -> 1
      | "hi" -> 3
      | _    -> 5)
@@ -172,7 +176,7 @@ match 4 with
 | positive x ->
     //the value bound of a boolean-returning function
     //is just the value being matched
-    assert (x==4)
+    assert (x=4)
     "4 is positive!"
 
 | _ -> "4 is not positive."
@@ -192,7 +196,7 @@ fun positive: i32 x =
 
 match 4 with
 | positive msg ->
-    assert (msg == "4 is positive!")
+    assert (msg = "4 is positive!")
     print msg
 
 //If this pattern is matched, then positive returned None

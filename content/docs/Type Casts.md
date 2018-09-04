@@ -18,6 +18,7 @@ type Person = Str name, u8 age  //Str and u8
 let p = Person("Mary", 42u8) //Str and u8
 ```
 
+---
 ## Explicit Casts
 
 All casts in Ante are explicit by default, and only through a
@@ -32,6 +33,7 @@ add 4u8 5u8  //=> error, mismatching types!
 add 4usz 5usz  //good!
 ```
 
+---
 ## Generic Casts
 
 When casting to generic types, Ante makes gracious use of type
@@ -51,6 +53,7 @@ follow the type name.
 let empty = Vec i32()
 ```
 
+---
 ## Implicit Casts
 
 Implicit casts can be achieved with the `!implicit` compiler directive.

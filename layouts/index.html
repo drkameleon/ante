@@ -16,24 +16,7 @@
 
                     <div class="container">
                         <div class="navbar-header">
-                            <div class="navbar-buttons">
-                                    <div class="navbar-collapse collapse" id="navigation">
-                                        <ul class="nav navbar-nav navbar-right">
-                                        
-                                        <li class="dropdown">
-                                            <a href="{{ .Site.BaseURL }}">Home</a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="{{ .Site.BaseURL }}/docs/literals">Docs</a>
-                                        </li>
-
-                                        </ul>
-                                    </div>
-                                <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
-                                <span class="sr-only">{{ i18n "navToggle" }}</span>
-                                    <i class="fa fa-align-justify"></i>
-                                </button>
-                            </div>
+                            {{ partial "navbar.html" . }}
                         </div>
                         
                         <div class="collapse clearfix" id="search">
@@ -71,8 +54,35 @@
             </div>
         </section>
 
+        <section class="bar background-white"style="padding: 0 !important; margin-top: -3rem; margin-bottom: 2rem;">
+            <div class="container" >
+                <h2>Ante is in active development</h2>
+
+                <div class="lead" text-align="center">
+                    Ante is currently in active development and the compiler is in a very early state.
+                    In addition, the features listed on this website detail the language itself rather
+                    than the subset that is implemented by the current compiler.  If you are interested
+                    to see which features are implemented, please look at the github page linked below.
+                    Any features not tested in the integration tests are likely to not yet be implemented.
+                </div>
+            </div>
+        </section>
+
 
         {{ partial "carousel.html" . }}
+        
+        <section class="bar background-white">
+            <div class="container">
+                <h2>A New Way to Metaprogram</h2>
+
+                <div class="lead" text-align="center">
+                    Ante's primary feature is its use of compile-time execution to also interface
+                    with the compiler as a library and allow compiler extensions to be made within
+                    the program itself.  This allows for programming your own optimization passes,
+                    implementing ownership semantics, extending the type system, and more.
+                </div>
+            </div>
+        </section>
 
         {{ partial "features.html" . }}
 

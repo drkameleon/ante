@@ -10,7 +10,7 @@ description: >
 
     //       to tuple index 2 of type Str</span>
 
-    tup#<span class="m">2</span> = <span class="k">new</span> <span class="m">3</span>
+    tup#<span class="m">2</span> := <span class="k">new</span> <span class="m">3</span>
 
 
     <span class="c1">//Functions must document parameter types

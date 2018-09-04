@@ -24,6 +24,7 @@ proceeded by a table of associativity and precedence for each.
 
 `^` Exponentiation
 
+---
 ## Logical
 
 `<` Less than
@@ -34,7 +35,7 @@ proceeded by a table of associativity and precedence for each.
  
 `>=` Greater than or equal
  
-`==` Is equal to, structural equality
+`=` Is equal to, structural equality
 
 `!=` Not equal to
 
@@ -46,7 +47,7 @@ proceeded by a table of associativity and precedence for each.
 
 `not` Logical not
 
-A note on `==` and `is`:
+A note on `=` and `is`:
 
 If two values contain the same values, for example if two
 tuples contained the same elements within, they are structurally equal.
@@ -62,16 +63,17 @@ let a = new (5, "five")
 let b = new (5, "five")
 let c = a
 
-a == b  //=> true
-a == c  //=> true
+a = b  //=> true
+a = c  //=> true
 
 a is b  //=> false
 a is c  //=> true
 ```
 
+---
 ## Assignment
 
-`=` Assigns a value to a variable
+`:=` Assigns a value to a variable
 
 `<binop>=` Assigns a value to a variable after performing
             the operation on the previous value and the expression.  ex.
@@ -81,6 +83,7 @@ mut a = 3
 a += 4  //a is now 7
 ```
 
+---
 ## Bitwise
 
 Bitwise operations are implemented as library functions.
@@ -101,6 +104,7 @@ sl 1 3  //=> 8
 sr 8 3  //=> 1
 ```
 
+---
 ## Other
 
 `in` Test if a value is in a collection
@@ -150,7 +154,7 @@ sr 8 3  //=> 1
 | >        | Binary          | Left          |     8      |
 | <=       | Binary          | Left          |     8      |
 | >=       | Binary          | Left          |     8      |
-| ==       | Binary          | Left          |     8      |
+| =        | Binary          | Left          |     8      |
 | !=       | Binary          | Left          |     8      |
 | is       | Binary          | Left          |     8      |
 | not      | Unary           | Right         |     7      |
@@ -159,6 +163,6 @@ sr 8 3  //=> 1
 | \|>      | Binary          | Left          |     4      |
 | <\|      | Binary          | Right         |     3      |
 | ;        | Binary          | Left          |     2      |
-| =        | Binary          | Left          |     1      |
+| :=       | Binary          | Left          |     1      |
 |=\<binop> | Binary          | Left          |     1      |
 

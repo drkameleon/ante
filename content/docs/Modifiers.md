@@ -9,6 +9,7 @@ any function declaration, variable declaration, type declaration,
 type, or arbitrary expression.  All modifiers can be used before
 a block to apply the modifier to the entire block.
 
+---
 ## Visibility Modifiers
 
 The visibility modifiers control how "visible" declarations are
@@ -43,6 +44,7 @@ let radius = Math.add2 0
 let circ_area = Math.pi * radius^2
 ```
 
+---
 ## Mut
 
 Marks a type as mutable.  Variables created with `var` as opposed
@@ -52,11 +54,12 @@ as well, unless any of those types are explicitly marked `const`.
 
 ```ante
 fun store: mut 't* dest, 't val
-    @dest = val
+    @dest := val
 
 store (malloc (Ante.sizeof Str)) "Hello there"
 ```
 
+---
 ## Const
 
 Types in Ante are immutable by default, although they can be marked
@@ -76,6 +79,7 @@ fun birthday: mut Person p
     p.age += 1  //error, age field is marked const
 ```
 
+---
 ## Global
 
 Declares a global variable when used on a variable declaration, otherwise
@@ -94,6 +98,7 @@ fun sphere_volume: Num radius =
     4/3 * (global pi) * radius^3
 ```
 
+---
 ## Ante
 
 The `ante` modifier is Ante's primary way of executing compile-time code.  It is
@@ -139,7 +144,7 @@ To execute an arbitrary expression during compile-time simply prefix it with ant
 
 ```ante
 let ans = ante input "Do you want to stop compiling? (y/N): "
-if ans == "y" then
+if ans = "y" then
     Ante.error "Well you did say you wanted to stop"
 ```
 
@@ -160,7 +165,7 @@ fun say_something: ante Str a
     ante print a
 ```
 
-Using compile-time code execution properly can lead to not only small to large
+Using compile-time code execution properly can lead to 
 optimizations but also to better error messages and ease of debugging.  It is
 also a building block for even more powerful features from Ante's integrated build
 system to its gradually managed memory and extensible type system.

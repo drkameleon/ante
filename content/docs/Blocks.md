@@ -26,6 +26,7 @@ let t = 32
 if true then
  print "hello"
 ```
+---
 ## Block Keyword
 
 Ante does not allow for stray indents in unexpected areas.  In fact,
@@ -45,6 +46,7 @@ print x  //=> prints 42
 print y  //=> error, y is not in scope
 ```
 
+---
 ## Line Continuation
 
 If a line is too long, it can be split into two with a `\` preceeding
@@ -59,6 +61,7 @@ some_very_long_function_name other_similarly_long_argument_name_1 \
 The spaces preceeding `other_similarly_long_argument_name` 2 and 3 are
 not considered to be the start of a line and thus are not significant whitespace.
 
+---
 ## Indentation Ignored within (), [], and {}
 
 Changes to indentation are ignored while between an opening
@@ -89,7 +92,7 @@ strip spaces or inputting a one-liner in the terminal.
 
 ```ante
 fun fact: u32 x -> u32 {
-    if x == 1 then{
+    if x = 1 then{
         1
     }else{
         x * fact (x-1)

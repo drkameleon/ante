@@ -1,7 +1,7 @@
 ---
 title: "Vec"
 date: 2018-03-28T14:30:00-05:00
-menu: main
+menu: lib
 ---
 
 The `Vec` module contains the vector type, a container for a
@@ -58,13 +58,13 @@ Initializes a vector of the given type.
 This vector has a default capacity of 4 elements.
 
 ```ante
-    fun init: -> Vec 't
+fun init: -> Vec 't
 ```
 
 Create a vector of integers with all elements from the given range.
 
 ```ante
-    fun init: Range r -> Vec i32
+fun init: Range r -> Vec i32
 ```
 
 ---
@@ -73,7 +73,7 @@ Create a vector of integers with all elements from the given range.
 Returns true if the vector is empty.
 
 ```ante
-    fun is_empty: Vec v -> bool
+fun is_empty: Vec v -> bool
 ```
 
 ---
@@ -82,7 +82,7 @@ Returns true if the vector is empty.
 Returns a `Range` that contains all the indices from the given vector.
 
 ```ante
-    fun indices: Vec v -> Range
+fun indices: Vec v -> Range
 ```
 
 ---
@@ -91,7 +91,7 @@ Returns a `Range` that contains all the indices from the given vector.
 Returns the length of the vector.
 
 ```ante
-    fun len: Vec v -> usz
+fun len: Vec v -> usz
 ```
 
 ---
@@ -100,7 +100,7 @@ Returns the length of the vector.
 Returns the capacity of the vector.
 
 ```ante
-    fun capacity: Vec v = v.cap
+fun capacity: Vec v = v.cap
 ```
 
 ---
@@ -164,7 +164,7 @@ fun remove_indices: mut Vec 't v, Vec i32 indices
 
 remove the first instance of the given element from
 the vector or none if the element was not found.
-Uses == to determine element equality.
+Uses = to determine element equality.
 returns the index where the element was found.
 
 ```ante
@@ -176,7 +176,7 @@ fun remove_first: mut Vec 't v, 't elem -> Maybe i32
 
 Remove all matching elements from the vector and
 return the number of elements removed.
-Uses == to determine element equality.
+Uses = to determine element equality.
 
 ```ante
 fun remove_all: mut Vec 't v, 't elem -> usz
@@ -188,5 +188,5 @@ fun remove_all: mut Vec 't v, 't elem -> usz
 mut v = Vec[1, 2, 1, 5, 3, 1]
 v.remove_all 1  //=> 3
 
-assert <| v == Vec[2, 5, 3]
+assert <| v = Vec[2, 5, 3]
 ```

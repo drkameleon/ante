@@ -1,7 +1,9 @@
 weight: 6
-title: "Lazy Types"
+title: "Compiler Extensions"
 description: >
-    <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">when</span>: <span class="kt">Comparable</span> cond, <span class="cp">!lazy</span> <span class="kt">'t</span> a b c
+    <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="c1">//Extend type system to support lazy types with !lazy</span>
+
+    <span class="k">fun</span> <span class="nf">when</span>: <span class="kt">Comparison</span> cond, <span class="cp">!lazy</span> <span class="kt">'t</span> a b c
         <span class="k">match</span> cond <span class="k">with</span>
         | <span class="kt">LessThan</span> -> a
         | <span class="kt">Equal</span> -> b
@@ -12,7 +14,7 @@ description: >
 
     <span class="c1">//only "too high!" is outputted</span>
 
-    <span class="nf">when</span> (guess.<span class="nf">compare</span> ans)
-        print <span class="s">"too low!"</span>
-        print <span class="s">"just right!"</span>
-        print <span class="s">"too high!"</span></span></code></pre></div>
+    when (guess.compare ans) \
+        (print <span class="s">"too low!"</span>)     \
+        (print <span class="s">"just right!"</span>)  \
+        (print <span class="s">"too high!"</span>)</span></code></pre></div>

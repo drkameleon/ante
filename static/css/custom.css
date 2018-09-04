@@ -12,6 +12,46 @@
     align-content: center;
 }
 
+#blog-listing-medium .post h2 a {
+    color: #eee;
+}
+
+.pager .disabled > a, .pager .disabled > a:hover,
+.pager .disabled > a:focus {
+    background-color: #181818;
+    border: none;
+}
+
+.pager li  a, .pager li > span {
+    background-color: rgba(256, 256, 256, 0.1);
+    border: none;
+}
+
+.pager {
+    border: none;
+}
+
+.post .row {
+    background-color: rgb(33, 33, 33);
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#blog-listing-medium .post {
+    margin-bottom: 20px;
+}
+
+.btn-template-main {
+    background-color: rgba(256, 256, 256, 0.1);
+    border: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    background-color: transparent;
+}
+
 .home-carousel h1 {
     text-align: center;
 }
@@ -38,7 +78,7 @@ body, .box-simple p, h1, h2, h3, h4 {
     background: #1d1d1d;
 }
 
-#all {
+#all, html {
     background-color: rgb(15,15,15);
 }
 

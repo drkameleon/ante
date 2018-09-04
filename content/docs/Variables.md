@@ -15,6 +15,7 @@ Both forms of declaration infer the type of the variable from the
 type of the expression so it is never necessary to write out the
 type of the variable.
 
+---
 ## Let
 
 Declares an immutable variable.
@@ -26,20 +27,26 @@ print x  //=> 2
 //Note that in the binding below the original x is not
 //changed.  Instead, the value 3 is bound to another x
 //that shadows the original
-let x = 3
-print x  //=> 3
+block
+    let x = 3
+    print x  //=> 3
+
+print x  //=> 2
 ```
+
+---
 
 ## Mut
 
 Declares a mutable variable.  Assigning new values to mutable variables
-can be done with the `=` operator.
+can be done with the `:=` operator or with one of the combined assignment
+operators `+=`, `-=`, `*=`, and `/=`.
 
 ```ante
 mut x = 2
 print x  //=> 2
 
-x = 3
+x := 3
 print x  //=> 3
 ```
 ---

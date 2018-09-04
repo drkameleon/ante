@@ -22,6 +22,7 @@ let n = Name "John"
 print n  //=> error, print:Name not found
 ```
 
+---
 ## Type Aliases
 
 An alias for a type can be used in any instance
@@ -49,9 +50,10 @@ Types declared with `=` are considered separate types, but
 types declared with `is` are always exactly equal to the types
 on the right hand side of the declaration.  In this way, the
 distinction between type declaration with `=` and `is` is
-similar to the distinction between `==` and `is` when comparing
+similar to the distinction between `=` and `is` when comparing
 two values.
 
+---
 ## Structs and Records
 
 If desired a types contained types can each be named and later
@@ -75,6 +77,7 @@ let str = MyStr "How are you doing today?"
 print str.s
 ```
 
+---
 ## Tagged Unions
 
 Tagged union types are types that can be one of several

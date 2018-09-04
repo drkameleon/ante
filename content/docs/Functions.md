@@ -15,6 +15,7 @@ to call the print function with the parameters 2 and "three":
 print 2 "three"
 ```
 
+---
 ## UFCS
 
 Universal Function Call Syntax is fully supported on every function.  That is to
@@ -33,6 +34,8 @@ let b = Bad 3
 print b     //Prints b
 b.print()   //Error: print is not a function, it is an i32!
 ```
+
+---
 ## Mangling
 
 Function names in Ante are mangled to enable overloading for
@@ -149,6 +152,7 @@ fun five: -> i32
 
 ```
 
+---
 ## Parameter Shorthand
 
 If multiple parameters of a given type are taken in a row by
@@ -160,6 +164,7 @@ fun concat: Str a b -> Str
     a ++ b
 ```
 
+---
 ## Inferred Return Type
 
 If the return type of a function is omitted and replaced with an `=`
@@ -170,6 +175,7 @@ fun concat: Str a b =
     a ++ b
 ```
 
+---
 ## Lambdas
 
 A lambda is an anonymous function, a function with no name.
@@ -198,6 +204,7 @@ l.map (2 * _)
 |> filter (_ in ["hi", "hello"])
 ```
 
+---
 ## External Function Declarations
 
 Functions external to the linking unit, usually non-Ante functions,
@@ -209,6 +216,7 @@ fun printf: c8* cStr, ... -> i32;
 printf "My favorite number is %d\n" 11
 ```
 
+---
 ## Operator Overloads
 
 Operators can be overloaded for any given set of types by creating
@@ -216,21 +224,21 @@ a function with the name being the operator surrounded in parenthesis.
 Normal rules for function overloading apply.
 
 ```ante
-fun (==): File l r =
-    abspath l == abspath r
+fun (=): File l r =
+    abspath l = abspath r
 
 
 //Get a list of files in a directory with names between the
 //names of the Files l and r
 fun (..): File l r -> List File
     let (dl, dr) = (dir l, dir r)
-    if dl == dr then
+    if dl = dr then
         dl.filter (_.name in l.name .. r.name)
     else
         []
 
 //given a directory of with the structure:
 // ante.an  javascript.js  haskell.hs  README.md  d-lang.d
-File "ante.an" .. File "haskell.hs" ==
+File "ante.an" .. File "haskell.hs" =
     List(File "ante.an", File "haskell.hs", File "d-lang.d")
 ```

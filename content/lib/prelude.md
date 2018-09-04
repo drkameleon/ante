@@ -1,7 +1,7 @@
 ---
 title: "Prelude"
 date: 2018-03-28T14:30:00-05:00
-menu: main
+menu: lib
 ---
 
 The `Prelude` module contains commonly used functions and types
@@ -56,7 +56,7 @@ fun parse_int: Str s -> Maybe i32
     ...
     Some int
 
-assert <| parse_int "54" == Some 54
+assert <| parse_int "54" = Some 54
 
 //print None
 match parse_int "non-numeric string" with
@@ -208,7 +208,7 @@ mut i = iterator
 while has_next i do
     let e = unwrap i
     ...
-    i = next i
+    i := next i
 ```
 
 #### Example Implementation
@@ -230,31 +230,31 @@ ext BackwardsRange : Iterator
 ---
 # Functions
 ---
-### ==
+### =
 
 Compares the structural equality of two values.
 
 ```ante
-fun (==): Maybe l r -> bool
+fun (=): Maybe l r -> bool
 ```
 
 ```ante
-!inline fun (==): 't* l r -> bool
+!inline fun (=): 't* l r -> bool
 ```
 
 ```ante
-fun (==): void* l r =
-    Ante.error "Cannot call == on a void*!  Use 'is' to compare addresses!"
+fun (=): void* l r =
+    Ante.error "Cannot call = on a void*!  Use 'is' to compare addresses!"
 ```
 
 ```ante
-fun (==): Str l r -> bool
+fun (=): Str l r -> bool
 ```
 
 ---
 ### !=
 
-Equal to `not (a == b)`
+Equal to `not (a = b)`
 
 ```ante
 !inline fun (!=): Str l r -> bool
@@ -526,7 +526,7 @@ fun Str.reverse: Str s -> Str
 #### Example
 
 ```ante
-assert <| reverse "hello" == "olleh"
+assert <| reverse "hello" = "olleh"
 ```
 
 ---
@@ -608,9 +608,9 @@ fun u64.parse: Str s -> Maybe u64
 #### Example
 
 ```ante
-assert <| u64.parse "53" == Some 53_u64
+assert <| u64.parse "53" = Some 53_u64
 
-assert <| u64.parse "-5" == None
+assert <| u64.parse "-5" = None
 ```
 
 ---
@@ -629,9 +629,9 @@ fun i64.parse: Str s -> Maybe i64
 #### Example
 
 ```ante
-assert <| u64.parse "-1000" == Some(-1000_i64)
+assert <| u64.parse "-1000" = Some(-1000_i64)
 
-assert <| u64.parse "23.5" == None
+assert <| u64.parse "23.5" = None
 ```
 
 ---
@@ -693,7 +693,7 @@ fun (++): Str s1 s2 -> Str
 
 ```ante
 let s = "hello " ++ "world"
-assert (s == "hello world")
+assert (s = "hello world")
 ```
 
 ---

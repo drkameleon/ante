@@ -17,3 +17,4 @@ include/yyparser.h
 /src/position.hh
 /src/stack.hh
 /t.exe
+public

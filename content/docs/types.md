@@ -132,32 +132,43 @@ fun print: 't x = ...
 
 //p is any pointer type
 fun print_ptr: 't* p = ...
-
-
-'t == i32               //=> true
-'u == (Str, f64, bool)  //=> true
-
-'t* == i32*       //=> true
-['e] == [bool]    //=> true
-['e] == [4 bool]  //=> true
-
-'a* == i32  //=> false
-(i32,'t) == (Str, Str)  //=> false
 ```
 
 Functions that accept a type variable anywhere in their parameters are
 generic functions and are recompiled for every valid type variant of
-arguments that are used.
+arguments that are used.  For a given variable `x` of type `'t` the
+expression `x + 1` is invalid because a type variable must be able to be
+substituted with any type and not every type defines the `+` operator.
+Resultingly, generic functions in Ante can be type checked sooner and
+type checked only once for faster compilation.  If one wishes to have
+a function generic over any function that implements addition, traits
+should be used instead.
 
 ```ante
+//invalid: + not defined for any type 't
 fun inc: 't x =
     x + 1
 
-//compile inc:i32, a variant just for i32s
-inc 3
+//valid, + is defined for all Addable types
+fun inc: Addable x =
+    x + 1
 
-//compile inc:usz, a variant just for usz
-inc 20_usz
+
+fun extract_index: Arr 't a, usz idx -> Maybe 't
+    if idx in indices a then
+        Some (a#idx)
+    else
+        None
+
+
+let int_arr = [1, 2, 3, 4]
+let str_arr = ["one", "two", "three"]
+
+//compile a variant just for 't = i32
+extract_index int_arr 2
+
+//compile a variant just for 't = Str
+extract_index str_arr 1
 ```
 
 ---
@@ -188,12 +199,12 @@ fun print: Maybe m
     | Some val -> print val
     | None -> print "None"
 
-let m1 = Some 3
-let m2 = Some "string"
+let mi = Some 3
+let ms = Some "string"
 
 //both Maybe i32 and Maybe Str are valid inputs
-print m1
-print m2
+print mi
+print ms
 ```
 
 ---
@@ -223,4 +234,31 @@ echo 3
 
 //compiles a function echo:c8* for c8 pointers
 echo (new 'h')
+```
+
+Functions with trait parameters are normally statically dispatched however
+if desired they can be used with dynamic dispatch by using trait objects.
+Trait objects can be created by wrapping the desired trait in the `Trait` type.
+
+
+```ante
+//EqList is a heterogenous list of any type that implements Eq
+type EqList is List (Trait Eq)
+
+let l = EqList(2, "three", (5usz, -2i8), 'h')
+
+//take two parameters using dynamic dispatch for the = function.
+fun f: Trait Eq a b =
+    not(a = b)
+
+f 2 3  //compile f:(Trait Eq, Trait Eq)
+
+f "a" "a"  //f is not recompiled
+```
+
+Trait object types hide the actual value behind a pointer which contains both
+the value itself and a vtable.
+
+```ante
+type Trait 't = ('t val, VTbl vtable)*
 ```

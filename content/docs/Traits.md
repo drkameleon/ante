@@ -23,16 +23,16 @@ function headers that values of that trait must implement.
 
 ```ante
 trait Eq
-    fun (==): Eq a b -> bool
+    fun (=): Eq a b -> bool
 ```
 
 Implementing a trait is done within a type extension.
 
 ```ante
 ext Str: Eq
-    //now we must implement (==) or get an error
-    fun (==): Str l r =
-        strcmp l r == 0
+    //now we must implement (=) or get an error
+    fun (=): Str l r =
+        strcmp l r = 0
 ```
 
 Multiple traits can be implemented in a single type extension
@@ -40,13 +40,14 @@ by separating each trait name with a comma.
 
 ```ante
 ext Str: Eq, Printable
-    fun (==): Str l r =
-        strcmp l r == 0
+    fun (=): Str l r =
+        strcmp l r = 0
 
     fun print: Str s
         puts s.cStr
 ```
 
+---
 ## As Parameters
 
 Functions taking in a trait-typed parameter accept any type
@@ -69,6 +70,7 @@ iter (1..10) print
 iter [1, 3, 5] print
 ```
 
+---
 ## Default Functions
 
 If a full function definition is provided within a trait instead
@@ -82,8 +84,8 @@ trait RelOps
     fun cmp: RelOps a b -> i32
 
     //and implement all comparison operators based on cmp
-    fun (==): RelOps a b =
-        cmp a b == 0
+    fun (=): RelOps a b =
+        cmp a b = 0
 
     fun (<): RelOps a b =
         cmp a b < 0
@@ -105,9 +107,10 @@ ext Str: RelOps
     fun cmp: Str l r =
         strcmp l r
 
-//now cmp, ==, <, !=, >=, <=, and > are defined for Str
+//now cmp, =, <, !=, >=, <=, and > are defined for Str
 ```
 
+---
 ## Combining Traits
 
 Functions requiring a value with multiple traits may combine
@@ -115,7 +118,7 @@ traits with `+`.
 
 ```ante
 fun print_eq: Eq+Printable a b
-    print a "==" b "is" (a == b)
+    print a "=" b "is" (a = b)
 ```
 
 Alternatively, a name can be given to a trait combination by
@@ -125,5 +128,5 @@ using type aliasing:
 type EqPrint is Eq + Printable
 
 fun print_eq: EqPrint a b
-    print a "==" b "is" (a == b)
+    print a "=" b "is" (a = b)
 ```

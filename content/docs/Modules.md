@@ -37,13 +37,13 @@ modules on the right.
 
 ```
 .
-|- driver.an       -> Driver
-|- helper.an       -> Helper
-|- folder          -> Folder
-   |- folder.an    -> Folder
-   |- helper.an    -> Folder.Helper
-   |- subfolder    -> Folder.Subfolder
-      |- file.an   -> Folder.Subfolder.File
+├─ driver.an       -> Driver
+├─ helper.an       -> Helper
+└─ folder          -> Folder
+   ├─ folder.an    -> Folder
+   ├─ helper.an    -> Folder.Helper
+   └─ subfolder    -> Folder.Subfolder
+      └─ file.an   -> Folder.Subfolder.File
 ```
 
 ---
@@ -186,7 +186,7 @@ functions.
 ```ante
 ext Math
     fun fact: Nat n =
-        if n == 0 then 1
+        if n = 0 then 1
         else n * fact (n - 1)
 
     fun zero := 0

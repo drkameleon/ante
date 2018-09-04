@@ -17,5 +17,5 @@ description: >
 
     target <span class="s">"legacy_cpp"</span> =
         <span class="k">let</span> cppfiles = glob <span class="s">"*.cpp"</span>
-        map cxx cppfiles
+        map cppfiles cxx
         link_with cppfiles</span></code></pre></div>
