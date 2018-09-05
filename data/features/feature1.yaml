@@ -1,5 +1,5 @@
 weight: 1
-name: "Strongly, Statically Typed"
+name: "Refinement Types"
 icon: "fa fa-bug"
-description: "Ante's algebraic type system can prevent entire classes of bugs so you can catch them before ever running your program.  For example, null pointers are replaced with the much safer Maybe type, which prevents null pointer dereferences when used."
+description: "Ante's type system can prevent entire classes of bugs so you can catch them before ever running your program.  For example, out of bounds array indices are a compile-time error."
 link: "tutorial/types"

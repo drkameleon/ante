@@ -4,6 +4,10 @@ date: 2017-11-15T14:00:44-05:00
 menu: main
 ---
 
+Ante has an algebraic type system with refinement types.  In
+other words, Ante supports sum types (tagged unions), product types, as well
+as types with an added boolean condition.
+
 Types in Ante are lexically distinct from identifiers.  All
 user-defined types are in the form `[A-Z][A-Za-z]*`, and
 all other types are in the forms described below.
@@ -259,6 +263,55 @@ f "a" "a"  //f is not recompiled
 Trait object types hide the actual value behind a pointer which contains both
 the value itself and a vtable.
 
+---
+## Refinement Types
+
+Refinement types consist of a normal type, and a boolean condition after delimited
+by curly brackets.  This condition is called a refinement.  Refinement types "depend"
+on values and are thus a limited form of dependent types, intentionally limited to
+a subset that is automatically solvable by a SMT solver so that no proofs need to
+be made by the programmer.
+
+In practice, refinement types are useful for changing many runtime errors into
+compile-time errors.  The classic example is preventing array/memory indexing
+errors by refining an index to be less than the length of the array:
+
 ```ante
-type Trait 't = ('t val, VTbl vtable)*
+fun get: Array 't arr, usz idx {idx < len arr} -> 't
+    ...
+
+let a = Arr(2, 4, 6)
+
+get a 0  //=> 2
+get a 3  //=> compile-time error: 3 >= len a
+```
+
+Preventing division by 0:
+
+```ante
+fun (/): Num a, Num b {b != 0} -> Num
+```
+
+Refinement expressions are limited to use only the following operators, in
+addition to uninterpreted functions.  In this context, an uninterpreted
+function is not evaluated.  Instead, it is type checked and the type of its
+result must satisfy the boolean expression.
+
+Operators allowed:
+
+```
+=  
+<  
+<=
+>
+>=
+and
+or 
+not
++  
+-  
+*                // Multiplication by constants only
+.                // Member access
+#                // Tuple member access only
+f arg1 ... argN  // Uninterpreted function call     
 ```

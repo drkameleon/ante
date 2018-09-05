@@ -1,22 +1,12 @@
 weight: 2
-title: "Type Inference"
+title: "Refinement Types"
 description: >
-    <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="c1">//tup : (i32, f64, Str)</span>
+    <div class="highlight-textalign-left"><pre><code class="language/ante" data-lang="ante"><span class="k">fun</span> <span class="nf">dotproduct</span>: <span class="kt">Arr i32</span> v1, <span class="kt">Arr i32</span> v2 {len v1 = len v2} -> <span class="kt">i64</span>
+        <span class="k">mut</span> ret = <span class="m">0</span>
+        <span class="k">for</span> i <span class="k">in</span> indices v1 <span class="k">do</span>
+            ret += v1#i * v2#i
+        ret
 
-    <span class="k">mut</span> tup = (<span class="m">1</span>, <span class="m">2.0</span>, <span class="s">"three"</span>)
+    <span class="nf">dotproduct</span> [<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>] [<span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span>]   <span class="c1">//=> 22</span>
 
-
-    <span class="c1">//error: Cannot assign expression of type i32*
-
-    //       to tuple index 2 of type Str</span>
-
-    tup#<span class="m">2</span> := <span class="k">new</span> <span class="m">3</span>
-
-
-    <span class="c1">//Functions must document parameter types
-
-    //but can have their return type inferred</span>
-
-    <span class="k">fun</span> is_numeric: <span class="kt">c8</span> c =
-        c >= <span class="m">'0'</span> <span class="k">and</span> c <= <span class="m">'9'</span>
-    </code></pre></div>
+    <span class="nf">dotproduct</span> [<span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>] [<span class="m">4</span>, <span class="m">5</span>]      <span class="c1">//error, lengths aren't equal!</span></code></pre></div>
