@@ -65,14 +65,17 @@ match parse_int "non-numeric string" with
 ```
 
 ---
-### Range
+### LazyRange
 
 Represents a lazy range of values from start
 to end incrementing by step each time.  This range
 is start-inclusive and end-exclusive.
 
 ```ante
-type Range = i32 start end step
+type LazyRange =
+    start: i32
+    end: i32
+    step: i32
 ```
 
 #### Examples
@@ -330,6 +333,8 @@ autocast 'a -> 'b given To 'a 'b
 vec = autocast [1, 2, 4, 6]  // vec : 'u
 Vec.push vec 32              // vec : Vec i32
 ```
+
+---
 
 ### Iterable 't
 
