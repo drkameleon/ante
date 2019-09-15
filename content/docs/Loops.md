@@ -26,8 +26,8 @@ loop is used to continue asking the user to input until
 they input something other than "example".
 
 ```ante
-mut inp = input "Enter anything except 'example': "
-while inp = "example" do
+inp = mut input "Enter anything except 'example': "
+while inp == "example" do
     inp := input "No no no, DON'T enter 'example': "
 ```
 
@@ -45,8 +45,7 @@ that form.
 
 ```ante
 while
-    let inp = input "Enter anything except 'example': "
-    inp = "example"
+    input "Enter anything except 'example': " == "example"
 do ()
 ```
 
@@ -74,7 +73,7 @@ never continues past the normal end of a loop.
 
 ```ante
 //print even numbers from 1 to 100
-mut i = 0
+i = mut 0
 while i <= 100 do
     i += 1
 
@@ -92,15 +91,15 @@ an invalid number of loops.  The default behaviour of break/continue without any
 arguments is `break 1` and `continue 1` respectively.
 
 ```ante
-mut i = 1
+i = mut 1
 while true do
-    mut j = 1
+    j = mut 1
     //print multiplication table's column for i
     while true do
         print "${i} * ${j} = ${i * j}"
 
         //Jump out of both loops if i=50 and j=58
-        if i = 50 and j = 58 then
+        if i == 50 and j == 58 then
             break 2
 ```
 
@@ -119,7 +118,7 @@ Here is the print even numbers example using a for loop:
 ```ante
 //print even numbers from 1 to 100
 for i in 1..101 do
-    if i % 2 = 0 then
+    if i % 2 == 0 then
         print i
 ```
 
@@ -131,10 +130,10 @@ for i in (2,4)..101 do
 
 
 ---
-## Iterable
+## Iterable 'i
 
 ```ante
-fun into_iter: Iterable i -> Iterator
+into_iter 'i -> 'it given Iterator 'it
 ```
 
 Types that are iterable define a single function, `into_iter`
@@ -142,14 +141,14 @@ that simply returns an iterator for that type.  Types that
 are iterable include `Vec`, `Arr`, `Map`, and most other container types.
 
 ---
-## Iterator
+## Iterator 'it
 
 ```ante
-fun has_next: Iterator i -> bool
+has_next 'it -> bool
 
-fun next: Iterator i -> Iterator
+next 'it -> 'it
 
-fun unwrap: Iterator i -> 't
+unwrap 'it -> 'elem
 ```
 
 Iterators manage the actual iteration of the for loop.  In Ante,
@@ -162,9 +161,9 @@ for e in iterator do ...
 
 Is equivalent to:
 ```ante
-mut it = iterator
+it = mut iterator
 while has_next it do
-    let e = unwrap it
+    e = unwrap it
     ...
     it := next it
 ```
@@ -177,9 +176,9 @@ for e in iterable do ...
 
 Is equivalent to:
 ```ante
-mut it = into_iter iterable
+it = mut into_iter iterable
 while has_next it do
-    let e = unwrap it
+    e = unwrap it
     ...
     it := next it
 ```

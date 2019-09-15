@@ -55,11 +55,11 @@ corresponding else, no value is returned if the condition is false,
 so the overall return value is always void.
 
 ```ante
-let int =
+int =
     if 5 > 2 then 10
     else 5
 
-let greeting = 
+greeting = 
     if Time.now() in 12..19 then
         "good afternoon"
     elif Time.is_after 5 then
@@ -72,5 +72,5 @@ if true then
     2
 
 //error, return type of else branch does not match the then branch
-let t = if len greeting > 11 then "" else 3
+t = if len greeting > 11 then "" else 3
 ```

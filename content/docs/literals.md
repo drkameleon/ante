@@ -99,7 +99,7 @@ Interpolated expressions are compiled normally and will generate compile-time er
 like any other expression.
 
 ```ante
-let msg = "World!"
+msg = "World!"
 
 //Both args are strings and nothing follows the expression
 //One concatenation is performed
@@ -110,11 +110,14 @@ print "Hello ${msg} Hello all!"
 
 
 type Person = Str name, i32 age
-fun Str.init: Person p = p.name
 
-let p = Person("John", 32)
+impl To Str /*from*/ Person
+    to _ p:Person = p.name
 
-//Expression is not a Str, and no overload for ++ is found,
-//expression is cast to a Str and then concatenated
+p = Person("John", 32)
+
+//Expression is not a Str, and no impl for Append Str Person is found,
+//but there is an impl for To Str Person
+//so expression is cast to a Str and then concatenated
 print "Hello, ${p}"
 ```

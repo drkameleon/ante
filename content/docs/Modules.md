@@ -95,10 +95,11 @@ and decls exist.
 type C = Str file lib
 
 //import a c src file
-fun (import): C src
-    //import directly from the ast
-    import parse src
-    Ante.Compiler.link_with src.lib
+impl Import C
+    (import) src:C -> unit =
+        //import directly from the ast
+        import parse src
+        Ante.Compiler.link_with src.lib
 
 import C("file.h", "libname")
 ```
@@ -119,16 +120,16 @@ the module expression refers to the current module.
 
 //four can use inc that is declared later because module
 //expressions are executed before the main body of a file
-let four = inc 3
+four = inc 3
 
-let six = Util.double 3
+six = Util.double 3
 
 module
-    let inc = (+1)
+    inc = (_+1)
 
 
 module Util
-    let double = (*2)
+    double = (_*2)
 ```
 
 The fact that module expressions are run before the main body of
@@ -151,7 +152,7 @@ module
     //export function is run while importing this file
     export inc
 
-let inc = (+1)
+inc = (_+1)
 ```
 
 ---
@@ -166,28 +167,12 @@ function.
 
 ```ante
 module
-    let add = (+)
-    let sub = (-)
-    let mul = (*)
-    let div = (/)
+    add = (+)
+    sub = (-)
+    mul = (*)
+    div = (/)
     export add sub mul div
 
     //not exported
-    let rem = (%)
-```
-
----
-## Type Extensions
-
-Type extensions can be used to extend modules as well as types.  Adding
-new functions to a module is as simple as creating an extension with those
-functions.
-
-```ante
-ext Math
-    fun fact: Nat n =
-        if n = 0 then 1
-        else n * fact (n - 1)
-
-    fun zero := 0
+    rem = (%)
 ```

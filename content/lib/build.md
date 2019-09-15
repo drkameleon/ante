@@ -19,18 +19,18 @@ support (automatic dependency management) for Ante, C, and C++.
 ## Target
 
 ```ante
-ante type Target = Str name, Vec Target* depends, Maybe Expr action
+ante type Target = name:Str (depends: Vec Target) (action: Maybe Expr)
 ```
 
 Represents a build target.  Each Target can be referenced with the
-`target` function and associate actions with `=`.  If the target's
+`target` function and associate actions with `=>`.  If the target's
 list of dependencies are rebuilt the target will be rebuilt.
 
 ---
 ## target
 
 ```ante
-ante fun target: Str name -> Target
+ante target name:Str -> Target
 ```
 
 Retrieve a reference to the given target.  If no target was found
@@ -39,15 +39,15 @@ matching the given name an empty target will be created.
 ### Examples
 Get and create the target "hello":
 ```ante
-target "hello" =
+target "hello" =>
     print "Hello, build system!"
 ```
 
 ---
-## =
+## =>
 
 ```ante
-ante fun (=): mut Target t, Expr action
+ante (=>) (t: mut Target) action:Expr -> unit
 ```
 
 Associates a target with an action to perform upon building.
@@ -60,7 +60,7 @@ Compiling a C file to an executable:
 ```ante
 import Build
 
-target "hello" =
+target "hello" =>
     cc "hello.c -o hello"
 ```
 
@@ -69,17 +69,17 @@ them with the current ante program:
 ```ante
 import Build, File
 
-let cxxflags = "-DNDEBUG -Wall -O3"
-let cppfiles = glob "*.cpp"
-let objfiles = cppfiles.map (_.replace ".cpp" ".o")
+cxxflags = "-DNDEBUG -Wall -O3"
+cppfiles = glob "*.cpp"
+objfiles = cppfiles.map (_.replace ".cpp" ".o")
 
 default_target "program"
 
-target "program" =
+target "program" =>
     link_with objfiles
     compile "program.an"
 
-target objfiles =
+target objfiles =>
     cxx "${cxxflags} ${target} ${deps}"
 ```
 
@@ -93,9 +93,7 @@ file to build the C++ or C programs if they are not built already however.
 ## run
 
 ```ante
-ante fun run: Target target
-
-ante fun run: Str target_name
+ante run 't -> unit given To Target 't
 ```
 
 Executes the given target if any of its dependencies have been changed
@@ -104,7 +102,7 @@ since the last time it was executed.
 ### Examples
 Run a target conditionally:
 ```ante
-if argv#1 = "build" then
+if argv#1 == "build" then
     run "build"
 else
     run "build_and_run"
@@ -114,7 +112,7 @@ else
 ## default_target
 
 ```ante
-ante fun default_target: Str target_name
+ante default_target target_name:Str -> unit
 ```
 
 Sets a target as the default target when the program is run with no
@@ -128,12 +126,12 @@ program is run, an error will be issued during compile-time.
 default_target "debug"
 
 //build debug with "ante build.an"
-target "debug" =
+target "debug" =>
     option "-debug"
     compile "file.an"
 
 //build release with "ante build.an -argv release"
-target "release" =
+target "release" =>
     option "-release"
     compile "file.an"
 ```
@@ -142,9 +140,7 @@ target "release" =
 ## depend_on
 
 ```ante
-ante fun depend_on: mut Target t, Vec Str depends
-
-ante fun depend_on: mut Target t, Str depend
+ante depend_on (t: mut Target) depend:Str -> unit
 ```
 
 Appends a list of files or targets to the dependencies of the given target.
@@ -158,11 +154,11 @@ is not explicitely used should be depended on.
 
 ### Examples
 ```ante
-mut t = target "build"
+t = mut target "build"
 
 t.depend_on ["file1.an", "test"]
 
-target "test" =
+target "test" =>
     //same as (target "test").depend_on "tests.txt"
     depend_on "tests.txt"
     compile "unittests.an"
@@ -172,11 +168,7 @@ target "test" =
 ## compile
 
 ```ante
-ante fun compile: Str file -> Maybe Str
-
-ante fun compile: Str file, Arr Str args -> Maybe Str
-
-ante fun compile: Str file, Arr CompilerFlag args -> Maybe Str
+ante compile file:Str -> Maybe Str
 ```
 
 Compile an ante source file 
@@ -185,7 +177,7 @@ Compile an ante source file
 ## option
 
 ```ante
-ante fun option: Str opt
+ante option opt:Str -> unit
 ```
 
 Equivalent to passing the string opt while evoking the 
@@ -196,18 +188,7 @@ If the given option is not recognized a compilation error
 will be issued with the message "Unrecognized option ${opt}"
 
 ```ante
-ante fun option: CompilerFlag f
-```
-
-Enables the compiler flag f.
-
-If the given CompilerFlag requires an argument, such
-as the flag OptLevel, a compilation error will be
-issued with the message "Flag ${f} requires an argument but none were passed"
-
-
-```ante
-ante fun option: CompilerFlag f, Str value
+ante fun set_option: CompilerFlag f, Str value
 ```
 
 Sets the compiler flag f with the Str value as its argument.
@@ -221,7 +202,7 @@ the message "Flag ${f} requires no arguments but one was passed"
 ## before
 
 ```ante
-ante fun before: Compiler.Phase p, !implicit void->void f
+ante before (p: Compiler.Phase) (f: !implicit unit->unit) -> unit
 ```
 
 Executes the given function before the given phase begins.
@@ -229,7 +210,7 @@ Executes the given function before the given phase begins.
 #### Examples
 Timing compilation:
 ```ante
-mut timer = Timer()
+timer = mut Timer()
 before Compilation (start timer)
 
 before Linking (
@@ -253,7 +234,7 @@ code generation phase then the body will be executed immediately.
 ## link_with
 
 ```ante
-ante fun link_with: Str lib
+ante link_with lib:Str -> unit
 ```
 
 Adds the given library path to the list of files to
@@ -277,7 +258,7 @@ link_with "file.o"
 ## cc
 
 ```ante
-ante fun cc: Str cmd -> i32
+ante cc cmd:Str -> i32
 ```
 
 Evokes the System's default C compiler with
@@ -297,7 +278,7 @@ will be issued in the form "No default C compiler found"
 ## cxx
 
 ```ante
-ante fun cxx: Str cmd -> i32
+ante cxx cmd:Str -> i32
 ```
 
 Evokes the System's default C++ compiler with

@@ -35,11 +35,13 @@ proceeded by a table of associativity and precedence for each.
  
 `>=` Greater than or equal
  
-`=` Is equal to, structural equality
+`==` Is equal to, structural equality
 
 `!=` Not equal to
 
 `is` Is exactly equal to, referential equality
+
+`isnt` Is not exactly equal to, referential equality
 
 `and` Logical and, short-circuiting
 
@@ -59,12 +61,12 @@ pointers point to the same value then they are referentially equal, and
 one pointer `is` the other because they point to the same value.
 
 ```ante
-let a = new (5, "five")
-let b = new (5, "five")
-let c = a
+a = new (5, "five")
+b = new (5, "five")
+c = a
 
-a = b  //=> true
-a = c  //=> true
+a == b  //=> true
+a == c  //=> true
 
 a is b  //=> false
 a is c  //=> true
@@ -79,7 +81,7 @@ a is c  //=> true
             the operation on the previous value and the expression.  ex.
 
 ```ante
-mut a = 3
+a = mut 3
 a += 4  //a is now 7
 ```
 

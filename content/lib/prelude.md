@@ -17,14 +17,14 @@ A string type that owns its contents.
 Strings in Ante are null terminated and contain a length field.
 
 ```ante
-type Str = c8* cStr, usz len
+type Str = cStr:(ref c8) len:usz
 ```
 
 #### Examples
 ```ante
-let s1 = "Hello"
-let s2 = Str("Hello".cStr, 5usz)
-let s3 = Str(strdup "hi", 2usz)
+s1 = "Hello"
+s2 = Str("Hello".cStr, 5usz)
+s3 = Str(strdup "hi", 2usz)
 ```
 
 ---
@@ -50,13 +50,13 @@ is used.
 ```ante
 //Parsing integers can fail if the string is
 //non-numeric so represent failure with None
-fun parse_int: Str s -> Maybe i32
+parse_int s:Str -> Maybe i32 =
     if not is_numeric s then
         return None
     ...
     Some int
 
-assert <| parse_int "54" = Some 54
+assert <| parse_int "54" == Some 54
 
 //print None
 match parse_int "non-numeric string" with
@@ -78,7 +78,7 @@ type Range = i32 start end step
 #### Examples
 ```ante
 //print 0 to 9 inclusive
-let r = Range(0, 10, 1)
+r = Range(0, 10, 1)
 for x in r do print x
 
 //corresponding C code:
@@ -87,9 +87,9 @@ for x in r do print x
 //}
 
 //Ranges can also be constructed with ..
-let arr = [2, 3, 5, 6, 8]
-for i in 0 .. arr.len do
-    print (arr#i)
+arr = [2, 3, 5, 6, 8]
+for i in 0 .. len arr / 2 do
+    print arr#i + arr#(i*2)
 ```
 
 ---
@@ -103,10 +103,10 @@ type InFile = File
 
 #### Examples
 ```ante
-let f = InFile "file.txt"
+f = mut InFile "file.txt"
 
-let line1 = f.next_line ()
-let line2 = f.next_line ()
+line1 = f.next_line ()
+line2 = f.next_line ()
 
 for line in InFile "file2.txt" do
     print line
@@ -127,12 +127,9 @@ type OutFile = File
 
 #### Examples
 ```ante
-let f = OutFile "out.txt"
+f = OutFile "out.txt"
 f.write "Hello!\n"
 fclose f
-
-let f_append = OutFile "out.txt" Append 
-f_append.write "Hello again!"
 ```
 
 ---
@@ -144,21 +141,197 @@ Wrappers for some common types in C.
 ### File
 
 ```ante
-type File = void*
+type File = ref unit
 ```
 
 ---
 ### FilePos
 
 ```ante
-type FilePos = void*
+type FilePos = ref unit
 ```
 
 
 ---
 # Traits
 ---
-### Iterable
+### Empty 't
+
+Returns an empty version of the given type.  This is often implemented
+by containers to give a default, empty version of them.
+
+```ante
+trait Empty 't
+    empty (Type 't) -> 't
+```
+
+#### Examples
+
+Creating an empty Vec of any element type.
+
+```ante
+vec = empty Vec   // Creates an empty Vec 't
+push vec "hello"  // 't is inferred to be Str
+```
+
+Creating an empty Vec of a given element type.
+
+```ante
+intvec = empty (Vec i32)
+push intvec "hello"  //error here, cant push Str to Vec i32
+```
+
+`empty` is implemented by many containers, for example, there
+are also impls for `Empty HashMap` and `Empty Set`. 
+
+```ante
+a = empty HashMap
+b = empty Set
+```
+
+---
+### Operator Functions
+
+The prelude defines many traits for various operators, implement
+these for your type to emulate operator overloading.
+
+```ante
+trait Add 'n
+    (+) 'n 'n -> 'n
+
+trait Sub 'n
+    (-) 'n 'n -> 'n
+
+trait Mul 'n
+    (*) 'n 'n -> 'n
+
+trait Div 'n
+    (/) 'n 'n -> 'n
+
+trait Mod 'n
+    (%) 'n 'n -> 'n
+
+trait Pow 'n
+    (^) 'n 'n -> 'n
+
+trait Cmp 'n
+    (<) 'n 'n -> bool
+    (>) 'n 'n -> bool
+    (<=) l:'n r:'n = not (l > r)
+    (>=) l:'n r:'n = not (l < r)
+
+trait Eq 't
+    (==) 't 't -> bool
+    (!=) l:'t r:'t = not (l == r)
+
+trait Is 't
+    (is) 't 't -> bool
+
+trait Append 't
+    (++) 't 't -> 't
+
+trait Extract 'col 'index 'elem given 'col 'index -> 'elem
+    (#) 'col 'index -> 'elem
+
+trait Insert 'col 'index 'elem
+    (#) (mut 'col) 'index 'elem -> unit
+
+trait In 'elem 'collection
+    (in) 'elem 'collection -> bool
+
+trait Range 'l 'r 'result given 'l 'r -> 'result
+    (..) 'l 'r -> 'result
+
+trait Deref 't 'res given 't -> 'res
+    (@) 't -> 'res
+
+trait Neg 't
+    neg 't -> 't
+
+trait Not 't
+    (not) 't -> 't
+```
+
+---
+### Print 't
+
+Print the given argument to stdout.  Note that only printne (print with no endline)
+needs to be implemented, print is already defined for every type that implements
+Print 't.
+
+```ante
+trait Print 't
+    printne 't -> unit
+```
+
+#### Examples
+
+Since most primitive types are printable, implementing Print for your own
+type usually consists of deconstructing your type and printing its contents.
+
+```ante
+type Person =
+    age: u8
+    name: Str
+
+impl Print Person
+    printne p = printne "${p.name} is ${p.age} years old"
+```
+
+---
+### To 'a 'b
+
+Casts a value from one type 'a to another type 'b.  The first argument to `to` is the value
+to be casted, and the second is the type to cast to.  Note that implementing this
+also overloads the type cast operator for the given type combination.
+
+```ante
+trait To /*from*/'a  /*to*/'b
+    to 'a (Type 'b) -> 'b
+```
+
+#### Examples
+
+Enabling casting a Person to an Animal
+
+```ante
+type Person = name:Str
+type Animal = name:Str species:Str
+
+impl To Animal Person
+    to _ p = Animal with
+        name = p.name
+        species = "homo sapiens sapiens"
+```
+
+#### Similar Functions
+
+`to` is meant to be an unfailable cast, for a cast that can fail, you
+can implement `TryCast` and use `try_cast` instead.
+
+```ante
+trait TryCast 'a 'b
+    try_cast 'a (Type 'b) -> Maybe 'b
+
+"hello!"
+|> try_cast i32     // Returns Maybe i32
+|> print
+```
+
+If you don't want to specify the type when casting, you can use
+`autocast` to try to have the type system inference the type for
+you.  This function is automatically implemented for each `To` impl.
+Note that this isn't always possible as there may not be
+enough information to decide the return type.
+
+```ante
+autocast 'a -> 'b given To 'a 'b
+
+vec = autocast [1, 2, 4, 6]  // vec : 'u
+Vec.push vec 32              // vec : Vec i32
+```
+
+### Iterable 't
 
 Types that implement either `Iterable` or `Iterator`
 are able to be used in for loops as an iterator.
@@ -171,12 +344,12 @@ want to prevent mutation and would rather provide
 an immutable view that can iterate over them.
 
 ```ante
-trait Iterable
-    fun into_iter: Iterable i -> Iterator
+trait Iterable 't 'it given 't -> 'it
+    into_iter 'i -> 'it
 ```
 
 ---
-### Iterator
+### Iterator 't
 
 Types that implement either `Iterable` or `Iterator`
 are able to be used in for loops as an iterator.
@@ -185,10 +358,10 @@ Iterators are immutable and return a new Iterator
 on each run of the loop.
 
 ```ante
-trait Iterator
-    fun next: Iterator i -> Iterator
-    fun unwrap: Iterator i -> 't
-    fun has_next: Iterator i -> bool
+trait Iterator 'it 'elem given 'it -> 'elem
+    next 'it -> 'it
+    unwrap 'it -> 'elem
+    has_next 'it -> bool
 ```
 
 Implemented by `Range` and `InFile` in the prelude.
@@ -204,9 +377,9 @@ for e in iterator do
 
 Are equivalent to the following while loop:
 ```ante
-mut i = iterator
+i = mut iterator
 while has_next i do
-    let e = unwrap i
+    e = unwrap i
     ...
     i := next i
 ```
@@ -214,68 +387,28 @@ while has_next i do
 #### Example Implementation
 
 ```ante
-type BackwardsRange = i32 start end
+type BackwardsRange = start:i32 end:i32
 
-ext BackwardsRange : Iterator
-    fun next: BackwardsRange r =
+impl Iterator BackwardsRange i32
+    next r =
         BackwardsRange(r.start-1, r.end)
 
-    fun unwrap: BackwardsRange r =
-        r.start
+    unwrap r = r.start
 
-    fun has_next: BackwardsRange r =
+    has_next r =
         r.start > r.end
 ```
 
 ---
 # Functions
 ---
-### =
 
-Compares the structural equality of two values.
-
-```ante
-fun (=): Maybe l r -> bool
-```
-
-```ante
-!inline fun (=): 't* l r -> bool
-```
-
-```ante
-fun (=): void* l r =
-    Ante.error "Cannot call = on a void*!  Use 'is' to compare addresses!"
-```
-
-```ante
-fun (=): Str l r -> bool
-```
-
----
-### !=
-
-Equal to `not (a = b)`
-
-```ante
-!inline fun (!=): Str l r -> bool
-```
-
----
-### is
-
-Compare the identity (referential equality) of two values.
-
-```ante
-!inline fun (is): Str l r -> bool
-```
-
----
 ### Ante.debug
 
 Dumps the type and value of an expression to stdout during compile-time
 
 ```ante
-ante fun Ante.debug: 't t
+ante debug 't -> unit
 ```
 
 ---
@@ -284,48 +417,15 @@ ante fun Ante.debug: 't t
 Returns the size of a type in Bytes.  Accepts types or values as an argument
 
 ```ante
-ante fun Ante.sizeof: 't t -> usz
+ante sizeof 't -> usz
 ```
 
----
-### Ante.store
-
-Store values during compile-time to be retrieved later.
-Storing a value with `Ante.store` stores it in an internal table
-in the compiler separate to the scope table of variables.  This results
-in variables stored with this function being able to be retrieved later
-at a possibly different global scope.
-
-Values stored with this function will not be able to be retrieved through
-any way except for the function `Ante.lookup`.
+#### Examples
 
 ```ante
-ante fun Ante.store: c8* name, 't val
-```
-
-#### Example
-
-```ante
-ante fun store_val:
-    let pi = 3.14159265
-    Ante.store "my val" v
-
-store_val ()
-
-Ante.lookup "my val" ?
-    Some n -> print n
-    None -> Ante.error "my val not found!"
-```
-
----
-### Ante.lookup
-
-Lookup variables stored with Ante.store
-
-Ante.lookup will never reference variables not stored with Ante.store.
-
-```ante
-ante fun Ante.lookup: c8* name -> Maybe 't
+sizeof i32 == 4
+sizeof usz == sizeof (ref 't)
+sizeof (i8, u16) == 3
 ```
 
 ---
@@ -342,37 +442,36 @@ this function will always be compiled and thus always issue an error even
 if it is behind an else branch that may or may not execute.
 
 ```ante
-ante fun Ante.error: c8* msg
+ante error (msg: Str) -> 'never_returns
 ```
 
 #### Example
 ```ante
-type Context =
-    bool debug
+type Context = debug:bool
 
 //load config during compile-time
 //useful to change compilation options with a cfg file automatically
-ante fun load_config: Str config_name -> Context
-    let f = InFile.open config_name ?
+ante load_config config_name:Str -> Context
+    f = InFile.open config_name ?
         None -> Ante.error "Config file ${config_name} not found"
 
-    let res = f.find_regex "debug = (true|false)"
-    bool.parse res ?
-        Some b -> Context b
-        None -> Ante.error "Config must set debug to either true or false"
+    res = f.find_regex "debug = (true|false)"
+    match try_parse res bool with
+    | Some b -> Context b
+    | None -> Ante.error "Config must set debug to either true or false"
 
 
-let cfg = load_config "config.cfg"
+cfg = load_config "config.cfg"
 Ante.set_mode (if cfg.debug then Debug else Release)
 ```
 
 ---
-### Ante.emitIR
+### Ante.emit_ir
 
 Emits the llvm intermediate representation of the current module to stdout.
 
 ```ante
-ante fun Ante.emitIR:
+ante emit_ir unit -> unit
 ```
 
 ---
@@ -385,103 +484,23 @@ that were already compiled and already refer to this function.
 Useful in the repl to redefine functions
 
 ```ante
-ante fun Ante.forget: c8* function_name
+ante forget (function_name: ref c8) -> unit
 ```
 
 #### Example (repl)
 
 ```ante
-: fun get_num := 4
+: get_num () = 4
 : get_num ()
 4
-: fun get_num := 5
+: get_num () = 5
 (unknown file): 3,8-14  error: Function get_num was redefined
 
 : Ante.forget "get_num"
-: fun get_num := 6
+: get_num () = 6
 : get_num ()
 6
 ```
-
----
-### printne
-
-Prints a value with no endline.
-
-```ante
-!inline fun i8.printne: i8 x
-```
-
-```ante
-!inline fun i16.printne: i16 x
-```
-
-```ante
-!inline fun i32.printne: i32 x
-```
-
-```ante
-!inline fun i64.printne: i64 x
-```
-
-```ante
-!inline fun isz.printne: isz x
-```
-
-```ante
-!inline fun u8.printne: u8 x
-```
-
-```ante
-!inline fun u16.printne: u16 x
-```
-
-```ante
-!inline fun u32.printne: u32 x
-```
-
-```ante
-!inline fun u64.printne: u64 x
-```
-
-```ante
-!inline fun usz.printne: usz x
-```
-
-```ante
-!inline fun f16.printne: f16 x
-```
-
-```ante
-!inline fun f32.printne: f32 x
-```
-
-```ante
-!inline fun f64.printne: f64 x
-```
-
-```ante
-!inline fun c8.printne: c8 x
-```
-
-```ante
-!inline fun bool.printne: bool b
-```
-
-```ante
-!inline fun printne: c8* s
-```
-
-```ante
-!inline fun printne: Str s
-```
-
-```ante
-!inline fun printne: 't x
-```
-
-The unspecialized `printne:'t` will attempt to cast its argument to a
-Str before outputting the Str.
 
 ---
 ### print
@@ -489,28 +508,18 @@ Str before outputting the Str.
 Print a value with a trailing newline.
 
 Print uses printne internally and thus only printne needs to
-be implemented for a type to be printable.  If a type is not
-directly printable, `print:'t` will attempt to convert it
-to a `Str` before printing.
+be implemented for a type to be printable.
 
 ```ante
-!inline fun print: 't x
+print 't -> unit given Print 't
 ```
 
-```ante
-!inline fun Str.print: Str s
-```
+#### Examples
 
----
-### c8\*.init
-
-Performs the cast of a Str to a c8\* c-string.
-
-This cast returns a non-owning reference to
-the cStr field of the string.
+Formatting a string via string interpolation then printing it to stdout.
 
 ```ante
-!implicit !inline fun c8*.init: Str s -> c8*
+print "My favourite number is ${random i32}!"
 ```
 
 ---
@@ -520,76 +529,13 @@ Returns a new string that is the reverse
 of the given string.
 
 ```ante
-fun Str.reverse: Str s -> Str
+reverse s:Str -> Str
 ```
 
 #### Example
 
 ```ante
-assert <| reverse "hello" = "olleh"
-```
-
----
-### Str.init
-
-Create a string from the given value.
-
-```ante
-fun Str.init: i64 i -> Str
-```
-
-```ante
-fun Str.init: u64 i -> Str
-```
-
-```ante
-!inline fun Str.init: i8 x -> Str
-```
-
-```ante
-!inline fun Str.init: i16 x -> Str
-```
-
-```ante
-!inline fun Str.init: i32 x -> Str
-```
-
-```ante
-!inline fun Str.init: isz x -> Str
-```
-
-```ante
-!inline fun Str.init: u8 x -> Str
-```
-
-```ante
-!inline fun Str.init: u16 x -> Str
-```
-
-```ante
-!inline fun Str.init: u32 x -> Str
-```
-
-```ante
-!inline fun Str.init: usz x -> Str
-```
-
-```ante
-!inline fun Str.init: c8* cStr -> Str
-```
-
-#### Examples
-
-```ante
-let five = Str.init 5
-
-let two_thousand = Str.init 2000_u16
-
-//T.init functions are cast functions and
-//thus the .init can be omitted
-let fifty = Str 50usz
-
-let hi = Str (strdup "hi")
+reverse "hello" == "olleh"
 ```
 
 ---
@@ -602,15 +548,15 @@ a floating-point or negative number this function
 will return None.  Otherwise, it will return Some value.
 
 ```ante
-fun u64.parse: Str s -> Maybe u64
+parse s:Str -> Maybe u64
 ```
 
 #### Example
 
 ```ante
-assert <| u64.parse "53" = Some 53_u64
+assert <| u64.parse "53" == Some 53_u64
 
-assert <| u64.parse "-5" = None
+assert <| u64.parse "-5" == None
 ```
 
 ---
@@ -623,126 +569,15 @@ a floating-point or negative number this function
 will return None.  Otherwise, it will return Some value.
 
 ```ante
-fun i64.parse: Str s -> Maybe i64
+parse s:Str -> Maybe i64
 ```
 
 #### Example
 
 ```ante
-assert <| u64.parse "-1000" = Some(-1000_i64)
+assert <| u64.parse "-1000" == Some(-1000_i64)
 
-assert <| u64.parse "23.5" = None
-```
-
----
-### in
-
-Returns true if a is in the range r
-
-```ante
-fun (in): i32 a, Range r -> bool
-```
-
-#### Examples
-
-```ante
-3 in 1..5  //=> true
-
-4 in 2..4  //=> false
-
-0 in 0..5  //=> true
-```
-
----
-### .\.
-
-Creates an end-exclusive range with a step of 1.
-
-```ante
-fun (..): i32 start end -> Range
-```
-
-Creates an end-exclusive range with a step equal
-to the difference of the first two elements in the range.
-
-```ante
-fun (..): i32,i32 first_two, i32 end -> Range
-```
-
-#### Examples
-
-```ante
-Vec(1..4)  //=> [1, 2, 3]
-
-Vec( (0,5)..25 )  //=> [0, 5, 10, 15, 20]
-
-Vec( (5,4)..0 )  //=> [5, 4, 3, 2, 1]
-```
-
----
-### ++
-
-The append operator.  Appends two strings together
-and returns a new string leaving the two given strings intact.
-
-```ante
-fun (++): Str s1 s2 -> Str
-```
-
-#### Examples
-
-```ante
-let s = "hello " ++ "world"
-assert (s = "hello world")
-```
-
----
-### \#
-
-Retrieves the character at the given index from
-the string.
-
-```ante
-!inline fun (#): Str s, i32 index -> c8
-```
-
-Replace the original character at index i with
-a new character.
-
-```ante
-!inline fun (#): mut Str s, i32 i, c8 c
-```
-
----
-### InFile.init
-
-Creates an `InFile` from the given file name.
-
-```ante
-!inline fun InFile.init: Str fName -> InFile
-```
-
-#### Example
-
-```ante
-let f = InFile "file.txt"
-```
-
----
-### OutFile.init
-
-Creates an `InFile` from the given file name.
-
-If the file does not exist yet, a new one will be created.
-
-```ante
-!inline fun OutFile.init: Str fName -> OutFile
-```
-
-#### Example
-
-```ante
-let f = OutFile "out.txt"
+assert <| u64.parse "23.5" == None
 ```
 
 ---
@@ -752,25 +587,17 @@ Write the given text to a file.  If the file
 already exists it will be overwritten.
 
 ```ante
-!inline fun OutFile.write: OutFile f, c8* cStr
-```
-
-```ante
-!inline fun OutFile.write: OutFile f, c8 c
-```
-
-```ante
-!inline fun OutFile.write: OutFile f, Str s
+write (f: OutFile) (s: 's) -> unit given To 's Str
 ```
 
 #### Examples
 
 ```ante
-let f = OutFile "out.txt"
+f = OutFile "out.txt"
 
 f.write "Hello"
 f.write ' '
-f.write "World"
+f.write 32
 ```
 
 ---
@@ -778,11 +605,11 @@ f.write "World"
 
 Returns the next line from a file up to
 but not including the newline character.  If
-the end of the file is reached an empty string
+the end of the file is reached None
 will be returned on all successive calls.
 
 ```ante
-fun InFile.next_line: InFile f -> Str
+next_line f:InFile -> Maybe Str
 ```
 
 ```ante
@@ -790,27 +617,28 @@ fun InFile.next_line: InFile f -> Str
 //hi
 //hello there
 
-let f = InFile "in.txt"
-next_line f  //=> "hi"
-next_line f  //=> "hello there"
-next_line f  //=> ""
-next_line f  //=> ""
+f = InFile "in.txt"
+next_line f  //=> Some "hi"
+next_line f  //=> Some "hello there"
+next_line f  //=> None
+next_line f  //=> None
 ```
 
 ---
 ### input
 
 Print a message without a trailing newline to stdout
-then get and return user input.
+then get and return a string containing user input
+up until a newline character is received.
 
 ```ante
-fun input: c8* msg -> Str
+input (msg:Str) -> Str
 ```
 
 #### Example
 
 ```ante
-let s = input "Enter your name: "
+s = input "Enter your name: "
 // s now contains input from stdin
 ```
 
@@ -820,172 +648,172 @@ let s = input "Enter your name: "
 ### printf
 
 ```ante
-fun printf: c8* fmt, ... -> i32
+printf (fmt: ref c8) ... -> i32
 ```
 
 ---
 ### puts
 
 ```ante
-fun puts: c8* str -> i32
+puts (ref c8) -> i32
 ```
 
 ---
 ### putchar
 
 ```ante
-fun putchar: c8 char
+putchar c8 -> i32
 ```
 
 ---
 ### getchar
 ```ante
-fun getchar: -> c8
+getchar unit -> c8
 ```
 
 ---
 ### exit
 
 ```ante
-fun exit: i32 status
+exit (status: i32) -> 'never_returns
 ```
 
 ---
 ### malloc
 
 ```ante
-fun malloc: usz size -> void*
+malloc size:usz -> ref 't
 ```
 
 ---
 ### calloc
 
 ```ante
-fun calloc: usz num size -> void*
+calloc num:usz size:usz -> ref 't
 ```
 
 ---
 ### realloc
 
 ```ante
-fun realloc: void* ptr, usz size -> void*
+realloc (ptr: ref 't) size:usz -> ref 't
 ```
 
 ---
 ### free
 
 ```ante
-fun free: void* mem
+free (ref 't) -> unit
 ```
 
 ---
 ### memcpy
 
 ```ante
-fun memcpy: void* dest src, usz bytes -> void* /*dest*/
+memcpy (dest: ref 't) (src: ref 't) bytes:usz -> (dest: ref 't)
 ```
 
 ---
 ### system
 
 ```ante
-fun system: c8* cmd -> i32
+system (cmd: ref c8) -> i32
 ```
 
 ---
 ### strlen
 
 ```ante
-fun strlen: c8* str -> usz
+strlen (ref c8) -> usz
 ```
 
 ---
 ### fopen
 
 ```ante
-fun fopen: c8* fName, c8* mode -> File
+fopen (fName: ref c8) (mode: ref c8) -> File
 ```
 
 ---
 ### fclose
 
 ```ante
-fun fclose: File file
+fclose File -> i32
 ```
 
 ---
 ### fputs
 
 ```ante
-fun fputs: c8* str, OutFile file
+fputs (ref c8) OutFile -> i32
 ```
 
 ---
 ### fputc
 
 ```ante
-fun fputc: c8 char, OutFile file
+fputc c8 OutFile -> i32
 ```
 
 ---
 ### fgetc
 
 ```ante
-fun fgetc: InFile file -> c8
+fgetc InFile -> c8
 ```
 
 ---
 ### fgets
 
 ```ante
-fun fgets: c8* str, i32 numBytes, InFile file -> c8*
+fgets (dest_str:ref c8) num_bytes:i32 InFile -> ref c8
 ```
 
 ---
 ### ungetc
 
 ```ante
-fun ungetc: c8 c, InFile file -> i32
+ungetc c8 InFile -> i32
 ```
 
 ---
 ### fgetpos
 
 ```ante
-fun fgetpos: File f, FilePos fp
+fgetpos File FilePos -> unit
 ```
 
 ---
 ### ftell
 
 ```ante
-fun ftell: File f -> i64
+ftell File -> i64
 ```
 
 ---
 ### fsetpos
 
 ```ante
-fun fsetpos: File f, FilePos fp
+fsetpos File FilePos -> unit
 ```
 
 ---
 ### fseek
 
 ```ante
-fun fseek: File f, i64 offset, i32 origin
+fseek File offset:i64 origin:i32 -> unit
 ```
 
 ---
 ### feof
 
 ```ante
-fun feof: InFile f -> bool
+feof InFile -> bool
 ```
 
 ---
 ### ferror
 
 ```ante
-fun ferror: File f -> bool
+ferror File -> bool
 ```

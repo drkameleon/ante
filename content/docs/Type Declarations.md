@@ -16,9 +16,9 @@ where this is not desirable, type aliases can be used.
 ```ante
 type Name = Str
 
-fun print: Str s = ...
+print s:Str = ...
 
-let n = Name "John"
+n = Name "John"
 print n  //=> error, print:Name not found
 ```
 
@@ -35,11 +35,11 @@ the `=` replaced with `is`.
 type AnotherNameForStr is Str
 type Coord is i32,i32
 
-let s = AnotherNameForStr "Greetings!"
-let c = Coord(2, 3)
+s = AnotherNameForStr "Greetings!"
+c = Coord(2, 3)
 
-fun print: Str s = ...
-fun print: i32,i32 c = ...
+print s:Str = ...
+print (c: i32,i32) = ...
 
 //ok!
 print s
@@ -50,7 +50,7 @@ Types declared with `=` are considered separate types, but
 types declared with `is` are always exactly equal to the types
 on the right hand side of the declaration.  In this way, the
 distinction between type declaration with `=` and `is` is
-similar to the distinction between `=` and `is` when comparing
+similar to the distinction between `==` and `is` when comparing
 two values.
 
 ---
@@ -62,18 +62,20 @@ called the fields and the overall type would be called either
 a struct or a record type.
 
 ```ante
-type Person = Str name, u8 age
+type Person = name:Str age:u8
 
-let j = Person("John", 24)
+j = Person("John", 24)
 print j.name
 ```
 
-This can also be used on types with just a single field:
+Note that the rhs of the type declaration is the same syntax as a function's parameters.
+Unlike parameters, a type declaration's rhs can in an indented block as well.
 
 ```ante
-type MyStr = Str s
+type MyStr =
+    s:Str
 
-let str = MyStr "How are you doing today?"
+str = MyStr "How are you doing today?"
 print str.s
 ```
 
@@ -115,7 +117,7 @@ type Maybe 't =
    | Some 't
    | None
 
-let val = Some 3
+val = Some 3
 
 //to print the underlying value if it exists:
 match val with

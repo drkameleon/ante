@@ -28,24 +28,19 @@ Unsigned integer types: `u8` `u16` `u32` `u64` `usz`
 
 Floating-point types: `f16` `f32` `f64`
 
-Character types: `c8` `c16` `c32` `c64`
+Character type: `c8`
 
-Other: `bool` `void`
-
-Despite its name, Ante's `void` type is more analogous to a unit
-type in other languages rather than the conventional void type.
-This is due to it having  `()` as its single value rather than
-most void types which have no values.
+Other: `bool` `unit`
 
 ---
 ## Pointer Types
 
-Pointer types are in the form of `<type>\*` and represent
+Pointer types are in the form of `ref <type>` and represent
 a C-style pointer to the given type.
 
 ```ante
-typeof (new 3)      //=> i32*
-typeof (new new 3)  //=> i32**
+typeof (new 3)      //=> ref i32
+typeof (new new 3)  //=> ref ref i32
 ```
 
 Pointer types are unmanaged by default.  It is strongly reccomended
@@ -76,32 +71,32 @@ A tuple type is an aggregate type that is contiguous and heterogenous.
 Its type is a combination of each of its element types separated with a comma.
 
 ```ante
-typeof (2, 3)    //=> i32, i32
-typeof ("hi", 5) //=> Str, i32
+typeof (2, 3)    //=> (i32, i32)
+typeof ("hi", 5) //=> (Str, i32)
 
-typeof (["three"], new 3)  //=> [1 Str], i32*
-typeof (1u8, 2u16, 3u32)   //=> u8, u16, u32
+typeof (["three"], new 3)  //=> ([1 Str], ref i32)
+typeof (1u8, 2u16, 3u32)   //=> (u8, u16, u32)
 ```
 
 A single element tuple is expressed with a trailing comma:
 
 ```ante
-typeof (5,)   //=> i32,
+typeof (5,)   //=> (i32,)
 ```
 
 ---
 ## Function Types
 
-The type of a function is the tuple of its parameters followed by `->` and
+The type of a function is its space-delimited parameter types followed by `->` and
 its return type.
 
 ```ante
-fun add: i32 a, i32 b -> i32
+add a:i32 b:i32 -> i32 =
     a + b
 
-typeof add    //=> (i32, i32) -> i32
-typeof puts   //=> (c8*,) -> i32
-typeof printf //=> (c8*, ...) -> i32
+typeof add    //=> i32 i32 -> i32
+typeof puts   //=> (ref c8) -> i32
+typeof printf //=> (ref c8) ... -> i32
 ```
 
 ---
@@ -113,7 +108,7 @@ section for info on how to declare these types.
 
 ```ante
 //record type
-type Person = Str name, u8 age
+type Person = name:Str age:u8
 
 typeof Person("George", 3)  //=> Person
 
@@ -132,10 +127,10 @@ identifier.
 
 ```ante
 //x is any type
-fun print: 't x = ...
+id x:'t = x
 
 //p is any pointer type
-fun print_ptr: 't* p = ...
+print_ptr p:(ref 't) = ...
 ```
 
 Functions that accept a type variable anywhere in their parameters are
@@ -146,27 +141,31 @@ substituted with any type and not every type defines the `+` operator.
 Resultingly, generic functions in Ante can be type checked sooner and
 type checked only once for faster compilation.  If one wishes to have
 a function generic over any function that implements addition, traits
-should be used instead.
+can be used to specify this behaviour is required.
 
 ```ante
 //invalid: + not defined for any type 't
-fun inc: 't x =
+//note: while the given type signature is invalid,
+//      there is no error since the compiler
+//      automatically infers the missing
+//      `given Add 't` clause
+inc x:'t =
     x + 1
 
-//valid, + is defined for all Addable types
-fun inc: Addable x =
-    x + 1
+//valid, (this is what the compiler will infer for the above)
+inc x:'t -> 't given Add 't =
+    x + x
 
 
-fun extract_index: Arr 't a, usz idx -> Maybe 't
+extract_index (a: Arr 't) idx:usz -> Maybe 't
     if idx in indices a then
         Some (a#idx)
     else
         None
 
 
-let int_arr = [1, 2, 3, 4]
-let str_arr = ["one", "two", "three"]
+int_arr = [1, 2, 3, 4]
+str_arr = ["one", "two", "three"]
 
 //compile a variant just for 't = i32
 extract_index int_arr 2
@@ -198,70 +197,18 @@ type is the parent type, and is generic for any variant of the parent type.
 
 ```ante
 //print will accept any variant of Maybe
-fun print: Maybe m
+unwrap m:Maybe =
     match m with
-    | Some val -> print val
-    | None -> print "None"
+    | Some val -> val
+    | None -> panic "Tried to unwrap None value"
 
-let mi = Some 3
-let ms = Some "string"
+mi = Some 3
+ms = Some "string"
 
 //both Maybe i32 and Maybe Str are valid inputs
 print mi
 print ms
 ```
-
----
-## Trait Types
-
-The type of a [trait](../traits) is also its name.  The type of a type
-satisfying multiple traits can be expressed as each trait's type
-joined by `+`.
-
-```ante
-trait T1
-trait T2
-
-T1     //The type of the trait T1
-T1+T2  //The type of the composition of T1 and T2
-```
-
-A function accepting a trait type as an argument is generic over any
-type that satisfies that trait.
-
-```ante
-fun echo: Printable p
-    print p
-
-//compiles a function echo:i32 for integers
-echo 3
-
-//compiles a function echo:c8* for c8 pointers
-echo (new 'h')
-```
-
-Functions with trait parameters are normally statically dispatched however
-if desired they can be used with dynamic dispatch by using trait objects.
-Trait objects can be created by wrapping the desired trait in the `Trait` type.
-
-
-```ante
-//EqList is a heterogenous list of any type that implements Eq
-type EqList is List (Trait Eq)
-
-let l = EqList(2, "three", (5usz, -2i8), 'h')
-
-//take two parameters using dynamic dispatch for the = function.
-fun f: Trait Eq a b =
-    not(a = b)
-
-f 2 3  //compile f:(Trait Eq, Trait Eq)
-
-f "a" "a"  //f is not recompiled
-```
-
-Trait object types hide the actual value behind a pointer which contains both
-the value itself and a vtable.
 
 ---
 ## Refinement Types
@@ -277,10 +224,11 @@ compile-time errors.  The classic example is preventing array/memory indexing
 errors by refining an index to be less than the length of the array:
 
 ```ante
-fun get: Array 't arr, usz idx {idx < len arr} -> 't
+get (arr: Array 't) idx:usz -> 't
+    given idx < len arr =
     ...
 
-let a = Arr(2, 4, 6)
+a = Arr(2, 4, 6)
 
 get a 0  //=> 2
 get a 3  //=> compile-time error: 3 >= len a
@@ -289,7 +237,7 @@ get a 3  //=> compile-time error: 3 >= len a
 Preventing division by 0:
 
 ```ante
-fun (/): Num a, Num b {b != 0} -> Num
+(/) a:Num b:Num -> ret:Num given b != 0
 ```
 
 Refinement expressions are limited to use only the following operators, in
@@ -305,6 +253,7 @@ Operators allowed:
 <=
 >
 >=
+=>               // Logical implication
 and
 or 
 not

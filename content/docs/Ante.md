@@ -13,7 +13,7 @@ Note that when declaring such a function (an "ante function"), you do not
 need to use the `ante` keyword to call the function, only to declare it.
 
 ```ante
-ante fun make_private: Type t =
+ante make_private t:Type =
     import Ante.Modifier
     for field in t do
         t.modifiers.remove Pub
@@ -21,13 +21,13 @@ ante fun make_private: Type t =
         t.modifiers.append Pri
 
 type MyType =
-    i32 one
-    pub i32 two
-    pro i32 three
+    one: i32
+    two: pub i32
+    three: pro i32
 
 make_private MyType
 
-Ante.debug MyType //=> MyType = pri i32 one two three
+Ante.debug MyType //=> MyType = (one:pri i32) (two:pri i32) (three:pri i32)
 ```
 
 `ante` can also be used to evaluate individual expressions during compile-time.
@@ -41,36 +41,36 @@ is not desired then odds are you do not need an `ante` parameter.  Here is an
 example of an `ante` parameter used to make a template function:
 
 ```ante
-type Vec = 't* data, usz len cap
+type Vec = data:(ref 't) len:usz cap:usz
 
 //Take a type as a compile-time parameter and create a
 //new function that returns a vector of that type
-fun Vec.of: ante Type t =
-    Vec with
-        data = malloc (Ante.sizeof 't) as 't*
+module Vec
+    of t:Type = Vec with
+        data = malloc (Ante.sizeof 't) as ref 't
         len = 0usz
         cap = 1usz
 
-let v = Vec.of i32
+v = Vec.of i32
 ```
 
 `ante` parameters provide a convenient way of templating functions without any
 obscure syntax and while maintaining strong, static typing.  Compile-time functions,
-like normal functions, can be declared to accept any parameter types, including `Type`,
+like normal functions, can be declared to accept any parameter types, including `Type 't`,
 the type of types themselves in Ante.  Resultingly, compile-time functions can be used
 to implement new functionality for types (or functions, expressions, etc).
 
 ```ante
 !macro
-fun derive_eq: Type t -> Expr
+derive_eq (t:Type 't) -> Expr =
     //expand the macro into:
-    fun (=): 't a b -> bool
+    (=) a:'t b:'t -> bool =
         for field in t do
             if field a != field b then
                 return false
         true
 
 
-type Person = Str name, u8 age
+type Person = name:Str age:u8
 derive_eq Person
 ```

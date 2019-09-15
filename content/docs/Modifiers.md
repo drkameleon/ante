@@ -25,38 +25,38 @@ for functions and types and private for global variables.
 // math.an:
 pro type T = Num
 
-pub fun id: T x = x
+pub id x = x
 
-pri fun add1: T x = x + 1
+pri add1 x:T = x + 1
 
-pub global pi = acos (-1)
+pi = pub global acos (-1)
 
 ...
 // circle.an:
-ext Math
+module Math
     //T is visible
-    fun add2: T x =
+    add2 x:T =
         //add1 is not visible
         //add1 (add1 x)
         x + 2
 
-let radius = Math.add2 0
-let circ_area = Math.pi * radius^2
+radius = Math.add2 0
+circ_area = Math.pi * radius^2
 ```
 
 ---
 ## Mut
 
-Marks a type as mutable.  Variables created with `var` as opposed
-to `let` are mutable.  Like immutability, mutability is transitive.
+Marks a type as mutable.  Variables created with `mut` following =
+are mutable.  Like immutability, mutability is transitive.
 That is, if some type T is mutable, all of its contained types are
 as well, unless any of those types are explicitly marked `const`.
 
 ```ante
-fun store: mut 't* dest, 't val
+store (dest: mut ref 't) val:'t =
     @dest := val
 
-store (malloc (Ante.sizeof Str)) "Hello there"
+store (new "") "Hello there"
 ```
 
 ---
@@ -70,12 +70,12 @@ they are always used immutably.
 
 ```ante
 type Age is const u8
-type Person = Str name, Age age
+type Person = name:Str age:Age
 
-fun birthday: mut Age a  //error, cannot use mut on const type Age
+birthday (a: mut Age) =  //error, cannot use mut on const type Age
     a += 1
 
-fun birthday: mut Person p
+birthday (p: mut Person) =
     p.age += 1  //error, age field is marked const
 ```
 
@@ -86,15 +86,15 @@ Declares a global variable when used on a variable declaration, otherwise
 it imports the given global variables into the current scope.
 
 ```ante
-global pi = acos (-1)
+pi = global acos (-1)
 
-fun circle_area: Num radius =
+circle_area radius:Num =
     global pi
     pi * radius^2
 
 //The result of the expression global var1 var2 ...
 //is the last variable imported.
-fun sphere_volume: Num radius =
+sphere_volume radius:Num =
     4/3 * (global pi) * radius^3
 ```
 
@@ -131,20 +131,19 @@ For the reverse, if an arbitrarily sized integer is needed, it will be converted
 Perhaps the most common use case is on functions to mark them to run during compile-time only:
 
 ```ante
-ante fun load_static: File f = Image f
+ante load_static f:File = Image f
 
 //load assets during compile-time
-let bg = load_static "background.png"
-
-let p = load_static "player.png"
+bg = load_static "background.png"
+p = load_static "player.png"
 ```
 
 As seen above, calling an ante function is no different from calling a normal function.
 To execute an arbitrary expression during compile-time simply prefix it with ante:
 
 ```ante
-let ans = ante input "Do you want to stop compiling? (y/N): "
-if ans = "y" then
+ans = ante input "Do you want to stop compiling? (y/N): "
+if ans == "y" then
     Ante.error "Well you did say you wanted to stop"
 ```
 
@@ -152,7 +151,7 @@ The one type of value that cannot be in an ante expression is a parameter from a
 as it is impossible to backtrace the value from every callsite simultaneously:
 
 ```ante
-fun say_something: Str a
+say_something a:Str =
     //error, a is a parameter, mark it with ante
     //to use in an ante expression
     ante print a
@@ -160,7 +159,7 @@ fun say_something: Str a
 
 //as the error says, in this case the best fix would be to
 //change the parameter's type from Str to ante Str
-fun say_something: ante Str a
+say_something a:(ante Str) =
     //print a during compile-time
     ante print a
 ```

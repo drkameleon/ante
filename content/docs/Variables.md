@@ -16,19 +16,21 @@ type of the expression so it is never necessary to write out the
 type of the variable.
 
 ---
-## Let
+## Immutable variables
 
-Declares an immutable variable.
+Immutable variables can be declared with the syntax `pattern = expr` where
+pattern is an irrefutable pattern.  Usually, this pattern is a single
+identifier, but it can also be a tuple for example.
 
 ```ante
-let x = 2
+x = 2
 print x  //=> 2
 
 //Note that in the binding below the original x is not
 //changed.  Instead, the value 3 is bound to another x
 //that shadows the original
 block
-    let x = 3
+    x = 3
     print x  //=> 3
 
 print x  //=> 2
@@ -43,10 +45,13 @@ can be done with the `:=` operator or with one of the combined assignment
 operators `+=`, `-=`, `*=`, and `/=`.
 
 ```ante
-mut x = 2
+x = mut 2
 print x  //=> 2
 
-x := 3
+block
+    x := 3
+    print x  //=> 3
+
 print x  //=> 3
 ```
 ---
@@ -57,10 +62,10 @@ it is of the desired type, the type can be optionaly specified after
 let/var.
 
 ```ante
-let i32 x = 5
+x: i32 = 5
 
-let Str s = "hi"
+s: Str = "hi"
 
-let bool b = 10  //=> error, b was declared to be a bool
-                 //but the expression is of the type i32
+b: bool = 10  //=> error, b was declared to be a bool
+              //   but the expression is of the type i32
 ```

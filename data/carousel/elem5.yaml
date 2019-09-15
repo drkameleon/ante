@@ -3,7 +3,7 @@ title: "IO"
 description: >
     <div class="highlight-textalign-left"><pre><span class="c">//print every line in the file</span>
     
-    <code class="language/ante" data-lang="ante"><span class="k">mut</span> file = <span class="kt">InFile</span> <span class="s">"file.txt"</span>
+    <code class="language/ante" data-lang="ante">file = <span class="k">mut</span> <span class="kt">InFile</span> <span class="s">"file.txt"</span>
 
     <span class="k">for</span> line <span class="k">in</span> file <span class="k">do</span>
         print line
@@ -13,13 +13,13 @@ description: >
     map file print
 
 
-    <span class="c1">//reading an integer from a stdin:</span>
+    <span class="c1">//reading an integer from stdin:</span>
 
-    <span class="k">let</span> n = read <span class="kt">i32</span>
+    n = read <span class="kt">i32</span>
 
 
     <span class="c1">//Or read directly from an xml-formatted file: </span>
 
-    <span class="k">let</span> n = file.read <span class="kt">i32</span> <span class="s">"&lt;value&gt;{}&lt;/value&gt;"</span>
+    n = file.read <span class="kt">i32</span> <span class="s">"&lt;value&gt;{}&lt;/value&gt;"</span>
 
     </code></pre></div>

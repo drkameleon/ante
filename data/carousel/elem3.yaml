@@ -1,22 +1,18 @@
 weight: 3
 title: "Type Inference"
 description: >
-    <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="c1">//tup : (i32, f64, Str)</span>
+    <div class="highlight-textalign-left"><pre class="center-align"><code class="language/ante" data-lang="ante"><span class="c1">//A collection of elements of type 'e</span>
 
-    <span class="k">mut</span> tup = (<span class="m">1</span>, <span class="m">2.0</span>, <span class="s">"three"</span>)
+    <span class="k">trait</span> <span class="kt">Collection 'c 'e</span> <span class="k">given</span> <span class="kt">'c</span> -> <span class="kt">'e</span>
+        push <span class="kt">'c</span> <span class="kt">'e</span> -> <span class="kt">'c</span>
+        len <span class="kt">'c</span> -> <span class="kt">usz</span>
+        get col:<span class="kt">'c</span> idx:<span class="kt">usz</span> -> <span class="kt">'e</span> <span class="k">given</span> idx < len col
 
+    <span class="k">trait</span> <span class="kt">Show 't</span>
+        to_string <span class="kt">'t</span> -> <span class="kt">Str</span>
 
-    <span class="c1">//error: Cannot assign expression of type i32*
+    <span class="c1">//print_elem: c:'a i:usz -> Str given Collection 'a 'b, Show 'b, i < len c</span>
 
-    //       to tuple index 2 of type Str</span>
-
-    tup#<span class="m">2</span> := <span class="k">new</span> <span class="m">3</span>
-
-
-    <span class="c1">//Functions must document parameter types
-
-    //but can have their return type inferred</span>
-
-    <span class="k">fun</span> is_numeric: <span class="kt">c8</span> c =
-        c >= <span class="m">'0'</span> <span class="k">and</span> c <= <span class="m">'9'</span>
+    print_elem c i =
+        get c i |> to_string
     </code></pre></div>

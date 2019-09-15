@@ -29,7 +29,7 @@ print 2           //UFCS!
 2.print ()        //UFCS!
 
 type Bad = i32 print
-let b = Bad 3
+b = Bad 3
 
 print b     //Prints b
 b.print()   //Error: print is not a function, it is an i32!
@@ -38,65 +38,10 @@ b.print()   //Error: print is not a function, it is an i32!
 ---
 ## Mangling
 
-Function names in Ante are mangled to enable overloading for
-various parameter types.
-
-```ante
-print 2          // call print: i32
-
-print "Hi"       // call print: Str
-
-print (2, "Hi")  // call print: (i32, Str)
-```
-
-In the case that multiple functions match a given parameter tuple, the
-definition that requires the least amount of typevar bindings is used.
-
-```ante
-fun print: 'a val = ...
-
-fun print: i32 int = ...
-
-print "hi"  // call print: 'a  with 'a = Str
-print 4321  // call print: i32
-
-
-
-fun print: 'a,'b pair = ...
-
-fun print: i32,'b pair = ...
-
-print ("Hello", 300) // call print: ('a,'b) with
-                     // 'a = Str, 'b = i32
-
-print (2, 3)  //call print: (i32,'b) with 'b = i32
-```
-
-If multiple functions equally match a given call an appropriate error is issued.
-
-```ante
-fun print: 'a,i32 pair = ...
-
-fun print: i32,'b pair = ...
-
-print (2, 3)
-
-/* Output:
-file.an: 5,1-5    error: Multiple equally-matching candidates found for call to print with args ((i32, i32))
-print (2, 3)
-^^^^^
-
-file.an: 1,5-9    note: Candidate function with params (('a, i32))
-fun print: 'a,i32 pair = ...
-    ^^^^^
-
-file.an: 3,5-9    note: Candidate function with params ((i32, 'b))
-fun print: i32,'b pair = ...
-    ^^^^^
-
-Compilation aborted.
-*/
-```
+Function names in Ante are NOT mangled, so multiple functions in the same
+module with the same name are disallowed.  For an alternative to function
+overloading, traits can be implemented for multiple types with different
+implementations for each.
 
 ---
 # Function Definitions
@@ -105,85 +50,67 @@ Normal function definitions that take a series of parameters and
 have a return type are in the form:
 
 ```
-[modifiers] fun <name>: <params> -> <type>
-    <block>
+[modifiers] <name> <params> -> <return type> =
+    <expr>
 ```
 
-Optionally, if the function returns `void` the return type may
-be omitted entirely:
-
-```
-[modifiers] fun <name>: <params>
-    <block>
-```
+If a function should have its return type inferred, the return type and arrow can be omitted.
 
 ```ante
 //Examples
 
-//Take no parameters and return void
-fun sayHi:
+//Take a unit value as a parameter and return unit
+sayHi () -> unit =
     print "hi"
 
 //Take one i32 and return an i32
-fun inc: i32 x -> i32
+inc x:i32 -> i32 =
     x + 1
 
 //Take two strings and return a string
-fun concat: Str a, Str b -> Str
+concat a:Str b:Str -> Str =
     a ++ b
 
-//Take no parameters and return an i32
-fun one: -> i32
-    1
+//Take no parameters and infer return type to be i32
+one () = 1
 
-pub fun add: i32 a, i32 b -> i32
+//Make the function private, and infer parameter and return types
+pri add a b =
     a + b
 
 //Modifiers and compiler directives can be all on one line
-!inline !noignore pri ante fun five: -> i32
+!inline pro ante five () -> i32 =
     5
 
 //but the preferred practice is to separate them.
 //Consider a redesign if the modifiers are excessive.
-!inline !noignore
-pri ante
-fun five: -> i32
+!inline
+pro ante
+five () -> i32 =
     5
 
 ```
 
 ---
-## Parameter Shorthand
+## Parameter Type Shorthand
 
-If multiple parameters of a given type are taken in a row by
-a function definition (or a field of a type definition) the type
-may be omitted for the second parameter along with the comma.
-
-```ante
-fun concat: Str a b -> Str
-    a ++ b
-```
-
----
-## Inferred Return Type
-
-If the return type of a function is omitted and replaced with an `=`
-Ante will infer the return type of a function from its body.
+The full syntax for parameters is (var:Type) or var:(Type) but if the type
+is not a generic type (and thus has no spaces in it), the parenthesis can
+be omitted.
 
 ```ante
-fun concat: Str a b =
-    a ++ b
+// v's type needs parenthesis, but i does not
+push (v: Vec i32) i:i32 -> Str
 ```
 
 ---
 ## Lambdas
 
 A lambda is an anonymous function, a function with no name.
-To create a lambda, simply omit the function's name.
+To create a lambda, use `\\` instead of the function's name.
 
 ```ante
-fun Str a b =
-    a ++ b
+\a b = a ++ b
 ```
 
 Lambdas are often used in conjunction with higher order functions when
@@ -191,12 +118,12 @@ defining a named function to use once would make little sense or when
 a closure is needed.
 
 ```ante
-let l = List(0, 3, 4, 9, 10)
+l = List.of (0, 3, 4, 9, 10)
 
-//To double every element of a list
-map l (fun n = 2 * n)
+//double every element of a list
+map l (\n = 2 * n)
 
-//_ can be used to create a lambda with 1 argument, the _
+//_ can be used to create a lambda with 1 argument
 l.map (2 * _)
 
 //get a list of only "hi" and "hello"
@@ -208,10 +135,10 @@ l.map (2 * _)
 ## External Function Declarations
 
 Functions external to the linking unit, usually non-Ante functions,
-can be declared with a `;` after the function header.
+can be declared by omitting the body of the function.
 
 ```ante
-fun printf: c8* cStr, ... -> i32;
+printf (cStr:ref c8) ... -> i32
 
 printf "My favorite number is %d\n" 11
 ```
@@ -219,23 +146,27 @@ printf "My favorite number is %d\n" 11
 ---
 ## Operator Overloads
 
-Operators can be overloaded for any given set of types by creating
+Operators can be overloaded for any given set of types by implementing
+their corresponding trait and creating
 a function with the name being the operator surrounded in parenthesis.
-Normal rules for function overloading apply.
 
 ```ante
-fun (=): File l r =
-    abspath l = abspath r
+impl Eq File
+    (==) l r =
+        abspath l == abspath r
 
 
 //Get a list of files in a directory with names between the
 //names of the Files l and r
-fun (..): File l r -> List File
-    let (dl, dr) = (dir l, dir r)
-    if dl = dr then
-        dl.filter (_.name in l.name .. r.name)
-    else
-        []
+impl Range File File
+    type Ret = List File
+
+    (..) l:File r:File -> List File =
+        (dl, dr) = (dir l, dir r)
+        if dl == dr then
+            dl.filter (_.name in l.name .. r.name)
+        else
+            []
 
 //given a directory of with the structure:
 // ante.an  javascript.js  haskell.hs  README.md  d-lang.d

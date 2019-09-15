@@ -1,5 +1,5 @@
 weight: 2
 name: "Extensible"
 icon: "fa fa-chevron-right"
-description: "A compile-time API for the compiler itself enables the creation of compiler extensions within the program itself.  This enables anything from creating new optimization passes to extending the type system with dependent types."
-link: "tutorial/modifiers"
+description: "A compile-time API for the compiler enables the creation of compiler extensions within the program itself.  This enables anything from creating new optimization passes to extending the type system with dependent types."
+link: "docs/modifiers"

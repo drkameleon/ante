@@ -19,8 +19,8 @@ keeping the ability to vertically align blocks to other code components.
 
 ```ante
 //error, random indents are prohibited
-let t = 32
-    let x = 5
+t = 32
+    x = 5
 
 //error, indents must be at least two spaces in size
 if true then
@@ -37,10 +37,10 @@ middle of a statement list is desired, the `block` keyword
 can be used to introduce a new scope.
 
 ```ante
-let x = 42
+x = 42
 block
-    let x = 3
-    let y = 5
+    x = 3
+    y = 5
 
 print x  //=> prints 42
 print y  //=> error, y is not in scope
@@ -69,14 +69,14 @@ parenthesis, bracket, or brace.  This is particularly useful
 in long initialization expressions.
 
 ```ante
-let matrix = [[1, 0, 0, 0],
-              [0, 1, 0, 0],
-              [0, 0, 1, 0],
-              [0, 0, 0, 1]]
+matrix = [[1, 0, 0, 0],
+          [0, 1, 0, 0],
+          [0, 0, 1, 0],
+          [0, 0, 0, 1]]
 
-let map = ["one" -> 1,
-           "two" -> 2,
-           "three" -> 3]
+map = Map.of [("one", 1),
+              ("two", 2),
+              ("three", 3)]
 ```
 
 ### Braces can replace indents
@@ -91,15 +91,15 @@ are needed in rare cases such as posting source code to a website that may
 strip spaces or inputting a one-liner in the terminal.
 
 ```ante
-fun fact: u32 x -> u32 {
-    if x = 1 then{
+fact x = {
+    if x == 1 then{
         1
     }else{
         x * fact (x-1)
     }
 }
 
-let s = match fact 5 with
+s = match fact 5 with
 | 120 -> { "fact 5 = 120" }
 | n -> { "fact 5 should not equal ${n}" }
 
@@ -110,7 +110,7 @@ type Shape = {
    | Triangle f64,f64
 }
 
-fun area: Shape s = {
+area s:Shape = {
     match s with
     | Circle r -> Math.pi * r^2
     | Square l -> l^2
@@ -120,11 +120,11 @@ fun area: Shape s = {
 
 //invalid
 //{
-//    let x = 3
+//    x = 3
 //}
 
 //The block keyword is still required for mid-block changes in scope
 block {
-    let x = 3
+    x = 3
 }
 ```
