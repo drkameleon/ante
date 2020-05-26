@@ -1,4 +1,4 @@
-baseURL = "http://antelang.org/"
+baseURL = "https://antelang.org/"
 title = "Ante"
 
 theme = "hugo-universal-theme"

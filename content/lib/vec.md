@@ -64,7 +64,7 @@ max_elem vec =
     fold vec None (\cur_max elem =
         match cur_max with
         | None -> elem
-        | Some n -> max n elem)
+        | Some n -> Some (max n elem)
 
 //max_elem can alternatively be written using
 //reduce, which enforces that the Vec is not empty

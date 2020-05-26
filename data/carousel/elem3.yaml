@@ -11,8 +11,8 @@ description: >
     <span class="k">trait</span> <span class="kt">Show 't</span>
         to_string <span class="kt">'t</span> -> <span class="kt">Str</span>
 
-    <span class="c1">//print_elem: c:'a i:usz -> Str given Collection 'a 'b, Show 'b, i < len c</span>
+    <span class="c1">//elem_to_string: (c:'a) (i:usz) -> Str given Collection 'a 'b, Show 'b, i < len c</span>
 
-    print_elem c i =
+    elem_to_string c i =
         get c i |> to_string
     </code></pre></div>

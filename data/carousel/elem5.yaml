@@ -15,11 +15,11 @@ description: >
 
     <span class="c1">//reading an integer from stdin:</span>
 
-    n = read <span class="kt">i32</span>
+    n: <span class="kt">i32</span> = read ()
 
 
     <span class="c1">//Or read directly from an xml-formatted file: </span>
 
-    n = file.read <span class="kt">i32</span> <span class="s">"&lt;value&gt;{}&lt;/value&gt;"</span>
+    n: <span class="kt">i32</span> = file.read <span class="s">"&lt;value&gt;{}&lt;/value&gt;"</span>
 
     </code></pre></div>
